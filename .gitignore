@@ -27,3 +27,9 @@ models/
 .DS_Store
 .idea/
 .vscode/
+
+# Fila de eventos simulados pelo dashboard (estado de execução)
+data/inbox/
+
+# Ferramenta auxiliar de geração de XML Kettle (não faz parte da entrega)
+etl/.builder/
