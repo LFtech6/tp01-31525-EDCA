@@ -7,12 +7,18 @@ Routers separados por responsabilidade:
 """
 import httpx
 from fastapi import FastAPI
+from fastapi.responses import RedirectResponse
 
 from . import config
 from .routers import gateway
 
 app = FastAPI(title="Sentinel-AI (EDCA)", version="0.1.0")
 app.include_router(gateway.router)
+
+
+@app.get("/", include_in_schema=False)
+def root() -> RedirectResponse:
+    return RedirectResponse("/docs")
 
 
 @app.get("/health", tags=["health"])
