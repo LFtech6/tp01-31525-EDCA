@@ -1,75 +1,83 @@
 # Sentinel-AI — Zonas protegidas e horários de funcionamento
-# Fonte: sistema de gestão de instalações (exportação YAML)
+# Fonte: sistema de gestão de instalações (YAML multi-documento: um documento '---' por zona)
 # Horários em hora local (Europe/Lisbon). Zonas 24/7: 00:00–23:59.
-- zone_id: Z01
-  name: Receção
-  building_id: B01
-  building_name: Sede Braga
-  floor: 0
-  security_level: PUBLIC
-  open_time: "07:00"
-  close_time: "20:00"
-  open_weekends: false
-- zone_id: Z02
-  name: Escritórios Open Space
-  building_id: B01
-  building_name: Sede Braga
-  floor: 1
-  security_level: INTERNAL
-  open_time: "08:00"
-  close_time: "19:00"
-  open_weekends: false
-- zone_id: Z03
-  name: Laboratório I&D
-  building_id: B01
-  building_name: Sede Braga
-  floor: 2
-  security_level: RESTRICTED
-  open_time: "08:00"
-  close_time: "18:00"
-  open_weekends: false
-- zone_id: Z04
-  name: Arquivo Documental
-  building_id: B01
-  building_name: Sede Braga
-  floor: -1
-  security_level: RESTRICTED
-  open_time: "09:00"
-  close_time: "17:00"
-  open_weekends: false
-- zone_id: Z05
-  name: Sala de Servidores
-  building_id: B02
-  building_name: Centro de Dados Barcelos
-  floor: 0
-  security_level: CRITICAL
-  open_time: "08:00"
-  close_time: "18:00"
-  open_weekends: false
-- zone_id: Z06
-  name: Centro de Operações (NOC)
-  building_id: B02
-  building_name: Centro de Dados Barcelos
-  floor: 1
-  security_level: RESTRICTED
-  open_time: "00:00"
-  close_time: "23:59"
-  open_weekends: true
-- zone_id: Z07
-  name: Armazém Técnico
-  building_id: B02
-  building_name: Centro de Dados Barcelos
-  floor: 0
-  security_level: INTERNAL
-  open_time: "07:00"
-  close_time: "19:00"
-  open_weekends: false
-- zone_id: Z08
-  name: Parque de Estacionamento
-  building_id: B01
-  building_name: Sede Braga
-  floor: -2
-  security_level: PUBLIC
-  open_time: "00:00"
-  close_time: "23:59"
-  open_weekends: true
+---
+zone_id: Z01
+name: Receção
+building_id: B01
+building_name: Sede Braga
+floor: 0
+security_level: PUBLIC
+open_time: "07:00"
+close_time: "20:00"
+open_weekends: false
+---
+zone_id: Z02
+name: Escritórios Open Space
+building_id: B01
+building_name: Sede Braga
+floor: 1
+security_level: INTERNAL
+open_time: "08:00"
+close_time: "19:00"
+open_weekends: false
+---
+zone_id: Z03
+name: Laboratório I&D
+building_id: B01
+building_name: Sede Braga
+floor: 2
+security_level: RESTRICTED
+open_time: "08:00"
+close_time: "18:00"
+open_weekends: false
+---
+zone_id: Z04
+name: Arquivo Documental
+building_id: B01
+building_name: Sede Braga
+floor: -1
+security_level: RESTRICTED
+open_time: "09:00"
+close_time: "17:00"
+open_weekends: false
+---
+zone_id: Z05
+name: Sala de Servidores
+building_id: B02
+building_name: Centro de Dados Barcelos
+floor: 0
+security_level: CRITICAL
+open_time: "08:00"
+close_time: "18:00"
+open_weekends: false
+---
+zone_id: Z06
+name: Centro de Operações (NOC)
+building_id: B02
+building_name: Centro de Dados Barcelos
+floor: 1
+security_level: RESTRICTED
+open_time: "00:00"
+close_time: "23:59"
+open_weekends: true
+---
+zone_id: Z07
+name: Armazém Técnico
+building_id: B02
+building_name: Centro de Dados Barcelos
+floor: 0
+security_level: INTERNAL
+open_time: "07:00"
+close_time: "19:00"
+open_weekends: false
+---
+zone_id: Z08
+name: Parque de Estacionamento
+building_id: B01
+building_name: Sede Braga
+floor: -2
+security_level: PUBLIC
+open_time: "00:00"
+close_time: "23:59"
+open_weekends: true

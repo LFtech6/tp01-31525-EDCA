@@ -1,11 +1,7 @@
 # Segredos / configuração local
 .env
-etl/kettle-home/.kettle/kettle.properties
-etl/kettle-home/.kettle/*.xml
-etl/kettle-home/.kettle/.spoonrc*
-etl/kettle-home/.kettle/.languageChoice
-etl/kettle-home/.kettle/db.cache*
-etl/kettle-home/.pentaho/
+# KETTLE_HOME local (gerado por scripts/kettle_env.sh: kettle.properties com segredos, cache e preferências do Spoon)
+etl/kettle-home/
 
 # Python
 .venv/

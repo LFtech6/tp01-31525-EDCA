@@ -1,26 +1,128 @@
-# Sentinel-AI — Inventário de dispositivos
-# device_kind: DOOR (leitor de cartão), SENSOR (movimento/contacto), HOST (posto ou servidor, fonte syslog)
-- {device_id: D01, device_kind: DOOR,   zone_id: Z01, device_type: CARD_READER}
-- {device_id: D02, device_kind: DOOR,   zone_id: Z02, device_type: CARD_READER}
-- {device_id: D03, device_kind: DOOR,   zone_id: Z03, device_type: CARD_READER}
-- {device_id: D04, device_kind: DOOR,   zone_id: Z04, device_type: CARD_READER}
-- {device_id: D05, device_kind: DOOR,   zone_id: Z05, device_type: CARD_READER}
-- {device_id: D06, device_kind: DOOR,   zone_id: Z05, device_type: CARD_READER}
-- {device_id: D07, device_kind: DOOR,   zone_id: Z06, device_type: CARD_READER}
-- {device_id: D08, device_kind: DOOR,   zone_id: Z07, device_type: CARD_READER}
-- {device_id: D09, device_kind: DOOR,   zone_id: Z08, device_type: BARRIER}
-- {device_id: M01, device_kind: SENSOR, zone_id: Z01, device_type: MOTION}
-- {device_id: M02, device_kind: SENSOR, zone_id: Z02, device_type: MOTION}
-- {device_id: M03, device_kind: SENSOR, zone_id: Z03, device_type: MOTION}
-- {device_id: M04, device_kind: SENSOR, zone_id: Z04, device_type: MOTION}
-- {device_id: M05, device_kind: SENSOR, zone_id: Z05, device_type: MOTION}
-- {device_id: M06, device_kind: SENSOR, zone_id: Z06, device_type: MOTION}
-- {device_id: M07, device_kind: SENSOR, zone_id: Z07, device_type: MOTION}
-- {device_id: C03, device_kind: SENSOR, zone_id: Z03, device_type: DOOR_CONTACT}
-- {device_id: C05, device_kind: SENSOR, zone_id: Z05, device_type: DOOR_CONTACT}
-- {device_id: WS-LAB-01, device_kind: HOST, zone_id: Z03, device_type: WORKSTATION, ip_address: 10.10.3.21}
-- {device_id: WS-LAB-02, device_kind: HOST, zone_id: Z03, device_type: WORKSTATION, ip_address: 10.10.3.22}
-- {device_id: WS-OFF-01, device_kind: HOST, zone_id: Z02, device_type: WORKSTATION, ip_address: 10.10.2.31}
-- {device_id: SRV-DB-01, device_kind: HOST, zone_id: Z05, device_type: SERVER,      ip_address: 10.20.5.10}
-- {device_id: SRV-FS-01, device_kind: HOST, zone_id: Z05, device_type: SERVER,      ip_address: 10.20.5.11}
-- {device_id: NOC-CON-1, device_kind: HOST, zone_id: Z06, device_type: WORKSTATION, ip_address: 10.20.6.40}
+# Sentinel-AI — Inventário de dispositivos (YAML multi-documento: um documento '---' por dispositivo)
+# device_kind: DOOR (leitor de cartão), SENSOR (movimento/contacto), HOST (posto ou servidor)
+---
+device_id: D01
+device_kind: DOOR
+zone_id: Z01
+device_type: CARD_READER
+---
+device_id: D02
+device_kind: DOOR
+zone_id: Z02
+device_type: CARD_READER
+---
+device_id: D03
+device_kind: DOOR
+zone_id: Z03
+device_type: CARD_READER
+---
+device_id: D04
+device_kind: DOOR
+zone_id: Z04
+device_type: CARD_READER
+---
+device_id: D05
+device_kind: DOOR
+zone_id: Z05
+device_type: CARD_READER
+---
+device_id: D06
+device_kind: DOOR
+zone_id: Z05
+device_type: CARD_READER
+---
+device_id: D07
+device_kind: DOOR
+zone_id: Z06
+device_type: CARD_READER
+---
+device_id: D08
+device_kind: DOOR
+zone_id: Z07
+device_type: CARD_READER
+---
+device_id: D09
+device_kind: DOOR
+zone_id: Z08
+device_type: BARRIER
+---
+device_id: M01
+device_kind: SENSOR
+zone_id: Z01
+device_type: MOTION
+---
+device_id: M02
+device_kind: SENSOR
+zone_id: Z02
+device_type: MOTION
+---
+device_id: M03
+device_kind: SENSOR
+zone_id: Z03
+device_type: MOTION
+---
+device_id: M04
+device_kind: SENSOR
+zone_id: Z04
+device_type: MOTION
+---
+device_id: M05
+device_kind: SENSOR
+zone_id: Z05
+device_type: MOTION
+---
+device_id: M06
+device_kind: SENSOR
+zone_id: Z06
+device_type: MOTION
+---
+device_id: M07
+device_kind: SENSOR
+zone_id: Z07
+device_type: MOTION
+---
+device_id: C03
+device_kind: SENSOR
+zone_id: Z03
+device_type: DOOR_CONTACT
+---
+device_id: C05
+device_kind: SENSOR
+zone_id: Z05
+device_type: DOOR_CONTACT
+---
+device_id: WS-LAB-01
+device_kind: HOST
+zone_id: Z03
+device_type: WORKSTATION
+ip_address: "10.10.3.21"
+---
+device_id: WS-LAB-02
+device_kind: HOST
+zone_id: Z03
+device_type: WORKSTATION
+ip_address: "10.10.3.22"
+---
+device_id: WS-OFF-01
+device_kind: HOST
+zone_id: Z02
+device_type: WORKSTATION
+ip_address: "10.10.2.31"
+---
+device_id: SRV-DB-01
+device_kind: HOST
+zone_id: Z05
+device_type: SERVER
+ip_address: "10.20.5.10"
+---
+device_id: SRV-FS-01
+device_kind: HOST
+zone_id: Z05
+device_type: SERVER
+ip_address: "10.20.5.11"
+---
+device_id: NOC-CON-1
+device_kind: HOST
+zone_id: Z06
+device_type: WORKSTATION
+ip_address: "10.20.6.40"

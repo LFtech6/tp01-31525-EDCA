@@ -185,3 +185,4 @@ E-mail/FTP, anonimização, MQTT, Isolation Forest, Node-RED avançado (só depo
 | 2026-10-16 | API `/ops` separada de `/ai` (mesma app, routers distintos) | Separação controlo vs inferência; sem shell; autenticação por token |
 | 2026-10-16 | `num_ctx` 8192 → 4096 | ~1.7 GB RAM livre medida; KV cache de 8K ≈ 1.2 GB |
 | 2026-10-16 | E-mail/FTP/anonimização passam a opcionais | Não obrigatórios; foco nas 3 fases + YAML |
+| 2026-10-18 | YAML em formato multi-documento (`---` por registo) | Testado: o *YAML Input* do PDI 10.2 devolve uma lista de mapas como uma única coluna `Value`; com multi-documento separa os campos |
