@@ -184,8 +184,8 @@ CREATE TABLE IF NOT EXISTS rule_result (
 -- =====================================================================
 CREATE TABLE IF NOT EXISTS ai_analysis (
     analysis_id         bigserial PRIMARY KEY,
-    case_id             text NOT NULL REFERENCES security_case (case_id) ON DELETE CASCADE,
-    run_id              text,
+    case_id             text NOT NULL,                 -- referência informativa (sem FK: a análise é cache
+    run_id              text,                          --  e sobrevive à reconstrução dos casos)
     events_hash         text NOT NULL,
     prompt_version      text NOT NULL,
     model_name          text,
@@ -231,6 +231,17 @@ CREATE TABLE IF NOT EXISTS evaluation_metric (
     computed_at     timestamp NOT NULL DEFAULT now(),
     PRIMARY KEY (run_id, approach)
 );
+
+-- =====================================================================
+-- 8b. Evolução do schema (idempotente) — campos de enriquecimento e correlação
+-- =====================================================================
+ALTER TABLE ai_analysis DROP CONSTRAINT IF EXISTS ai_analysis_case_id_fkey;
+ALTER TABLE event ADD COLUMN IF NOT EXISTS is_outside_schedule boolean;
+ALTER TABLE event ADD COLUMN IF NOT EXISTS is_inactive_user   boolean;
+ALTER TABLE security_case ADD COLUMN IF NOT EXISTS access_off_hours_count integer NOT NULL DEFAULT 0;
+ALTER TABLE security_case ADD COLUMN IF NOT EXISTS outside_schedule_count integer NOT NULL DEFAULT 0;
+ALTER TABLE security_case ADD COLUMN IF NOT EXISTS inactive_user_count    integer NOT NULL DEFAULT 0;
+ALTER TABLE security_case ADD COLUMN IF NOT EXISTS event_ids             text;
 
 -- =====================================================================
 -- 9. Permissões do utilizador só de leitura (Node-RED / dashboard)
