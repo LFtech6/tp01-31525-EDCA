@@ -1,0 +1,153 @@
+event_id,scenario_id,expected_suspicious,rationale
+ACC0001,B04,false,Ronda de segurança noturna
+SEN0001,B04,false,Ronda de segurança noturna
+ACC0002,S01,true,Intrusão noturna no laboratório
+SEN0002,S01,true,Intrusão noturna no laboratório
+SEN0003,S01,true,Intrusão noturna no laboratório
+ACC0003,NORMAL,false,"Tráfego normal: utilizador autorizado, dentro do horário"
+ACC0004,NORMAL,false,"Tráfego normal: utilizador autorizado, dentro do horário"
+SEN0005,NORMAL,false,"Tráfego normal: utilizador autorizado, dentro do horário"
+ACC0005,B01,false,Cartão mal lido
+ACC0006,B01,false,Cartão mal lido
+SEN0006,B01,false,Cartão mal lido
+ACC0007,S06,true,Tailgating na sala de servidores
+ACC0008,S06,true,Tailgating na sala de servidores
+SEN0007,S06,true,Tailgating na sala de servidores
+SEN0008,S06,true,Tailgating na sala de servidores
+SEN0009,S06,true,Tailgating na sala de servidores
+ACC0009,NORMAL,false,"Tráfego normal: utilizador autorizado, dentro do horário"
+SEN0010,NORMAL,false,"Tráfego normal: utilizador autorizado, dentro do horário"
+ACC0010,NORMAL,false,"Tráfego normal: utilizador autorizado, dentro do horário"
+ACC0011,NORMAL,false,"Tráfego normal: utilizador autorizado, dentro do horário"
+SEN0011,NORMAL,false,"Tráfego normal: utilizador autorizado, dentro do horário"
+ACC0012,NORMAL,false,"Tráfego normal: utilizador autorizado, dentro do horário"
+ACC0013,NORMAL,false,"Tráfego normal: utilizador autorizado, dentro do horário"
+SEN0012,NORMAL,false,"Tráfego normal: utilizador autorizado, dentro do horário"
+ACC0014,NORMAL,false,"Tráfego normal: utilizador autorizado, dentro do horário"
+SEN0013,NORMAL,false,"Tráfego normal: utilizador autorizado, dentro do horário"
+ACC0015,NORMAL,false,"Tráfego normal: utilizador autorizado, dentro do horário"
+ACC0016,NORMAL,false,"Tráfego normal: utilizador autorizado, dentro do horário"
+SEN0014,NORMAL,false,"Tráfego normal: utilizador autorizado, dentro do horário"
+ACC0017,NORMAL,false,"Tráfego normal: utilizador autorizado, dentro do horário"
+ACC0018,NORMAL,false,"Tráfego normal: utilizador autorizado, dentro do horário"
+ACC0019,NORMAL,false,"Tráfego normal: utilizador autorizado, dentro do horário"
+SEN0015,NORMAL,false,"Tráfego normal: utilizador autorizado, dentro do horário"
+ACC0020,NORMAL,false,"Tráfego normal: utilizador autorizado, dentro do horário"
+SEN0016,NORMAL,false,"Tráfego normal: utilizador autorizado, dentro do horário"
+ACC0021,NORMAL,false,"Tráfego normal: utilizador autorizado, dentro do horário"
+ACC0022,NORMAL,false,"Tráfego normal: utilizador autorizado, dentro do horário"
+ACC0023,NORMAL,false,"Tráfego normal: utilizador autorizado, dentro do horário"
+ACC0024,NORMAL,false,"Tráfego normal: utilizador autorizado, dentro do horário"
+SEN0017,NORMAL,false,"Tráfego normal: utilizador autorizado, dentro do horário"
+ACC0025,NORMAL,false,"Tráfego normal: utilizador autorizado, dentro do horário"
+ACC0026,NORMAL,false,"Tráfego normal: utilizador autorizado, dentro do horário"
+SEN0018,NORMAL,false,"Tráfego normal: utilizador autorizado, dentro do horário"
+SEN0019,NORMAL,false,"Tráfego normal: utilizador autorizado, dentro do horário"
+ACC0027,NORMAL,false,"Tráfego normal: utilizador autorizado, dentro do horário"
+SEN0020,NORMAL,false,"Tráfego normal: utilizador autorizado, dentro do horário"
+ACC0028,NORMAL,false,"Tráfego normal: utilizador autorizado, dentro do horário"
+SEN0021,NORMAL,false,"Tráfego normal: utilizador autorizado, dentro do horário"
+ACC0029,NORMAL,false,"Tráfego normal: utilizador autorizado, dentro do horário"
+SEN0023,NORMAL,false,"Tráfego normal: utilizador autorizado, dentro do horário"
+ACC0030,NORMAL,false,"Tráfego normal: utilizador autorizado, dentro do horário"
+SEN0024,NORMAL,false,"Tráfego normal: utilizador autorizado, dentro do horário"
+ACC0031,B07,false,Administrador no NOC à noite
+SEN0026,B07,false,Administrador no NOC à noite
+SEN0027,S04,true,Movimento noturno no arquivo sem qualquer acesso
+SEN0028,S04,true,Movimento noturno no arquivo sem qualquer acesso
+SEN0029,S04,true,Movimento noturno no arquivo sem qualquer acesso
+ACC0032,NORMAL,false,"Tráfego normal: utilizador autorizado, dentro do horário"
+SEN0030,NORMAL,false,"Tráfego normal: utilizador autorizado, dentro do horário"
+ACC0033,B05,false,Limpeza antes da abertura
+SEN0031,B05,false,Limpeza antes da abertura
+ACC0034,NORMAL,false,"Tráfego normal: utilizador autorizado, dentro do horário"
+ACC0035,NORMAL,false,"Tráfego normal: utilizador autorizado, dentro do horário"
+SEN0032,NORMAL,false,"Tráfego normal: utilizador autorizado, dentro do horário"
+ACC0036,NORMAL,false,"Tráfego normal: utilizador autorizado, dentro do horário"
+ACC0037,NORMAL,false,"Tráfego normal: utilizador autorizado, dentro do horário"
+SEN0033,NORMAL,false,"Tráfego normal: utilizador autorizado, dentro do horário"
+ACC0038,NORMAL,false,"Tráfego normal: utilizador autorizado, dentro do horário"
+SEN0034,NORMAL,false,"Tráfego normal: utilizador autorizado, dentro do horário"
+ACC0039,NORMAL,false,"Tráfego normal: utilizador autorizado, dentro do horário"
+ACC0040,NORMAL,false,"Tráfego normal: utilizador autorizado, dentro do horário"
+SEN0036,NORMAL,false,"Tráfego normal: utilizador autorizado, dentro do horário"
+ACC0041,NORMAL,false,"Tráfego normal: utilizador autorizado, dentro do horário"
+SEN0037,NORMAL,false,"Tráfego normal: utilizador autorizado, dentro do horário"
+ACC0042,NORMAL,false,"Tráfego normal: utilizador autorizado, dentro do horário"
+ACC0043,NORMAL,false,"Tráfego normal: utilizador autorizado, dentro do horário"
+ACC0044,NORMAL,false,"Tráfego normal: utilizador autorizado, dentro do horário"
+SEN0038,NORMAL,false,"Tráfego normal: utilizador autorizado, dentro do horário"
+ACC0045,NORMAL,false,"Tráfego normal: utilizador autorizado, dentro do horário"
+SEN0039,NORMAL,false,"Tráfego normal: utilizador autorizado, dentro do horário"
+ACC0046,NORMAL,false,"Tráfego normal: utilizador autorizado, dentro do horário"
+SEN0040,NORMAL,false,"Tráfego normal: utilizador autorizado, dentro do horário"
+ACC0047,NORMAL,false,"Tráfego normal: utilizador autorizado, dentro do horário"
+SEN0041,NORMAL,false,"Tráfego normal: utilizador autorizado, dentro do horário"
+ACC0048,NORMAL,false,"Tráfego normal: utilizador autorizado, dentro do horário"
+SEN0042,NORMAL,false,"Tráfego normal: utilizador autorizado, dentro do horário"
+ACC0049,S02,true,Tentativas repetidas na sala de servidores
+ACC0050,S02,true,Tentativas repetidas na sala de servidores
+ACC0051,NORMAL,false,"Tráfego normal: utilizador autorizado, dentro do horário"
+ACC0052,S02,true,Tentativas repetidas na sala de servidores
+ACC0053,S02,true,Tentativas repetidas na sala de servidores
+ACC0054,NORMAL,false,"Tráfego normal: utilizador autorizado, dentro do horário"
+ACC0055,NORMAL,false,"Tráfego normal: utilizador autorizado, dentro do horário"
+SEN0043,NORMAL,false,"Tráfego normal: utilizador autorizado, dentro do horário"
+ACC0056,NORMAL,false,"Tráfego normal: utilizador autorizado, dentro do horário"
+SEN0044,NORMAL,false,"Tráfego normal: utilizador autorizado, dentro do horário"
+ACC0057,NORMAL,false,"Tráfego normal: utilizador autorizado, dentro do horário"
+ACC0058,NORMAL,false,"Tráfego normal: utilizador autorizado, dentro do horário"
+SEN0045,NORMAL,false,"Tráfego normal: utilizador autorizado, dentro do horário"
+ACC0059,NORMAL,false,"Tráfego normal: utilizador autorizado, dentro do horário"
+SEN0046,NORMAL,false,"Tráfego normal: utilizador autorizado, dentro do horário"
+ACC0060,NORMAL,false,"Tráfego normal: utilizador autorizado, dentro do horário"
+SEN0049,NORMAL,false,"Tráfego normal: utilizador autorizado, dentro do horário"
+ACC0061,B02,false,"Investigadora após o fecho do laboratório, dentro do seu turno"
+SEN0050,B02,false,"Investigadora após o fecho do laboratório, dentro do seu turno"
+ACC0062,S07,true,Acesso noturno ao laboratório fora do horário do utilizador
+SEN0053,S07,true,Acesso noturno ao laboratório fora do horário do utilizador
+SEN0054,S07,true,Acesso noturno ao laboratório fora do horário do utilizador
+ACC0063,B03,false,Operador do turno noturno na sala de servidores
+SEN0056,B03,false,Operador do turno noturno na sala de servidores
+ACC0064,S05,true,Ex-colaborador a tentar entrar
+ACC0065,S05,true,Ex-colaborador a tentar entrar
+ACC0066,NORMAL,false,"Tráfego normal: utilizador autorizado, dentro do horário"
+SEN0057,NORMAL,false,"Tráfego normal: utilizador autorizado, dentro do horário"
+ACC0067,NORMAL,false,"Tráfego normal: utilizador autorizado, dentro do horário"
+ACC0068,B08,false,Porta errada durante o dia
+ACC0069,NORMAL,false,"Tráfego normal: utilizador autorizado, dentro do horário"
+SEN0058,NORMAL,false,"Tráfego normal: utilizador autorizado, dentro do horário"
+ACC0070,NORMAL,false,"Tráfego normal: utilizador autorizado, dentro do horário"
+SEN0059,NORMAL,false,"Tráfego normal: utilizador autorizado, dentro do horário"
+ACC0071,NORMAL,false,"Tráfego normal: utilizador autorizado, dentro do horário"
+SEN0060,NORMAL,false,"Tráfego normal: utilizador autorizado, dentro do horário"
+ACC0072,NORMAL,false,"Tráfego normal: utilizador autorizado, dentro do horário"
+ACC0073,NORMAL,false,"Tráfego normal: utilizador autorizado, dentro do horário"
+SEN0061,NORMAL,false,"Tráfego normal: utilizador autorizado, dentro do horário"
+ACC0074,NORMAL,false,"Tráfego normal: utilizador autorizado, dentro do horário"
+SEN0062,NORMAL,false,"Tráfego normal: utilizador autorizado, dentro do horário"
+ACC0075,NORMAL,false,"Tráfego normal: utilizador autorizado, dentro do horário"
+SEN0063,NORMAL,false,"Tráfego normal: utilizador autorizado, dentro do horário"
+ACC0076,NORMAL,false,"Tráfego normal: utilizador autorizado, dentro do horário"
+SEN0064,NORMAL,false,"Tráfego normal: utilizador autorizado, dentro do horário"
+ACC0077,NORMAL,false,"Tráfego normal: utilizador autorizado, dentro do horário"
+SEN0065,NORMAL,false,"Tráfego normal: utilizador autorizado, dentro do horário"
+ACC0078,NORMAL,false,"Tráfego normal: utilizador autorizado, dentro do horário"
+ACC0079,NORMAL,false,"Tráfego normal: utilizador autorizado, dentro do horário"
+SEN0066,NORMAL,false,"Tráfego normal: utilizador autorizado, dentro do horário"
+ACC0080,NORMAL,false,"Tráfego normal: utilizador autorizado, dentro do horário"
+ACC0081,NORMAL,false,"Tráfego normal: utilizador autorizado, dentro do horário"
+SEN0067,NORMAL,false,"Tráfego normal: utilizador autorizado, dentro do horário"
+ACC0082,S03,true,Acesso concedido sem permissão a zona crítica
+SEN0068,S03,true,Acesso concedido sem permissão a zona crítica
+ACC0083,NORMAL,false,"Tráfego normal: utilizador autorizado, dentro do horário"
+SEN0069,NORMAL,false,"Tráfego normal: utilizador autorizado, dentro do horário"
+ACC0084,NORMAL,false,"Tráfego normal: utilizador autorizado, dentro do horário"
+SEN0070,NORMAL,false,"Tráfego normal: utilizador autorizado, dentro do horário"
+ACC0085,NORMAL,false,"Tráfego normal: utilizador autorizado, dentro do horário"
+ACC0086,NORMAL,false,"Tráfego normal: utilizador autorizado, dentro do horário"
+SEN0071,NORMAL,false,"Tráfego normal: utilizador autorizado, dentro do horário"
+ACC0087,NORMAL,false,"Tráfego normal: utilizador autorizado, dentro do horário"
+ACC0088,NORMAL,false,"Tráfego normal: utilizador autorizado, dentro do horário"
+SEN0072,NORMAL,false,"Tráfego normal: utilizador autorizado, dentro do horário"
+SEN0073,B06,false,Deteção isolada no armazém

@@ -1,0 +1,613 @@
+[
+  {
+    "event_id": "SEN0034",
+    "timestamp": "2026-10-13T08:46:58+01:00",
+    "sensor_id": "M07",
+    "event_type": "motion",
+    "value": true,
+    "zone_id": "Z07"
+  },
+  {
+    "event_id": "SEN0067",
+    "timestamp": "2026-10-14T13:53:33+01:00",
+    "sensor_id": "M02",
+    "event_type": "motion",
+    "value": "true"
+  },
+  {
+    "event_id": "SEN0022",
+    "timestamp": "2026-10-12T17:21:00+01:00",
+    "sensor_id": "M03",
+    "event_type": "motion",
+    "value": 0,
+    "zone_id": "Z03"
+  },
+  {
+    "event_id": "SEN0053",
+    "timestamp": "2026-10-13T23:41:00",
+    "sensor_id": "M03",
+    "event_type": "MOTION",
+    "value": 1,
+    "zone_id": "Z03"
+  },
+  {
+    "event_id": "SEN0063",
+    "timestamp": "2026-10-14T12:50:38",
+    "sensor_id": "M02",
+    "event_type": "motion",
+    "value": true,
+    "zone_id": "Z02"
+  },
+  {
+    "event_id": "SEN0074",
+    "timestamp": "2026-10-13T10:00:00",
+    "sensor_id": "M99",
+    "event_type": "MOTION",
+    "value": true
+  },
+  {
+    "event_id": "SEN0024",
+    "timestamp": "2026-10-12T17:35:55",
+    "sensor_id": "M02",
+    "event_type": "motion",
+    "value": true,
+    "zone_id": "Z02"
+  },
+  {
+    "event_id": "SEN0031",
+    "timestamp": "2026-10-13T06:21:30+01:00",
+    "sensor_id": "M02",
+    "event_type": "motion",
+    "value": "true"
+  },
+  {
+    "event_id": "SEN0047",
+    "timestamp": "2026-10-13T17:43:00",
+    "sensor_id": "M07",
+    "event_type": "MOTION",
+    "value": "false",
+    "zone_id": "Z07"
+  },
+  {
+    "event_id": "SEN0018",
+    "timestamp": "2026-10-12T16:03:34+01:00",
+    "sensor_id": "M02",
+    "event_type": "motion",
+    "value": "true",
+    "zone_id": "Z02"
+  },
+  {
+    "event_id": "SEN0039",
+    "timestamp": "2026-10-13T12:57:14",
+    "sensor_id": "M02",
+    "event_type": "MOTION",
+    "value": "true",
+    "zone_id": "Z02"
+  },
+  {
+    "event_id": "SEN0007",
+    "timestamp": "2026-10-12T10:02:35+01:00",
+    "sensor_id": "C05",
+    "event_type": "door_open",
+    "value": 1,
+    "zone_id": "Z05"
+  },
+  {
+    "event_id": "SEN0046",
+    "timestamp": "2026-10-13T16:57:29",
+    "sensor_id": "M02",
+    "event_type": "motion",
+    "value": 1,
+    "zone_id": "Z02"
+  },
+  {
+    "event_id": "SEN0042",
+    "timestamp": "2026-10-13T14:13:08+01:00",
+    "sensor_id": "M03",
+    "event_type": "MOTION",
+    "value": "on",
+    "zone_id": "Z03"
+  },
+  {
+    "event_id": "SEN0016",
+    "timestamp": "2026-10-12T14:00:23+01:00",
+    "sensor_id": "M02",
+    "event_type": "motion",
+    "value": true,
+    "zone_id": "Z02"
+  },
+  {
+    "event_id": "SEN0027",
+    "timestamp": "2026-10-13T03:40:02",
+    "sensor_id": "M04",
+    "event_type": "MOTION",
+    "value": "true",
+    "zone_id": "Z04"
+  },
+  {
+    "event_id": "SEN0038",
+    "timestamp": "2026-10-13T11:56:14",
+    "sensor_id": "M03",
+    "event_type": "MOTION",
+    "value": true,
+    "zone_id": "Z03"
+  },
+  {
+    "event_id": "SEN0059",
+    "timestamp": "2026-10-14T11:25:14+01:00",
+    "sensor_id": "M04",
+    "event_type": "MOTION",
+    "value": "on"
+  },
+  {
+    "event_id": "SEN0044",
+    "timestamp": "2026-10-13T16:25:37+01:00",
+    "sensor_id": "M02",
+    "event_type": "MOTION",
+    "value": true,
+    "zone_id": "Z02"
+  },
+  {
+    "event_id": "SEN0062",
+    "timestamp": "2026-10-14T12:43:39+01:00",
+    "sensor_id": "M02",
+    "event_type": "MOTION",
+    "value": "on",
+    "zone_id": "Z02"
+  },
+  {
+    "event_id": "SEN0070",
+    "timestamp": "2026-10-14T16:01:19+01:00",
+    "sensor_id": "M02",
+    "event_type": "motion",
+    "value": "true",
+    "zone_id": "Z02"
+  },
+  {
+    "event_id": "SEN0011",
+    "timestamp": "2026-10-12T11:50:52",
+    "sensor_id": "M07",
+    "event_type": "motion",
+    "value": "true",
+    "zone_id": "Z07"
+  },
+  {
+    "event_id": "SEN0052",
+    "timestamp": "2026-10-13T22:27:00+01:00",
+    "sensor_id": "M06",
+    "event_type": "motion",
+    "value": false,
+    "zone_id": "Z06"
+  },
+  {
+    "event_id": "SEN0075",
+    "sensor_id": "M02",
+    "event_type": "MOTION",
+    "value": true
+  },
+  {
+    "event_id": "SEN0004",
+    "timestamp": "2026-10-12T08:11:00+01:00",
+    "sensor_id": "M05",
+    "event_type": "motion",
+    "value": 0
+  },
+  {
+    "event_id": "SEN0010",
+    "timestamp": "2026-10-12T10:26:10+01:00",
+    "sensor_id": "M07",
+    "event_type": "MOTION",
+    "value": 1,
+    "zone_id": "Z07"
+  },
+  {
+    "event_id": "SEN0060",
+    "timestamp": "2026-10-14T11:58:30+01:00",
+    "sensor_id": "M02",
+    "event_type": "MOTION",
+    "value": 1,
+    "zone_id": "Z02"
+  },
+  {
+    "event_id": "SEN0043",
+    "timestamp": "2026-10-13T16:21:41",
+    "sensor_id": "M04",
+    "event_type": "motion",
+    "value": true
+  },
+  {
+    "event_id": "SEN0041",
+    "timestamp": "2026-10-13T14:08:21",
+    "sensor_id": "M05",
+    "event_type": "MOTION",
+    "value": true
+  },
+  {
+    "event_id": "SEN0013",
+    "timestamp": "2026-10-12T12:10:39+01:00",
+    "sensor_id": "M02",
+    "event_type": "MOTION",
+    "value": true,
+    "zone_id": "Z02"
+  },
+  {
+    "event_id": "SEN0055",
+    "timestamp": "2026-10-14T02:42:00+01:00",
+    "sensor_id": "M04",
+    "event_type": "motion",
+    "value": 0
+  },
+  {
+    "event_id": "SEN0072",
+    "timestamp": "2026-10-14T17:55:22",
+    "sensor_id": "M02",
+    "event_type": "MOTION",
+    "value": true,
+    "zone_id": "Z02"
+  },
+  {
+    "event_id": "SEN0054",
+    "timestamp": "2026-10-13T23:44:30",
+    "sensor_id": "M03",
+    "event_type": "motion",
+    "value": "true",
+    "zone_id": "Z03"
+  },
+  {
+    "event_id": "SEN0069",
+    "timestamp": "2026-10-14T15:43:11",
+    "sensor_id": "M02",
+    "event_type": "MOTION",
+    "value": "on",
+    "zone_id": "Z02"
+  },
+  {
+    "event_id": "SEN0030",
+    "timestamp": "2026-10-13T04:43:07+01:00",
+    "sensor_id": "M06",
+    "event_type": "MOTION",
+    "value": 1,
+    "zone_id": "Z06"
+  },
+  {
+    "event_id": "SEN0002",
+    "timestamp": "2026-10-12T02:14:10+01:00",
+    "sensor_id": "M03",
+    "event_type": "MOTION",
+    "value": 1,
+    "zone_id": "Z03"
+  },
+  {
+    "event_id": "SEN0057",
+    "timestamp": "2026-10-14T08:32:12",
+    "sensor_id": "M02",
+    "event_type": "motion",
+    "value": true
+  },
+  {
+    "event_id": "SEN0003",
+    "timestamp": "2026-10-12T02:16:40",
+    "sensor_id": "M03",
+    "event_type": "MOTION",
+    "value": 1,
+    "zone_id": "Z03"
+  },
+  {
+    "event_id": "SEN0026",
+    "timestamp": "2026-10-12T23:01:00+01:00",
+    "sensor_id": "M06",
+    "event_type": "motion",
+    "value": 1
+  },
+  {
+    "event_id": "SEN0005",
+    "timestamp": "2026-10-12T08:36:42+01:00",
+    "sensor_id": "M02",
+    "event_type": "motion",
+    "value": "on",
+    "zone_id": "Z02"
+  },
+  {
+    "event_id": "SEN0023",
+    "timestamp": "2026-10-12T17:28:48+01:00",
+    "sensor_id": "M02",
+    "event_type": "motion",
+    "value": "true"
+  },
+  {
+    "event_id": "SEN0036",
+    "timestamp": "2026-10-13T10:37:28",
+    "sensor_id": "M02",
+    "event_type": "MOTION",
+    "value": true,
+    "zone_id": "Z02"
+  },
+  {
+    "event_id": "SEN0033",
+    "timestamp": "2026-10-13T08:18:07",
+    "sensor_id": "M02",
+    "event_type": "motion",
+    "value": true,
+    "zone_id": "Z02"
+  },
+  {
+    "event_id": "SEN0073",
+    "timestamp": "2026-10-14T21:05:00",
+    "sensor_id": "M07",
+    "event_type": "MOTION",
+    "value": "true",
+    "zone_id": "Z07"
+  },
+  {
+    "event_id": "SEN0054",
+    "timestamp": "2026-10-13T23:44:30",
+    "sensor_id": "M03",
+    "event_type": "motion",
+    "value": "true",
+    "zone_id": "Z03"
+  },
+  {
+    "event_id": "SEN0025",
+    "timestamp": "2026-10-12T20:32:00+01:00",
+    "sensor_id": "M02",
+    "event_type": "MOTION",
+    "value": 0
+  },
+  {
+    "event_id": "SEN0058",
+    "timestamp": "2026-10-14T11:20:55",
+    "sensor_id": "M03",
+    "event_type": "MOTION",
+    "value": 1
+  },
+  {
+    "event_id": "SEN0012",
+    "timestamp": "2026-10-12T12:06:03",
+    "sensor_id": "M03",
+    "event_type": "motion",
+    "value": true,
+    "zone_id": "Z03"
+  },
+  {
+    "event_id": "SEN0057",
+    "timestamp": "2026-10-14T08:32:12",
+    "sensor_id": "M02",
+    "event_type": "motion",
+    "value": true
+  },
+  {
+    "event_id": "SEN0048",
+    "timestamp": "2026-10-13T18:12:00+01:00",
+    "sensor_id": "M05",
+    "event_type": "MOTION",
+    "value": "false",
+    "zone_id": "Z05"
+  },
+  {
+    "event_id": "SEN0032",
+    "timestamp": "2026-10-13T08:00:11+01:00",
+    "sensor_id": "M07",
+    "event_type": "MOTION",
+    "value": 1,
+    "zone_id": "Z07"
+  },
+  {
+    "event_id": "SEN0064",
+    "timestamp": "2026-10-14T13:03:04+01:00",
+    "sensor_id": "M07",
+    "event_type": "motion",
+    "value": true,
+    "zone_id": "Z07"
+  },
+  {
+    "event_id": "SEN0065",
+    "timestamp": "2026-10-14T13:05:53",
+    "sensor_id": "M02",
+    "event_type": "motion",
+    "value": "on",
+    "zone_id": "Z02"
+  },
+  {
+    "event_id": "SEN0021",
+    "timestamp": "2026-10-12T17:12:05+01:00",
+    "sensor_id": "M02",
+    "event_type": "MOTION",
+    "value": "true",
+    "zone_id": "Z02"
+  },
+  {
+    "event_id": "SEN0019",
+    "timestamp": "2026-10-12T16:04:58+01:00",
+    "sensor_id": "M04",
+    "event_type": "MOTION",
+    "value": true,
+    "zone_id": "Z04"
+  },
+  {
+    "event_id": "SEN0017",
+    "timestamp": "2026-10-12T15:40:52+01:00",
+    "sensor_id": "M03",
+    "event_type": "motion",
+    "value": true,
+    "zone_id": "Z03"
+  },
+  {
+    "event_id": "SEN0049",
+    "timestamp": "2026-10-13T18:25:12+01:00",
+    "sensor_id": "M02",
+    "event_type": "MOTION",
+    "value": true,
+    "zone_id": "Z02"
+  },
+  {
+    "event_id": "SEN0009",
+    "timestamp": "2026-10-12T10:03:20+01:00",
+    "sensor_id": "M05",
+    "event_type": "motion",
+    "value": "on",
+    "zone_id": "Z05"
+  },
+  {
+    "event_id": "SEN0050",
+    "timestamp": "2026-10-13T18:31:10",
+    "sensor_id": "M03",
+    "event_type": "MOTION",
+    "value": true,
+    "zone_id": "Z03"
+  },
+  {
+    "event_id": "SEN0071",
+    "timestamp": "2026-10-14T17:15:50+01:00",
+    "sensor_id": "M02",
+    "event_type": "motion",
+    "value": "on",
+    "zone_id": "Z02"
+  },
+  {
+    "event_id": "SEN0061",
+    "timestamp": "2026-10-14T12:41:06+01:00",
+    "sensor_id": "M03",
+    "event_type": "MOTION",
+    "value": "true",
+    "zone_id": "Z03"
+  },
+  {
+    "event_id": "SEN0020",
+    "timestamp": "2026-10-12T16:28:19",
+    "sensor_id": "M07",
+    "event_type": "motion",
+    "value": "on",
+    "zone_id": "Z07"
+  },
+  {
+    "event_id": "SEN0014",
+    "timestamp": "2026-10-12T12:24:51",
+    "sensor_id": "M04",
+    "event_type": "motion",
+    "value": 1
+  },
+  {
+    "event_id": "SEN0001",
+    "timestamp": "2026-10-12T01:30:40",
+    "sensor_id": "M04",
+    "event_type": "MOTION",
+    "value": true,
+    "zone_id": "Z04"
+  },
+  {
+    "event_id": "SEN0008",
+    "timestamp": "2026-10-12T10:02:50",
+    "sensor_id": "C05",
+    "event_type": "door_open",
+    "value": 1
+  },
+  {
+    "event_id": "SEN0051",
+    "timestamp": "2026-10-13T19:27:00+01:00",
+    "sensor_id": "M01",
+    "event_type": "motion",
+    "value": 0,
+    "zone_id": "Z01"
+  },
+  {
+    "event_id": "SEN0029",
+    "timestamp": "2026-10-13T03:43:15",
+    "sensor_id": "M04",
+    "event_type": "motion",
+    "value": 1,
+    "zone_id": "Z04"
+  },
+  {
+    "event_id": "SEN0006",
+    "timestamp": "2026-10-12T09:16:00+01:00",
+    "sensor_id": "M04",
+    "event_type": "motion",
+    "value": "on",
+    "zone_id": "Z04"
+  },
+  {
+    "event_id": "SEN0040",
+    "timestamp": "2026-10-13T13:26:16",
+    "sensor_id": "M02",
+    "event_type": "MOTION",
+    "value": "on",
+    "zone_id": "Z02"
+  },
+  {
+    "event_id": "SEN0068",
+    "timestamp": "2026-10-14T15:06:00",
+    "sensor_id": "M05",
+    "event_type": "motion",
+    "value": true
+  },
+  {
+    "event_id": "SEN0063",
+    "timestamp": "2026-10-14T12:50:38",
+    "sensor_id": "M02",
+    "event_type": "motion",
+    "value": true,
+    "zone_id": "Z02"
+  },
+  {
+    "event_id": "SEN0037",
+    "timestamp": "2026-10-13T11:03:22",
+    "sensor_id": "M03",
+    "event_type": "MOTION",
+    "value": "on",
+    "zone_id": "Z03"
+  },
+  {
+    "event_id": "SEN0055",
+    "timestamp": "2026-10-14T02:42:00+01:00",
+    "sensor_id": "M04",
+    "event_type": "motion",
+    "value": 0
+  },
+  {
+    "event_id": "SEN0056",
+    "timestamp": "2026-10-14T03:11:00+01:00",
+    "sensor_id": "M05",
+    "event_type": "motion",
+    "value": "true",
+    "zone_id": "Z05"
+  },
+  {
+    "event_id": "SEN0045",
+    "timestamp": "2026-10-13T16:47:28+01:00",
+    "sensor_id": "M02",
+    "event_type": "MOTION",
+    "value": 1,
+    "zone_id": "Z02"
+  },
+  {
+    "event_id": "SEN0015",
+    "timestamp": "2026-10-12T13:33:08+01:00",
+    "sensor_id": "M02",
+    "event_type": "MOTION",
+    "value": true,
+    "zone_id": "Z02"
+  },
+  {
+    "event_id": "SEN0066",
+    "timestamp": "2026-10-14T13:47:49",
+    "sensor_id": "M07",
+    "event_type": "motion",
+    "value": true,
+    "zone_id": "Z07"
+  },
+  {
+    "event_id": "SEN0028",
+    "timestamp": "2026-10-13T03:41:30",
+    "sensor_id": "M04",
+    "event_type": "MOTION",
+    "value": true,
+    "zone_id": "Z04"
+  },
+  {
+    "event_id": "SEN0035",
+    "timestamp": "2026-10-13T10:27:00",
+    "sensor_id": "M02",
+    "event_type": "MOTION",
+    "value": "false"
+  }
+]
