@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Sentinel-AI — Exportação do sistema de RH / IAM (dados fictícios).
+     Contém problemas de qualidade INTENCIONAIS para a fase de transformação:
+     IDs mal formatados (u-7, " U012", user15), horas sem zero à esquerda (8:00),
+     zonas em minúsculas (z3), utilizador duplicado (U003), role vazio (U029),
+     e-mail em maiúsculas, valores booleanos heterogéneos (true/yes/1/false). -->
+<users exported_at="2026-10-13T23:00:00" source="IAM-HR">
+  <user id="U001">
+    <name>Ana Ribeiro</name>
+    <username>aribeiro</username>
+    <email>ana.ribeiro@sentinel.local</email>
+    <department>Administração</department>
+    <role>manager</role>
+    <schedule_start>08:00</schedule_start>
+    <schedule_end>19:00</schedule_end>
+    <active>true</active>
+    <allowed_zones><zone>Z01</zone><zone>Z02</zone><zone>Z04</zone></allowed_zones>
+  </user>
+  <user id="U002">
+    <name>Bruno Carvalho</name>
+    <username>bcarvalho</username>
+    <email>bruno.carvalho@sentinel.local</email>
+    <department>Sistemas de Informação</department>
+    <role>it_admin</role>
+    <schedule_start>08:00</schedule_start>
+    <schedule_end>18:00</schedule_end>
+    <active>true</active>
+    <allowed_zones><zone>Z01</zone><zone>Z02</zone><zone>Z05</zone><zone>Z06</zone></allowed_zones>
+  </user>
+  <user id="U003">
+    <name>Carla Mendes</name>
+    <username>cmendes</username>
+    <email>carla.mendes@sentinel.local</email>
+    <department>Investigação</department>
+    <role>researcher</role>
+    <schedule_start>09:00</schedule_start>
+    <schedule_end>18:00</schedule_end>
+    <active>true</active>
+    <allowed_zones><zone>Z01</zone><zone>Z02</zone><zone>Z03</zone></allowed_zones>
+  </user>
+  <user id="u-7">
+    <name>Diogo Fernandes</name>
+    <username>dfernandes</username>
+    <email>DIOGO.FERNANDES@SENTINEL.LOCAL</email>
+    <department>Investigação</department>
+    <role>researcher</role>
+    <schedule_start>8:00</schedule_start>
+    <schedule_end>17:00</schedule_end>
+    <active>yes</active>
+    <allowed_zones><zone>Z01</zone><zone>z3</zone></allowed_zones>
+  </user>
+  <user id=" U012">
+    <name>Eduarda Sousa</name>
+    <username>esousa</username>
+    <email>eduarda.sousa@sentinel.local</email>
+    <department>Segurança</department>
+    <role>security</role>
+    <schedule_start>00:00</schedule_start>
+    <schedule_end>23:59</schedule_end>
+    <active>1</active>
+    <allowed_zones><zone>Z01</zone><zone>Z02</zone><zone>Z03</zone><zone>Z04</zone><zone>Z05</zone><zone>Z06</zone><zone>Z07</zone><zone>Z08</zone></allowed_zones>
+  </user>
+  <user id="user15">
+    <name>Filipe Costa</name>
+    <username>fcosta</username>
+    <email>filipe.costa@sentinel.local</email>
+    <department>Logística</department>
+    <role>employee</role>
+    <schedule_start>7:00</schedule_start>
+    <schedule_end>16:00</schedule_end>
+    <active>true</active>
+    <allowed_zones><zone>Z01</zone><zone>Z07</zone><zone>Z08</zone></allowed_zones>
+  </user>
+  <user id="U018">
+    <name>Gabriela Pinto</name>
+    <username>gpinto</username>
+    <email>gabriela.pinto@sentinel.local</email>
+    <department>Sistemas de Informação</department>
+    <role>it_operator</role>
+    <schedule_start>20:00</schedule_start>
+    <schedule_end>08:00</schedule_end>
+    <active>true</active>
+    <allowed_zones><zone>Z01</zone><zone>Z06</zone><zone>Z05</zone></allowed_zones>
+  </user>
+  <user id="U021">
+    <name>Hugo Martins</name>
+    <username>hmartins</username>
+    <email>hugo.martins@sentinel.local</email>
+    <department>Limpeza (externa)</department>
+    <role>contractor</role>
+    <schedule_start>06:00</schedule_start>
+    <schedule_end>09:00</schedule_end>
+    <active>true</active>
+    <allowed_zones><zone>Z01</zone><zone>Z02</zone><zone>Z08</zone></allowed_zones>
+  </user>
+  <user id="U024">
+    <name>Inês Rocha</name>
+    <username>irocha</username>
+    <email>ines.rocha@sentinel.local</email>
+    <department>Financeiro</department>
+    <role>employee</role>
+    <schedule_start>09:00</schedule_start>
+    <schedule_end>18:00</schedule_end>
+    <active>true</active>
+    <allowed_zones><zone>Z01</zone><zone>Z02</zone><zone>Z04</zone><zone>Z08</zone></allowed_zones>
+  </user>
+  <user id="U029">
+    <name>João Teixeira</name>
+    <username>jteixeira</username>
+    <email>joao.teixeira@sentinel.local</email>
+    <department>Comercial</department>
+    <role></role>
+    <schedule_start>09:00</schedule_start>
+    <schedule_end>18:00</schedule_end>
+    <active>true</active>
+    <allowed_zones><zone>Z01</zone><zone>Z02</zone></allowed_zones>
+  </user>
+  <user id="U033">
+    <name>Leonor Faria</name>
+    <username>lfaria</username>
+    <email>leonor.faria@sentinel.local</email>
+    <department>Investigação</department>
+    <role>researcher</role>
+    <schedule_start>10:00</schedule_start>
+    <schedule_end>19:00</schedule_end>
+    <active>true</active>
+    <allowed_zones><zone>Z01</zone><zone>Z02</zone><zone>Z03</zone><zone>Z08</zone></allowed_zones>
+  </user>
+  <user id="U036">
+    <name>Miguel Antunes</name>
+    <username>mantunes</username>
+    <email>miguel.antunes@sentinel.local</email>
+    <department>Sistemas de Informação</department>
+    <role>it_admin</role>
+    <schedule_start>08:00</schedule_start>
+    <schedule_end>17:00</schedule_end>
+    <active>true</active>
+    <allowed_zones><zone>Z01</zone><zone>Z02</zone><zone>Z05</zone><zone>Z07</zone></allowed_zones>
+  </user>
+  <user id="U041">
+    <name>Nuno Barbosa</name>
+    <username>nbarbosa</username>
+    <email>nuno.barbosa@sentinel.local</email>
+    <department>Comercial</department>
+    <role>employee</role>
+    <schedule_start>08:00</schedule_start>
+    <schedule_end>18:00</schedule_end>
+    <active>true</active>
+    <allowed_zones><zone>Z01</zone><zone>Z02</zone></allowed_zones>
+  </user>
+  <user id="U044">
+    <name>Olga Vieira</name>
+    <username>ovieira</username>
+    <email>olga.vieira@sentinel.local</email>
+    <department>Recursos Humanos</department>
+    <role>employee</role>
+    <schedule_start>09:00</schedule_start>
+    <schedule_end>17:30</schedule_end>
+    <active>false</active>
+    <allowed_zones><zone>Z01</zone><zone>Z02</zone></allowed_zones>
+  </user>
+  <user id="U045">
+    <name>Pedro Lima</name>
+    <username>plima</username>
+    <email>pedro.lima@sentinel.local</email>
+    <department>Manutenção (externa)</department>
+    <role>contractor</role>
+    <schedule_start>08:00</schedule_start>
+    <schedule_end>17:00</schedule_end>
+    <active>true</active>
+    <allowed_zones><zone>Z01</zone><zone>Z07</zone></allowed_zones>
+  </user>
+  <!-- Registo duplicado (re-exportação parcial do IAM) -->
+  <user id="U003">
+    <name>Carla Mendes</name>
+    <username>cmendes</username>
+    <email>carla.mendes@sentinel.local</email>
+    <department>Investigação</department>
+    <role>researcher</role>
+    <schedule_start>09:00</schedule_start>
+    <schedule_end>18:00</schedule_end>
+    <active>true</active>
+    <allowed_zones><zone>Z01</zone><zone>Z02</zone><zone>Z03</zone></allowed_zones>
+  </user>
+</users>

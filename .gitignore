@@ -1,0 +1,33 @@
+# Segredos / configuração local
+.env
+etl/kettle-home/.kettle/kettle.properties
+etl/kettle-home/.kettle/*.xml
+etl/kettle-home/.kettle/.spoonrc*
+etl/kettle-home/.kettle/.languageChoice
+etl/kettle-home/.kettle/db.cache*
+etl/kettle-home/.pentaho/
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+*.egg-info/
+
+# Pentaho / execução
+*.log
+results/logs/*
+!results/logs/.gitkeep
+data/processed/*
+!data/processed/.gitkeep
+
+# Modelos e binários pesados (nunca no Git)
+*.gguf
+*.bin
+models/
+
+# SO / IDE
+.DS_Store
+.idea/
+.vscode/
