@@ -715,7 +715,7 @@
     </formula>
     <formula>
       <field_name>is_inactive_user</field_name>
-      <formula_string>user_active != null &amp;&amp; !user_active.booleanValue()</formula_string>
+      <formula_string>user_id != null &amp;&amp; user_active != null &amp;&amp; !user_active.booleanValue()</formula_string>
       <value_type>Boolean</value_type>
       <value_length>-1</value_length>
       <value_precision>-1</value_precision>

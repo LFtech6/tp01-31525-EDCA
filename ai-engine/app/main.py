@@ -2,18 +2,28 @@
 
 Routers separados por responsabilidade:
   /gateway  fonte REST simulada de sensores (consumida pelo Pentaho)
-  /ai       inferência com Qwen3 via Ollama (stateless)         [etapa seguinte]
+  /ai       inferência com Qwen3 via Ollama (stateless)
   /ops      orquestração de Jobs Pentaho (X-API-Key)            [pós-MVP]
 """
 import httpx
-from fastapi import FastAPI
-from fastapi.responses import RedirectResponse
+from fastapi import FastAPI, Request
+from fastapi.responses import JSONResponse, RedirectResponse
 
-from . import config
-from .routers import gateway
+from . import config, llm
+from .routers import ai, gateway
 
-app = FastAPI(title="Sentinel-AI (EDCA)", version="0.1.0")
+app = FastAPI(title="Sentinel-AI (EDCA)", version="0.2.0")
 app.include_router(gateway.router)
+app.include_router(ai.router)
+
+
+@app.exception_handler(Exception)
+async def unexpected_error(request: Request, exc: Exception) -> JSONResponse:
+    # O /ai responde sempre JSON com status, para o Pentaho nunca receber HTML/500 sem contexto
+    if request.url.path.startswith("/ai"):
+        return JSONResponse({"case_id": None, "status": "MODEL_ERROR", "model": config.OLLAMA_MODEL,
+                             "prompt_version": llm.PROMPT_VERSION, "error": f"{type(exc).__name__}: {exc}"[:500]})
+    return JSONResponse({"detail": "Erro interno"}, status_code=500)
 
 
 @app.get("/", include_in_schema=False)

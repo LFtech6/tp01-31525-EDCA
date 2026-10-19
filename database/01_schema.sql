@@ -191,7 +191,7 @@ CREATE TABLE IF NOT EXISTS ai_analysis (
     model_name          text,
     model_digest        text,
     status              text NOT NULL
-                        CHECK (status IN ('OK', 'TIMEOUT', 'INVALID_OUTPUT', 'MODEL_ERROR', 'API_UNAVAILABLE')),
+                        CHECK (status IN ('OK', 'TIMEOUT', 'INVALID_OUTPUT', 'INVALID_INPUT', 'MODEL_ERROR', 'API_UNAVAILABLE')),
     is_suspicious       boolean,
     risk_level          text CHECK (risk_level IN ('NONE', 'LOW', 'MEDIUM', 'HIGH', 'CRITICAL')),
     incident_type       text,
@@ -236,6 +236,10 @@ CREATE TABLE IF NOT EXISTS evaluation_metric (
 -- 8b. Evolução do schema (idempotente) — campos de enriquecimento e correlação
 -- =====================================================================
 ALTER TABLE ai_analysis DROP CONSTRAINT IF EXISTS ai_analysis_case_id_fkey;
+ALTER TABLE ai_analysis DROP CONSTRAINT IF EXISTS ai_analysis_status_check;
+ALTER TABLE ai_analysis ADD CONSTRAINT ai_analysis_status_check
+    CHECK (status IN ('OK', 'TIMEOUT', 'INVALID_OUTPUT', 'INVALID_INPUT', 'MODEL_ERROR', 'API_UNAVAILABLE'));
+ALTER TABLE ai_analysis ADD COLUMN IF NOT EXISTS selection_reason text;   -- SIGNAL | CONTROL_SAMPLE
 ALTER TABLE event ADD COLUMN IF NOT EXISTS is_outside_schedule boolean;
 ALTER TABLE event ADD COLUMN IF NOT EXISTS is_inactive_user   boolean;
 ALTER TABLE security_case ADD COLUMN IF NOT EXISTS access_off_hours_count integer NOT NULL DEFAULT 0;
