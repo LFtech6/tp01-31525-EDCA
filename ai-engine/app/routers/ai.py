@@ -7,6 +7,7 @@ import json
 
 import httpx
 from fastapi import APIRouter, Request
+from fastapi.responses import JSONResponse
 from pydantic import ValidationError
 
 from .. import config, llm
@@ -29,3 +30,14 @@ async def analyze(request: Request) -> AnalysisResponse:
         return AnalysisResponse(case_id=case_id, status="INVALID_INPUT", model=config.OLLAMA_MODEL,
                                 prompt_version=llm.PROMPT_VERSION, error=str(exc)[:500])
     return llm.analyze(case, _client)
+
+
+@router.get("/health")
+def ai_health() -> JSONResponse:
+    """200 se o modelo está disponível no Ollama; 503 caso contrário (usado pelo Job para decidir SKIPPED)."""
+    llm._digest_cache.pop(config.OLLAMA_MODEL, None)  # verificação real, sem cache
+    digest = llm.model_digest(_client)
+    if digest is None:
+        return JSONResponse({"available": False, "model": config.OLLAMA_MODEL}, status_code=503)
+    return JSONResponse({"available": True, "model": config.OLLAMA_MODEL, "digest": digest,
+                         "prompt_version": llm.PROMPT_VERSION})

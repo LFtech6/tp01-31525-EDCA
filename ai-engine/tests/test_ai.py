@@ -90,3 +90,12 @@ def test_endpoint_returns_200_with_invalid_input():
     from app.main import app
     r = TestClient(app).post("/ai/analyze", json={"case_id": "x", "events": []})
     assert r.status_code == 200 and r.json()["status"] == "INVALID_INPUT"
+
+
+def test_ai_health_reports_503_when_model_unavailable(monkeypatch):
+    from fastapi.testclient import TestClient
+    from app.main import app
+    monkeypatch.setattr(llm, "model_digest", lambda client: None)
+    assert TestClient(app).get("/ai/health").status_code == 503
+    monkeypatch.setattr(llm, "model_digest", lambda client: "abc")
+    assert TestClient(app).get("/ai/health").json()["digest"] == "abc"

@@ -247,6 +247,22 @@ ALTER TABLE security_case ADD COLUMN IF NOT EXISTS outside_schedule_count intege
 ALTER TABLE security_case ADD COLUMN IF NOT EXISTS inactive_user_count    integer NOT NULL DEFAULT 0;
 ALTER TABLE security_case ADD COLUMN IF NOT EXISTS event_ids             text;
 
+ALTER TABLE evaluation_metric DROP CONSTRAINT IF EXISTS evaluation_metric_approach_check;
+ALTER TABLE evaluation_metric ADD CONSTRAINT evaluation_metric_approach_check
+    CHECK (approach IN ('RULES', 'AI', 'RULES_AI_SUBSET', 'AI_AI_SUBSET'));
+ALTER TABLE evaluation_metric ADD COLUMN IF NOT EXISTS n_failed integer NOT NULL DEFAULT 0;
+
+-- Log nativo de Jobs do Kettle (preenchido automaticamente pelo jb_sentinel_main)
+CREATE TABLE IF NOT EXISTS log_job (
+    id_job integer, channel_id varchar(255), jobname varchar(255), status varchar(15),
+    lines_read bigint, lines_written bigint, lines_updated bigint, lines_input bigint,
+    lines_output bigint, lines_rejected bigint, errors bigint,
+    startdate timestamp, enddate timestamp, logdate timestamp, depdate timestamp, replaydate timestamp,
+    log_field text, executing_server varchar(255), executing_user varchar(255),
+    start_job_entry varchar(255), client varchar(255)
+);
+CREATE INDEX IF NOT EXISTS ix_log_job ON log_job (id_job, jobname);
+
 -- =====================================================================
 -- 9. Permissões do utilizador só de leitura (Node-RED / dashboard)
 -- =====================================================================
