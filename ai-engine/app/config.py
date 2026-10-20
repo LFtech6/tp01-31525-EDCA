@@ -25,3 +25,7 @@ SIMULATED_INBOX_FILE = DATA_DIR / "inbox" / "simulated_sensor_events.json"
 OPS_API_TOKEN = os.environ.get("OPS_API_TOKEN", "")
 OLLAMA_URL = os.environ.get("OLLAMA_URL", "http://127.0.0.1:11434")
 OLLAMA_MODEL = os.environ.get("OLLAMA_MODEL", "qwen3:4b-instruct")
+
+PG_DSN = (f"host={os.environ.get('PG_HOST', 'localhost')} port={os.environ.get('PG_PORT', '5432')} "
+          f"dbname={os.environ.get('PG_DB', 'sentinel')} user={os.environ.get('PG_USER', 'sentinel')} "
+          f"password={os.environ.get('PG_PASSWORD', '')}")

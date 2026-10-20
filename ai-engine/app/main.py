@@ -3,18 +3,24 @@
 Routers separados por responsabilidade:
   /gateway  fonte REST simulada de sensores (consumida pelo Pentaho)
   /ai       inferência com Qwen3 via Ollama (stateless)
-  /ops      orquestração de Jobs Pentaho (X-API-Key)            [pós-MVP]
+  /ops      orquestração de Jobs Pentaho (X-API-Key)
 """
 import httpx
 from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse, RedirectResponse
 
 from . import config, llm
-from .routers import ai, gateway
+from .routers import ai, gateway, ops
 
 app = FastAPI(title="Sentinel-AI (EDCA)", version="0.2.0")
 app.include_router(gateway.router)
 app.include_router(ai.router)
+app.include_router(ops.router)
+
+
+@app.on_event("startup")
+def _startup() -> None:
+    ops.recover_orphan_runs()
 
 
 @app.exception_handler(Exception)
