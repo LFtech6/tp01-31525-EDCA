@@ -70,6 +70,12 @@ echo "== Serviço FastAPI"
 curl -fsS "http://${API_HOST:-127.0.0.1}:${API_PORT:-8000}/health" >/dev/null 2>&1 \
   && pass "API /health responde" || warn "API ainda não está a correr"
 
+echo "== SMTP (notificações)"
+command -v mailpit >/dev/null && pass "mailpit $(mailpit version 2>/dev/null | awk '{print $2}' | head -1)" || warn "mailpit não instalado (brew install mailpit)"
+nc -z "${SMTP_HOST:-127.0.0.1}" "${SMTP_PORT:-1025}" >/dev/null 2>&1 \
+  && pass "Servidor SMTP em ${SMTP_HOST:-127.0.0.1}:${SMTP_PORT:-1025}" \
+  || warn "SMTP parado (./scripts/run_mailpit.sh): o Job corre, mas a etapa NOTIFY fica FAILED"
+
 echo
 echo "Resumo: $fails falha(s), $warns aviso(s)."
 [ "$fails" -eq 0 ]

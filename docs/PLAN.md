@@ -25,6 +25,7 @@ Uma etapa só está concluída quando o critério de aceitação foi **executado
 | 9 | API `/ops` | 20/10 | lançar Job, 409 em execução simultânea, 401 sem token, log consultável |
 | 10 | Node-RED + FlowFuse Dashboard | 20–21/10 | botão executa ETL; estado/etapas; eventos; incidentes + explicação IA; logs; estatísticas |
 | 11 | Simulação de evento | 21/10 (se houver tempo) | evento do formulário aparece em `event` após a execução seguinte |
+| 11b | Notificação por e-mail (SMTP) | 20/10 | resumo com anexos em sucesso; alerta em falha; SMTP em baixo não falha a execução |
 
 ## Fecho
 

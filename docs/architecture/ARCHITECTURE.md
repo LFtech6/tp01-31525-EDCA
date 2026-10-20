@@ -30,10 +30,11 @@ Versão 0.2 — 2026-10-16. Documento vivo: cada alteração de arquitetura é r
 | Logs | Tabelas de log nativas do Kettle + `etl_run`/`etl_run_stage` |
 | Operações em BD | DDL, upserts, SQL de correlação/agregação |
 | Dashboard | Node-RED + FlowFuse Dashboard 2.0 |
+| E-mail (serviço remoto) | Entrada *Mail* do Job: resumo da execução com anexos (sucesso) e alerta de erro (falha), SMTP autenticado |
 
 ### 1.3 Valorização opcional — fora do MVP
 
-E-mail, FTP/SFTP, anonimização nas exportações, MQTT, Isolation Forest. Só entram se as etapas obrigatórias estiverem concluídas.
+FTP/SFTP, anonimização nas exportações, MQTT, Isolation Forest. Só entram se as etapas obrigatórias estiverem concluídas. (O e-mail foi integrado a 2026-10-20.)
 
 Notas:
 - O enunciado lista "anonimização" entre exemplos de limpeza; não é exigida individualmente. Fica como extensão barata (máscara de nomes/IPs na exportação) se houver tempo.
@@ -171,7 +172,7 @@ Implementado em `database/01_schema.sql` (15 tabelas): `etl_run`, `etl_run_stage
 
 ## 9. Fora do MVP
 
-E-mail/FTP, anonimização, MQTT, Isolation Forest, Node-RED avançado (só depois do painel básico).
+FTP, anonimização, MQTT, Isolation Forest.
 
 ## 10. Registo de decisões
 
@@ -185,4 +186,5 @@ E-mail/FTP, anonimização, MQTT, Isolation Forest, Node-RED avançado (só depo
 | 2026-10-16 | API `/ops` separada de `/ai` (mesma app, routers distintos) | Separação controlo vs inferência; sem shell; autenticação por token |
 | 2026-10-16 | `num_ctx` 8192 → 4096 | ~1.7 GB RAM livre medida; KV cache de 8K ≈ 1.2 GB |
 | 2026-10-16 | E-mail/FTP/anonimização passam a opcionais | Não obrigatórios; foco nas 3 fases + YAML |
+| 2026-10-20 | E-mail integrado (entrada *Mail* do Job + Mailpit local com autenticação) | Seguir à letra a Fase 3 do enunciado ("envio automático de relatórios, resumos ou alertas de erro por e-mail"); falha de SMTP não invalida a execução |
 | 2026-10-18 | YAML em formato multi-documento (`---` por registo) | Testado: o *YAML Input* do PDI 10.2 devolve uma lista de mapas como uma única coluna `Value`; com multi-documento separa os campos |

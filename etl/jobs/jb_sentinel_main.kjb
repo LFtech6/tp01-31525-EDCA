@@ -578,12 +578,12 @@ INSERT INTO etl_run_stage (run_id, stage, status) VALUES ('${RUN_ID}', 'EXPORT',
       <attributes_kjc/>
     </entry>
     <entry>
-      <name>Finish run</name>
+      <name>Stage: notify</name>
       <description/>
       <type>SQL</type>
       <attributes/>
       <sql>UPDATE etl_run_stage SET status = 'SUCCEEDED', finished_at = now(), rows_processed = NULL, message = NULL WHERE run_id = '${RUN_ID}' AND stage = 'EXPORT';
-UPDATE etl_run SET status = 'SUCCEEDED', finished_at = now(), exit_code = 0 WHERE run_id = '${RUN_ID}';</sql>
+INSERT INTO etl_run_stage (run_id, stage, status) VALUES ('${RUN_ID}', 'NOTIFY', 'RUNNING') ON CONFLICT (run_id, stage) DO UPDATE SET status = 'RUNNING', started_at = now(), finished_at = NULL, message = NULL;</sql>
       <useVariableSubstitution>T</useVariableSubstitution>
       <sqlfromfile>F</sqlfromfile>
       <sqlfilename/>
@@ -593,6 +593,168 @@ UPDATE etl_run SET status = 'SUCCEEDED', finished_at = now(), exit_code = 0 WHER
       <draw>Y</draw>
       <nr>0</nr>
       <xloc>1990</xloc>
+      <yloc>140</yloc>
+      <attributes_kjc/>
+    </entry>
+    <entry>
+      <name>Build notification</name>
+      <description/>
+      <type>TRANS</type>
+      <attributes/>
+      <specification_method>filename</specification_method>
+      <trans_object_id/>
+      <filename>${Internal.Entry.Current.Directory}/../transformations/tr_build_notification.ktr</filename>
+      <transname/>
+      <arg_from_previous>N</arg_from_previous>
+      <params_from_previous>N</params_from_previous>
+      <exec_per_row>N</exec_per_row>
+      <clear_rows>N</clear_rows>
+      <clear_files>N</clear_files>
+      <set_logfile>N</set_logfile>
+      <logfile/>
+      <logext/>
+      <add_date>N</add_date>
+      <add_time>N</add_time>
+      <loglevel>Basic</loglevel>
+      <cluster>N</cluster>
+      <slave_server_name/>
+      <set_append_logfile>N</set_append_logfile>
+      <wait_until_finished>Y</wait_until_finished>
+      <follow_abort_remote>N</follow_abort_remote>
+      <create_parent_folder>N</create_parent_folder>
+      <logging_remote_work>N</logging_remote_work>
+      <run_configuration>Pentaho local</run_configuration>
+      <parameters>
+        <pass_all_parameters>Y</pass_all_parameters>
+      </parameters>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>2140</xloc>
+      <yloc>140</yloc>
+      <attributes_kjc/>
+    </entry>
+    <entry>
+      <name>Attach exports</name>
+      <description/>
+      <type>ADD_RESULT_FILENAMES</type>
+      <attributes/>
+      <arg_from_previous>N</arg_from_previous>
+      <include_subfolders>N</include_subfolders>
+      <delete_all_before>Y</delete_all_before>
+      <fields>
+        <field>
+          <name>${SENTINEL_RESULTS}/exports</name>
+          <filemask>incidents\.csv</filemask>
+        </field>
+        <field>
+          <name>${SENTINEL_RESULTS}/evaluation</name>
+          <filemask>metrics\.csv</filemask>
+        </field>
+      </fields>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>2290</xloc>
+      <yloc>140</yloc>
+      <attributes_kjc/>
+    </entry>
+    <entry>
+      <name>Send summary e-mail</name>
+      <description/>
+      <type>MAIL</type>
+      <attributes/>
+      <server>${SMTP_HOST}</server>
+      <port>${SMTP_PORT}</port>
+      <destination>${MAIL_TO}</destination>
+      <destinationCc/>
+      <destinationBCc/>
+      <replyto>${MAIL_FROM}</replyto>
+      <replytoname>Sentinel-AI (EDCA)</replytoname>
+      <subject>${MAIL_SUBJECT}</subject>
+      <include_date>N</include_date>
+      <contact_person/>
+      <contact_phone/>
+      <comment>${MAIL_BODY}</comment>
+      <include_files>Y</include_files>
+      <filetypes>
+        <filetype>GENERAL</filetype>
+      </filetypes>
+      <zip_files>N</zip_files>
+      <zip_name/>
+      <use_auth>Y</use_auth>
+      <use_secure_auth>N</use_secure_auth>
+      <auth_user>${SMTP_USER}</auth_user>
+      <auth_password>${SMTP_PASSWORD}</auth_password>
+      <only_comment>Y</only_comment>
+      <use_HTML>Y</use_HTML>
+      <use_Priority>N</use_Priority>
+      <encoding>UTF-8</encoding>
+      <priority>normal</priority>
+      <importance>normal</importance>
+      <sensitivity>normal</sensitivity>
+      <secureconnectiontype>SSL</secureconnectiontype>
+      <replyToAddresses/>
+      <embeddedimages>
+      </embeddedimages>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>2440</xloc>
+      <yloc>140</yloc>
+      <attributes_kjc/>
+    </entry>
+    <entry>
+      <name>Stage: notify done</name>
+      <description/>
+      <type>SQL</type>
+      <attributes/>
+      <sql>UPDATE etl_run_stage SET status = 'SUCCEEDED', finished_at = now(), rows_processed = 1, message = 'Resumo enviado por e-mail para ${MAIL_TO} (SMTP ${SMTP_HOST}:${SMTP_PORT})' WHERE run_id = '${RUN_ID}' AND stage = 'NOTIFY';</sql>
+      <useVariableSubstitution>T</useVariableSubstitution>
+      <sqlfromfile>F</sqlfromfile>
+      <sqlfilename/>
+      <sendOneStatement>F</sendOneStatement>
+      <connection>sentinel_pg</connection>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>2590</xloc>
+      <yloc>140</yloc>
+      <attributes_kjc/>
+    </entry>
+    <entry>
+      <name>Stage: notify failed</name>
+      <description/>
+      <type>SQL</type>
+      <attributes/>
+      <sql>UPDATE etl_run_stage SET status = 'FAILED', finished_at = now(), rows_processed = 0, message = 'E-mail não enviado (servidor SMTP ${SMTP_HOST}:${SMTP_PORT} indisponível ou credenciais inválidas); a execução prossegue, ver log do Kitchen' WHERE run_id = '${RUN_ID}' AND stage = 'NOTIFY';</sql>
+      <useVariableSubstitution>T</useVariableSubstitution>
+      <sqlfromfile>F</sqlfromfile>
+      <sqlfilename/>
+      <sendOneStatement>F</sendOneStatement>
+      <connection>sentinel_pg</connection>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>2440</xloc>
+      <yloc>240</yloc>
+      <attributes_kjc/>
+    </entry>
+    <entry>
+      <name>Finish run</name>
+      <description/>
+      <type>SQL</type>
+      <attributes/>
+      <sql>UPDATE etl_run SET status = 'SUCCEEDED', finished_at = now(), exit_code = 0 WHERE run_id = '${RUN_ID}';</sql>
+      <useVariableSubstitution>T</useVariableSubstitution>
+      <sqlfromfile>F</sqlfromfile>
+      <sqlfilename/>
+      <sendOneStatement>F</sendOneStatement>
+      <connection>sentinel_pg</connection>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>2740</xloc>
       <yloc>140</yloc>
       <attributes_kjc/>
     </entry>
@@ -607,7 +769,7 @@ UPDATE etl_run SET status = 'SUCCEEDED', finished_at = now(), exit_code = 0 WHER
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>2140</xloc>
+      <xloc>2890</xloc>
       <yloc>140</yloc>
       <attributes_kjc/>
     </entry>
@@ -620,7 +782,7 @@ UPDATE etl_run SET status = 'SUCCEEDED', finished_at = now(), exit_code = 0 WHER
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>2290</xloc>
+      <xloc>3040</xloc>
       <yloc>140</yloc>
       <attributes_kjc/>
     </entry>
@@ -644,6 +806,108 @@ UPDATE etl_run SET status = 'FAILED', finished_at = now(), exit_code = 1, error_
       <attributes_kjc/>
     </entry>
     <entry>
+      <name>Build alert</name>
+      <description/>
+      <type>TRANS</type>
+      <attributes/>
+      <specification_method>filename</specification_method>
+      <trans_object_id/>
+      <filename>${Internal.Entry.Current.Directory}/../transformations/tr_build_notification.ktr</filename>
+      <transname/>
+      <arg_from_previous>N</arg_from_previous>
+      <params_from_previous>N</params_from_previous>
+      <exec_per_row>N</exec_per_row>
+      <clear_rows>N</clear_rows>
+      <clear_files>N</clear_files>
+      <set_logfile>N</set_logfile>
+      <logfile/>
+      <logext/>
+      <add_date>N</add_date>
+      <add_time>N</add_time>
+      <loglevel>Basic</loglevel>
+      <cluster>N</cluster>
+      <slave_server_name/>
+      <set_append_logfile>N</set_append_logfile>
+      <wait_until_finished>Y</wait_until_finished>
+      <follow_abort_remote>N</follow_abort_remote>
+      <create_parent_folder>N</create_parent_folder>
+      <logging_remote_work>N</logging_remote_work>
+      <run_configuration>Pentaho local</run_configuration>
+      <parameters>
+        <pass_all_parameters>Y</pass_all_parameters>
+      </parameters>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>1390</xloc>
+      <yloc>330</yloc>
+      <attributes_kjc/>
+    </entry>
+    <entry>
+      <name>Send alert e-mail</name>
+      <description/>
+      <type>MAIL</type>
+      <attributes/>
+      <server>${SMTP_HOST}</server>
+      <port>${SMTP_PORT}</port>
+      <destination>${MAIL_TO}</destination>
+      <destinationCc/>
+      <destinationBCc/>
+      <replyto>${MAIL_FROM}</replyto>
+      <replytoname>Sentinel-AI (EDCA)</replytoname>
+      <subject>[Sentinel-AI] ALERTA: a execução ${RUN_ID} falhou</subject>
+      <include_date>N</include_date>
+      <contact_person/>
+      <contact_phone/>
+      <comment>${MAIL_BODY}</comment>
+      <include_files>N</include_files>
+      <filetypes>
+        <filetype>GENERAL</filetype>
+      </filetypes>
+      <zip_files>N</zip_files>
+      <zip_name/>
+      <use_auth>Y</use_auth>
+      <use_secure_auth>N</use_secure_auth>
+      <auth_user>${SMTP_USER}</auth_user>
+      <auth_password>${SMTP_PASSWORD}</auth_password>
+      <only_comment>Y</only_comment>
+      <use_HTML>Y</use_HTML>
+      <use_Priority>N</use_Priority>
+      <encoding>UTF-8</encoding>
+      <priority>normal</priority>
+      <importance>normal</importance>
+      <sensitivity>normal</sensitivity>
+      <secureconnectiontype>SSL</secureconnectiontype>
+      <replyToAddresses/>
+      <embeddedimages>
+      </embeddedimages>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>1540</xloc>
+      <yloc>330</yloc>
+      <attributes_kjc/>
+    </entry>
+    <entry>
+      <name>Stage: alert sent</name>
+      <description/>
+      <type>SQL</type>
+      <attributes/>
+      <sql>INSERT INTO etl_run_stage (run_id, stage, status) VALUES ('${RUN_ID}', 'NOTIFY', 'RUNNING') ON CONFLICT (run_id, stage) DO UPDATE SET status = 'RUNNING', started_at = now(), finished_at = NULL, message = NULL;
+UPDATE etl_run_stage SET status = 'SUCCEEDED', finished_at = now(), rows_processed = 1, message = 'Alerta de erro enviado por e-mail para ${MAIL_TO}' WHERE run_id = '${RUN_ID}' AND stage = 'NOTIFY';</sql>
+      <useVariableSubstitution>T</useVariableSubstitution>
+      <sqlfromfile>F</sqlfromfile>
+      <sqlfilename/>
+      <sendOneStatement>F</sendOneStatement>
+      <connection>sentinel_pg</connection>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>1690</xloc>
+      <yloc>330</yloc>
+      <attributes_kjc/>
+    </entry>
+    <entry>
       <name>Abort</name>
       <description/>
       <type>ABORT</type>
@@ -652,7 +916,7 @@ UPDATE etl_run SET status = 'FAILED', finished_at = now(), exit_code = 1, error_
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>1390</xloc>
+      <xloc>1840</xloc>
       <yloc>330</yloc>
       <attributes_kjc/>
     </entry>
@@ -786,6 +1050,51 @@ UPDATE etl_run SET status = 'FAILED', finished_at = now(), exit_code = 1, error_
     </hop>
     <hop>
       <from>Export incidents</from>
+      <to>Stage: notify</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Stage: notify</from>
+      <to>Build notification</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Build notification</from>
+      <to>Attach exports</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Attach exports</from>
+      <to>Send summary e-mail</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Send summary e-mail</from>
+      <to>Stage: notify done</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Stage: notify done</from>
       <to>Finish run</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
@@ -810,6 +1119,42 @@ UPDATE etl_run SET status = 'FAILED', finished_at = now(), exit_code = 1, error_
       <enabled>Y</enabled>
       <evaluation>Y</evaluation>
       <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Build notification</from>
+      <to>Stage: notify failed</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>N</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Attach exports</from>
+      <to>Stage: notify failed</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>N</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Send summary e-mail</from>
+      <to>Stage: notify failed</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>N</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Stage: notify failed</from>
+      <to>Finish run</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>Y</unconditional>
     </hop>
     <hop>
       <from>Register run</from>
@@ -920,6 +1265,24 @@ UPDATE etl_run SET status = 'FAILED', finished_at = now(), exit_code = 1, error_
       <unconditional>N</unconditional>
     </hop>
     <hop>
+      <from>Stage: notify</from>
+      <to>Mark run failed</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>N</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Stage: notify done</from>
+      <to>Mark run failed</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>N</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
       <from>Finish run</from>
       <to>Mark run failed</to>
       <from_nr>0</from_nr>
@@ -930,6 +1293,42 @@ UPDATE etl_run SET status = 'FAILED', finished_at = now(), exit_code = 1, error_
     </hop>
     <hop>
       <from>Mark run failed</from>
+      <to>Build alert</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>Y</unconditional>
+    </hop>
+    <hop>
+      <from>Build alert</from>
+      <to>Send alert e-mail</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>Y</unconditional>
+    </hop>
+    <hop>
+      <from>Send alert e-mail</from>
+      <to>Stage: alert sent</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Send alert e-mail</from>
+      <to>Abort</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>N</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Stage: alert sent</from>
       <to>Abort</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
@@ -961,10 +1360,31 @@ UPDATE etl_run SET status = 'FAILED', finished_at = now(), exit_code = 1, error_
       <drawshadow>Y</drawshadow>
     </notepad>
     <notepad>
-      <note>Qualquer falha → etapa e execução marcadas FAILED → Abort (exit code ≠ 0)</note>
+      <note>Qualquer falha → etapa e execução marcadas FAILED → alerta por e-mail → Abort (exit code ≠ 0)</note>
       <xloc>40</xloc>
       <yloc>330</yloc>
-      <width>520</width>
+      <width>560</width>
+      <heigth>30</heigth>
+      <fontname>Helvetica</fontname>
+      <fontsize>11</fontsize>
+      <fontbold>N</fontbold>
+      <fontitalic>N</fontitalic>
+      <fontcolorred>14</fontcolorred>
+      <fontcolorgreen>58</fontcolorgreen>
+      <fontcolorblue>90</fontcolorblue>
+      <backgroundcolorred>201</backgroundcolorred>
+      <backgroundcolorgreen>232</backgroundcolorgreen>
+      <backgroundcolorblue>251</backgroundcolorblue>
+      <bordercolorred>14</bordercolorred>
+      <bordercolorgreen>58</bordercolorgreen>
+      <bordercolorblue>90</bordercolorblue>
+      <drawshadow>Y</drawshadow>
+    </notepad>
+    <notepad>
+      <note>E-mail de resumo (SMTP autenticado, anexos incidents.csv + metrics.csv). Se o SMTP falhar, NOTIFY fica FAILED mas a execução termina SUCCEEDED.</note>
+      <xloc>1990</xloc>
+      <yloc>310</yloc>
+      <width>620</width>
       <heigth>30</heigth>
       <fontname>Helvetica</fontname>
       <fontsize>11</fontsize>

@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<transformation>
+  <info>
+    <name>tr_build_notification</name>
+    <description>Compõe a notificação por e-mail da execução (resumo ou alerta de erro) a partir da BD e passa-a ao Job em variáveis</description>
+    <extended_description/>
+    <trans_version/>
+    <trans_type>Normal</trans_type>
+    <directory>/</directory>
+    <parameters>
+      <parameter>
+        <name>RUN_ID</name>
+        <default_value>manual</default_value>
+        <description>Identificador da execução (passado pelo Job)</description>
+      </parameter>
+    </parameters>
+    <log>
+    </log>
+    <maxdate>
+      <connection/>
+      <table/>
+      <field/>
+      <offset>0.0</offset>
+      <maxdiff>0.0</maxdiff>
+    </maxdate>
+    <size_rowset>10000</size_rowset>
+    <sleep_time_empty>50</sleep_time_empty>
+    <sleep_time_full>50</sleep_time_full>
+    <unique_connections>N</unique_connections>
+    <feedback_shown>Y</feedback_shown>
+    <feedback_size>50000</feedback_size>
+    <using_thread_priorities>Y</using_thread_priorities>
+    <shared_objects_file/>
+    <capture_step_performance>N</capture_step_performance>
+    <step_performance_capturing_delay>1000</step_performance_capturing_delay>
+    <step_performance_capturing_size_limit>100</step_performance_capturing_size_limit>
+    <dependencies>
+    </dependencies>
+    <partitionschemas>
+    </partitionschemas>
+    <slaveservers>
+    </slaveservers>
+    <clusterschemas>
+    </clusterschemas>
+    <created_user>-</created_user>
+    <created_date>2026/10/19 10:00:00.000</created_date>
+    <modified_user>-</modified_user>
+    <modified_date>2026/10/19 10:00:00.000</modified_date>
+  </info>
+  <notepads>
+    <notepad>
+      <note>Uma linha: SUMMARY (execução OK) ou ALERT (execução FAILED). Assunto e corpo HTML → variáveis do Job → entrada Mail (SMTP)</note>
+      <xloc>40</xloc>
+      <yloc>40</yloc>
+      <width>760</width>
+      <heigth>30</heigth>
+      <fontname>Helvetica</fontname>
+      <fontsize>11</fontsize>
+      <fontbold>N</fontbold>
+      <fontitalic>N</fontitalic>
+      <fontcolorred>14</fontcolorred>
+      <fontcolorgreen>58</fontcolorgreen>
+      <fontcolorblue>90</fontcolorblue>
+      <backgroundcolorred>201</backgroundcolorred>
+      <backgroundcolorgreen>232</backgroundcolorgreen>
+      <backgroundcolorblue>251</backgroundcolorblue>
+      <bordercolorred>14</bordercolorred>
+      <bordercolorgreen>58</bordercolorgreen>
+      <bordercolorblue>90</bordercolorblue>
+      <drawshadow>Y</drawshadow>
+    </notepad>
+  </notepads>
+  <connection>
+    <name>sentinel_pg</name>
+    <server>${PG_HOST}</server>
+    <type>POSTGRESQL</type>
+    <access>Native</access>
+    <database>${PG_DB}</database>
+    <port>${PG_PORT}</port>
+    <username>${PG_USER}</username>
+    <password>${PG_PASSWORD}</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute>
+        <code>EXTRA_OPTION_POSTGRESQL.stringtype</code>
+        <attribute>unspecified</attribute>
+      </attribute>
+      <attribute>
+        <code>FORCE_IDENTIFIERS_TO_LOWERCASE</code>
+        <attribute>N</attribute>
+      </attribute>
+      <attribute>
+        <code>FORCE_IDENTIFIERS_TO_UPPERCASE</code>
+        <attribute>N</attribute>
+      </attribute>
+      <attribute>
+        <code>IS_CLUSTERED</code>
+        <attribute>N</attribute>
+      </attribute>
+      <attribute>
+        <code>PORT_NUMBER</code>
+        <attribute>${PG_PORT}</attribute>
+      </attribute>
+      <attribute>
+        <code>PRESERVE_RESERVED_WORD_CASE</code>
+        <attribute>Y</attribute>
+      </attribute>
+      <attribute>
+        <code>QUOTE_ALL_FIELDS</code>
+        <attribute>N</attribute>
+      </attribute>
+      <attribute>
+        <code>SUPPORTS_BOOLEAN_DATA_TYPE</code>
+        <attribute>Y</attribute>
+      </attribute>
+      <attribute>
+        <code>SUPPORTS_TIMESTAMP_DATA_TYPE</code>
+        <attribute>Y</attribute>
+      </attribute>
+      <attribute>
+        <code>USE_POOLING</code>
+        <attribute>N</attribute>
+      </attribute>
+    </attributes>
+  </connection>
+  <order>
+    <hop>
+      <from>Compose message</from>
+      <to>Set mail variables</to>
+      <enabled>Y</enabled>
+    </hop>
+  </order>
+  <step>
+    <name>Compose message</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>sentinel_pg</connection>
+    <sql>WITH run AS (
+    SELECT r.run_id, r.status, r.trigger_source, r.started_at, r.error_message,
+           coalesce(r.log_path, '${SENTINEL_RESULTS}/logs/' || r.run_id || '.log') AS log_path
+    FROM etl_run r WHERE r.run_id = '${RUN_ID}'
+),
+risk(level, rank) AS (VALUES ('CRITICAL', 4), ('HIGH', 3), ('MEDIUM', 2), ('LOW', 1), ('NONE', 0)),
+inc AS (   -- mesma definição de incidente que tr_export_incidents
+    SELECT c.case_id, z.name AS zone_name, c.start_ts, c.event_count,
+           r.is_suspicious AS rules_susp, r.risk_level AS rules_risk, r.matched_rules,
+           a.is_suspicious AS ai_susp, a.risk_level AS ai_risk, a.incident_type,
+           greatest(rr.rank, coalesce(ra.rank, 0)) AS max_rank
+    FROM security_case c
+    JOIN zone z USING (zone_id)
+    JOIN rule_result r USING (case_id)
+    JOIN risk rr ON rr.level = r.risk_level
+    LEFT JOIN LATERAL (SELECT * FROM ai_analysis x
+                       WHERE x.events_hash = c.events_hash AND x.prompt_version = '${PROMPT_VERSION}' AND x.status = 'OK'
+                       ORDER BY x.analyzed_at DESC LIMIT 1) a ON true
+    LEFT JOIN risk ra ON ra.level = a.risk_level
+    WHERE r.is_suspicious OR coalesce(a.is_suspicious, false)
+),
+stats AS (
+    SELECT (SELECT count(*) FROM event) AS n_events,
+           (SELECT count(*) FROM dq_rejection WHERE run_id = '${RUN_ID}') AS n_rejected,
+           (SELECT count(*) FROM security_case) AS n_cases,
+           (SELECT count(*) FROM rule_result WHERE is_suspicious) AS n_rules,
+           (SELECT count(*) FROM inc WHERE coalesce(ai_susp, false)) AS n_ai,
+           (SELECT count(*) FROM inc) AS n_inc,
+           (SELECT count(*) FROM inc WHERE max_rank &gt;= 3) AS n_high,
+           (SELECT count(*) FROM ai_analysis WHERE run_id = '${RUN_ID}') AS n_ai_calls,
+           (SELECT count(*) FROM ai_analysis WHERE run_id = '${RUN_ID}' AND status &lt;&gt; 'OK') AS n_ai_fail
+),
+metrics AS (
+    SELECT string_agg(format('&lt;tr&gt;&lt;td&gt;%s&lt;/td&gt;&lt;td&gt;%s&lt;/td&gt;&lt;td&gt;%s&lt;/td&gt;&lt;td&gt;%s&lt;/td&gt;&lt;td&gt;%s&lt;/td&gt;&lt;td&gt;%s&lt;/td&gt;&lt;td&gt;%s&lt;/td&gt;&lt;td&gt;%s&lt;/td&gt;&lt;/tr&gt;',
+                             m.approach, m.tp, m.fp, m.tn, m.fn,
+                             coalesce(to_char(m.precision_val, 'FM0.000'), '—'),
+                             coalesce(to_char(m.recall_val, 'FM0.000'), '—'),
+                             coalesce(to_char(m.f1_val, 'FM0.000'), '—')), '' ORDER BY m.approach DESC) AS rows
+    FROM evaluation_metric m WHERE m.run_id = '${RUN_ID}' AND m.approach IN ('RULES', 'AI')
+),
+top_inc AS (
+    SELECT string_agg(format('&lt;tr&gt;&lt;td&gt;%s&lt;/td&gt;&lt;td&gt;%s&lt;/td&gt;&lt;td&gt;%s&lt;/td&gt;&lt;td&gt;%s&lt;/td&gt;&lt;td&gt;%s&lt;/td&gt;&lt;td&gt;%s&lt;/td&gt;&lt;td&gt;%s&lt;/td&gt;&lt;/tr&gt;',
+                             case_id, replace(zone_name, '&amp;', '&amp;amp;'), to_char(start_ts, 'DD/MM HH24:MI'),
+                             CASE WHEN rules_susp AND coalesce(ai_susp, false) THEN 'Regras + IA'
+                                  WHEN rules_susp THEN 'Só regras' ELSE 'Só IA' END,
+                             CASE WHEN rules_susp THEN rules_risk || ' (' || coalesce(matched_rules, '') || ')' ELSE '—' END,
+                             coalesce(ai_risk, '—'),
+                             coalesce(replace(replace(replace(incident_type, '&amp;', '&amp;amp;'), '&lt;', '&amp;lt;'), '&gt;', '&amp;gt;'), '—')),
+                      '' ORDER BY max_rank DESC, start_ts) AS rows
+    FROM (SELECT * FROM inc ORDER BY max_rank DESC, start_ts LIMIT 15) t
+),
+failed AS (
+    SELECT string_agg(format('&lt;li&gt;&lt;b&gt;%s&lt;/b&gt;: %s&lt;/li&gt;', stage, coalesce(message, 'sem mensagem')), '' ORDER BY started_at) AS items
+    FROM etl_run_stage WHERE run_id = '${RUN_ID}' AND status = 'FAILED'
+)
+SELECT CASE WHEN run.status = 'FAILED' THEN 'ALERT' ELSE 'SUMMARY' END AS mail_kind,
+       CASE WHEN run.status = 'FAILED'
+            THEN format('[Sentinel-AI] ALERTA: a execução %s falhou', run.run_id)
+            ELSE format('[Sentinel-AI] Resumo da execução %s: %s incidentes (%s de risco alto/crítico)',
+                        run.run_id, s.n_inc, s.n_high) END AS mail_subject,
+       CASE WHEN run.status = 'FAILED' THEN
+            '&lt;h2 style="color:#b91c1c"&gt;Sentinel-AI: falha na execução do ETL&lt;/h2&gt;'
+            || format('&lt;p&gt;Execução &lt;b&gt;%s&lt;/b&gt; (origem: %s), iniciada em %s.&lt;/p&gt;',
+                      run.run_id, run.trigger_source, to_char(run.started_at, 'DD/MM/YYYY HH24:MI:SS'))
+            || format('&lt;p&gt;&lt;b&gt;Erro:&lt;/b&gt; %s&lt;/p&gt;', coalesce(run.error_message, '—'))
+            || '&lt;p&gt;Etapas com falha:&lt;/p&gt;&lt;ul&gt;' || coalesce(f.items, '&lt;li&gt;—&lt;/li&gt;') || '&lt;/ul&gt;'
+            || format('&lt;p&gt;Log do Kitchen: &lt;code&gt;%s&lt;/code&gt;&lt;/p&gt;', run.log_path)
+            || '&lt;p&gt;Os dados da execução anterior mantêm-se; corrija a causa e volte a executar o Job.&lt;/p&gt;'
+       ELSE
+            '&lt;h2&gt;Sentinel-AI: resumo da execução do ETL&lt;/h2&gt;'
+            || format('&lt;p&gt;Execução &lt;b&gt;%s&lt;/b&gt; (origem: %s), iniciada em %s.&lt;/p&gt;',
+                      run.run_id, run.trigger_source, to_char(run.started_at, 'DD/MM/YYYY HH24:MI:SS'))
+            || '&lt;table border="1" cellpadding="4" cellspacing="0"&gt;'
+            || format('&lt;tr&gt;&lt;td&gt;Eventos normalizados (CSV + API REST)&lt;/td&gt;&lt;td&gt;%s&lt;/td&gt;&lt;/tr&gt;', s.n_events)
+            || format('&lt;tr&gt;&lt;td&gt;Registos rejeitados (qualidade de dados)&lt;/td&gt;&lt;td&gt;%s&lt;/td&gt;&lt;/tr&gt;', s.n_rejected)
+            || format('&lt;tr&gt;&lt;td&gt;Casos correlacionados&lt;/td&gt;&lt;td&gt;%s&lt;/td&gt;&lt;/tr&gt;', s.n_cases)
+            || format('&lt;tr&gt;&lt;td&gt;Casos suspeitos segundo as regras&lt;/td&gt;&lt;td&gt;%s&lt;/td&gt;&lt;/tr&gt;', s.n_rules)
+            || format('&lt;tr&gt;&lt;td&gt;Casos suspeitos segundo a IA (Qwen3)&lt;/td&gt;&lt;td&gt;%s&lt;/td&gt;&lt;/tr&gt;', s.n_ai)
+            || format('&lt;tr&gt;&lt;td&gt;Análises de IA nesta execução (falhadas)&lt;/td&gt;&lt;td&gt;%s (%s)&lt;/td&gt;&lt;/tr&gt;', s.n_ai_calls, s.n_ai_fail)
+            || format('&lt;tr&gt;&lt;td&gt;&lt;b&gt;Incidentes (regras e/ou IA)&lt;/b&gt;&lt;/td&gt;&lt;td&gt;&lt;b&gt;%s&lt;/b&gt;&lt;/td&gt;&lt;/tr&gt;', s.n_inc)
+            || '&lt;/table&gt;'
+            || '&lt;h3&gt;Regras vs IA (face ao ground truth)&lt;/h3&gt;'
+            || '&lt;table border="1" cellpadding="4" cellspacing="0"&gt;&lt;tr&gt;&lt;th&gt;Abordagem&lt;/th&gt;&lt;th&gt;TP&lt;/th&gt;&lt;th&gt;FP&lt;/th&gt;&lt;th&gt;TN&lt;/th&gt;&lt;th&gt;FN&lt;/th&gt;&lt;th&gt;Precisão&lt;/th&gt;&lt;th&gt;Recall&lt;/th&gt;&lt;th&gt;F1&lt;/th&gt;&lt;/tr&gt;'
+            || coalesce(mt.rows, '&lt;tr&gt;&lt;td colspan="8"&gt;sem métricas nesta execução&lt;/td&gt;&lt;/tr&gt;') || '&lt;/table&gt;'
+            || '&lt;h3&gt;Incidentes prioritários (máx. 15)&lt;/h3&gt;'
+            || '&lt;table border="1" cellpadding="4" cellspacing="0"&gt;&lt;tr&gt;&lt;th&gt;Caso&lt;/th&gt;&lt;th&gt;Zona&lt;/th&gt;&lt;th&gt;Início&lt;/th&gt;&lt;th&gt;Detetado por&lt;/th&gt;&lt;th&gt;Risco (regras)&lt;/th&gt;&lt;th&gt;Risco (IA)&lt;/th&gt;&lt;th&gt;Tipo (IA)&lt;/th&gt;&lt;/tr&gt;'
+            || coalesce(ti.rows, '&lt;tr&gt;&lt;td colspan="7"&gt;sem incidentes&lt;/td&gt;&lt;/tr&gt;') || '&lt;/table&gt;'
+            || '&lt;p&gt;Em anexo: incidents.csv (todos os incidentes, com evidências e explicação) e metrics.csv.&lt;/p&gt;'
+       END AS mail_body
+FROM run CROSS JOIN stats s CROSS JOIN metrics mt CROSS JOIN top_inc ti CROSS JOIN failed f</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>Y</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>60</xloc>
+      <yloc>130</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Set mail variables</name>
+    <type>SetVariable</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <field>
+        <field_name>mail_kind</field_name>
+        <variable_name>MAIL_KIND</variable_name>
+        <variable_type>ROOT_JOB</variable_type>
+        <default_value>ALERT</default_value>
+      </field>
+      <field>
+        <field_name>mail_subject</field_name>
+        <variable_name>MAIL_SUBJECT</variable_name>
+        <variable_type>ROOT_JOB</variable_type>
+        <default_value>[Sentinel-AI] Execução ${RUN_ID}</default_value>
+      </field>
+      <field>
+        <field_name>mail_body</field_name>
+        <variable_name>MAIL_BODY</variable_name>
+        <variable_type>ROOT_JOB</variable_type>
+        <default_value>&lt;p&gt;Execução ${RUN_ID}: não foi possível compor o resumo (execução não registada em etl_run).&lt;/p&gt;</default_value>
+      </field>
+    </fields>
+    <use_formatting>N</use_formatting>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>260</xloc>
+      <yloc>130</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step_error_handling>
+  </step_error_handling>
+  <slave-step-cluster/>
+  <attributes/>
+</transformation>

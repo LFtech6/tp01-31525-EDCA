@@ -661,7 +661,7 @@
   {
     "type": "function",
     "name": "Montar etapas",
-    "func": "const order = [['EXTRACT','Extração + Transformação'],['CORRELATE','Correlação'],['RULES','Regras'],\n               ['AI','IA (Qwen3)'],['EVALUATE','Avaliação'],['EXPORT','Persistência / Exportação']];\nconst rows = msg.payload || [];\nconst stages = order.map(([k, label]) => {\n    const r = rows.find(x => x.stage === k);\n    return { key: k, label, status: r ? r.status : 'PENDENTE', rows: r ? r.rows_processed : null };\n});\nmsg.payload = { run: msg.run, stages };\nreturn msg;",
+    "func": "const order = [['EXTRACT','Extração + Transformação'],['CORRELATE','Correlação'],['RULES','Regras'],\n               ['AI','IA (Qwen3)'],['EVALUATE','Avaliação'],['EXPORT','Persistência / Exportação'],\n               ['NOTIFY','Notificação (e-mail)']];\nconst rows = msg.payload || [];\nconst stages = order.map(([k, label]) => {\n    const r = rows.find(x => x.stage === k);\n    return { key: k, label, status: r ? r.status : 'PENDENTE', rows: r ? r.rows_processed : null };\n});\nmsg.payload = { run: msg.run, stages };\nreturn msg;",
     "outputs": 1,
     "timeout": 0,
     "noerr": 0,
@@ -1735,7 +1735,7 @@
     "type": "tab",
     "label": "5. Logs e erros",
     "disabled": false,
-    "info": "Execuções (etl_run), erros classificados por componente (ETL Pentaho, API FastAPI, modelo Qwen3) e rejeições de qualidade de dados (dq_rejection).",
+    "info": "Execuções (etl_run), erros classificados por componente (ETL Pentaho, API FastAPI, modelo Qwen3, notificação SMTP) e rejeições de qualidade de dados (dq_rejection).",
     "env": []
   },
   {
@@ -1813,7 +1813,7 @@
   {
     "type": "postgresql",
     "name": "Erros por componente",
-    "query": "SELECT * FROM (\n  SELECT 'ETL (Pentaho)' AS \"Componente\", s.stage || ': ' || coalesce(s.message, '') AS \"Detalhe\",\n         to_char(s.finished_at, 'DD/MM HH24:MI') AS \"Quando\", s.run_id AS \"Execução\"\n  FROM etl_run_stage s WHERE s.status = 'FAILED'\n  UNION ALL\n  SELECT 'API (FastAPI)', a.status || ': ' || left(coalesce(a.error_message, ''), 120), to_char(a.analyzed_at, 'DD/MM HH24:MI'), a.run_id\n  FROM ai_analysis a WHERE a.status IN ('API_UNAVAILABLE', 'MODEL_ERROR', 'INVALID_INPUT')\n  UNION ALL\n  SELECT 'Modelo (Qwen3)', a.status || ': ' || left(coalesce(a.error_message, ''), 120), to_char(a.analyzed_at, 'DD/MM HH24:MI'), a.run_id\n  FROM ai_analysis a WHERE a.status IN ('TIMEOUT', 'INVALID_OUTPUT')\n  UNION ALL\n  SELECT 'IA ignorada', s.stage || ': ' || coalesce(s.message, ''), to_char(s.finished_at, 'DD/MM HH24:MI'), s.run_id\n  FROM etl_run_stage s WHERE s.status = 'SKIPPED'\n) e ORDER BY \"Quando\" DESC NULLS LAST LIMIT 50;",
+    "query": "SELECT * FROM (\n  SELECT 'ETL (Pentaho)' AS \"Componente\", s.stage || ': ' || coalesce(s.message, '') AS \"Detalhe\",\n         to_char(s.finished_at, 'DD/MM HH24:MI') AS \"Quando\", s.run_id AS \"Execução\"\n  FROM etl_run_stage s WHERE s.status = 'FAILED' AND s.stage <> 'NOTIFY'\n  UNION ALL\n  SELECT 'Notificação (SMTP)', s.message, to_char(s.finished_at, 'DD/MM HH24:MI'), s.run_id\n  FROM etl_run_stage s WHERE s.stage = 'NOTIFY' AND s.status = 'FAILED'\n  UNION ALL\n  SELECT 'API (FastAPI)', a.status || ': ' || left(coalesce(a.error_message, ''), 120), to_char(a.analyzed_at, 'DD/MM HH24:MI'), a.run_id\n  FROM ai_analysis a WHERE a.status IN ('API_UNAVAILABLE', 'MODEL_ERROR', 'INVALID_INPUT')\n  UNION ALL\n  SELECT 'Modelo (Qwen3)', a.status || ': ' || left(coalesce(a.error_message, ''), 120), to_char(a.analyzed_at, 'DD/MM HH24:MI'), a.run_id\n  FROM ai_analysis a WHERE a.status IN ('TIMEOUT', 'INVALID_OUTPUT')\n  UNION ALL\n  SELECT 'IA ignorada', s.stage || ': ' || coalesce(s.message, ''), to_char(s.finished_at, 'DD/MM HH24:MI'), s.run_id\n  FROM etl_run_stage s WHERE s.stage = 'AI' AND s.status = 'SKIPPED'\n) e ORDER BY \"Quando\" DESC NULLS LAST LIMIT 50;",
     "postgreSQLConfig": "pg_ro",
     "split": false,
     "rowsPerMsg": 1,

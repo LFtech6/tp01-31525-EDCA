@@ -29,7 +29,7 @@ CREATE UNIQUE INDEX IF NOT EXISTS ux_etl_run_single_active
 CREATE TABLE IF NOT EXISTS etl_run_stage (
     run_id          text      NOT NULL REFERENCES etl_run (run_id) ON DELETE CASCADE,
     stage           text      NOT NULL
-                    CHECK (stage IN ('EXTRACT', 'TRANSFORM', 'CORRELATE', 'RULES', 'AI', 'EVALUATE', 'EXPORT')),
+                    CHECK (stage IN ('EXTRACT', 'TRANSFORM', 'CORRELATE', 'RULES', 'AI', 'EVALUATE', 'EXPORT', 'NOTIFY')),
     status          text      NOT NULL DEFAULT 'RUNNING'
                     CHECK (status IN ('RUNNING', 'SUCCEEDED', 'FAILED', 'SKIPPED')),
     started_at      timestamp NOT NULL DEFAULT now(),
@@ -268,3 +268,8 @@ CREATE INDEX IF NOT EXISTS ix_log_job ON log_job (id_job, jobname);
 -- =====================================================================
 SELECT format('GRANT SELECT ON ALL TABLES IN SCHEMA public TO %I', :'ro_user') \gexec
 SELECT format('ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT SELECT ON TABLES TO %I', :'ro_user') \gexec
+
+-- Etapa NOTIFY (envio do resumo / alerta por e-mail) em bases criadas antes desta versão
+ALTER TABLE etl_run_stage DROP CONSTRAINT IF EXISTS etl_run_stage_stage_check;
+ALTER TABLE etl_run_stage ADD CONSTRAINT etl_run_stage_stage_check
+    CHECK (stage IN ('EXTRACT', 'TRANSFORM', 'CORRELATE', 'RULES', 'AI', 'EVALUATE', 'EXPORT', 'NOTIFY'));
