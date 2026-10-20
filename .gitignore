@@ -33,3 +33,11 @@ data/inbox/
 
 # Ferramenta auxiliar de geração de XML Kettle (não faz parte da entrega)
 etl/.builder/
+
+# Node-RED: dependências e estado local
+node-red/node_modules/
+node-red/.config.*
+node-red/*.backup
+node-red/.flows*.json.backup
+node-red/lib/
+node-red/context/

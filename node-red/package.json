@@ -1,0 +1,14 @@
+{
+  "name": "sentinel-ai-node-red",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Sentinel-AI (EDCA) — camada low-code de controlo e monitorização (Node-RED + FlowFuse Dashboard 2.0)",
+  "scripts": {
+    "start": "node-red --userDir . --settings ./settings.js"
+  },
+  "dependencies": {
+    "node-red": "5.0.8",
+    "@flowfuse/node-red-dashboard": "1.33.0",
+    "node-red-contrib-postgresql": "0.16.2"
+  }
+}

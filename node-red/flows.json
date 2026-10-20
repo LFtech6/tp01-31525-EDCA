@@ -1,0 +1,1903 @@
+[
+  {
+    "id": "ui_base",
+    "type": "ui-base",
+    "name": "Sentinel-AI",
+    "path": "/dashboard",
+    "appIcon": "",
+    "includeClientData": true,
+    "acceptsClientConfig": [
+      "ui-notification",
+      "ui-control"
+    ],
+    "showPathInSidebar": false,
+    "headerContent": "page",
+    "navigationStyle": "default",
+    "titleBarStyle": "default",
+    "showReconnectNotification": true,
+    "notificationDisplayTime": 3,
+    "showDisconnectNotification": true,
+    "allowInstall": false
+  },
+  {
+    "id": "ui_theme",
+    "type": "ui-theme",
+    "name": "Sentinel",
+    "colors": {
+      "surface": "#0f172a",
+      "primary": "#2563eb",
+      "bgPage": "#f1f5f9",
+      "groupBg": "#ffffff",
+      "groupOutline": "#cbd5e1"
+    },
+    "sizes": {
+      "density": "default",
+      "pagePadding": "12px",
+      "groupGap": "12px",
+      "groupBorderRadius": "8px",
+      "widgetGap": "12px"
+    }
+  },
+  {
+    "id": "pg_ro",
+    "type": "postgreSQLConfig",
+    "name": "sentinel (só leitura)",
+    "host": "PG_HOST",
+    "hostFieldType": "env",
+    "port": "PG_PORT",
+    "portFieldType": "env",
+    "database": "PG_DB",
+    "databaseFieldType": "env",
+    "ssl": "false",
+    "sslFieldType": "bool",
+    "applicationName": "node-red",
+    "applicationNameType": "str",
+    "max": "5",
+    "maxFieldType": "num",
+    "idle": "1000",
+    "idleFieldType": "num",
+    "connectionTimeout": "10000",
+    "connectionTimeoutFieldType": "num",
+    "userFieldType": "env",
+    "userEnv": "PG_RO_USER",
+    "passwordFieldType": "env",
+    "passwordEnv": "PG_RO_PASSWORD"
+  },
+  {
+    "id": "page_001",
+    "type": "ui-page",
+    "name": "Controlo",
+    "ui": "ui_base",
+    "path": "/controlo",
+    "icon": "play-circle",
+    "layout": "grid",
+    "theme": "ui_theme",
+    "breakpoints": [
+      {
+        "name": "Default",
+        "px": "0",
+        "cols": "3"
+      },
+      {
+        "name": "Tablet",
+        "px": "576",
+        "cols": "6"
+      },
+      {
+        "name": "Small Desktop",
+        "px": "768",
+        "cols": "9"
+      },
+      {
+        "name": "Desktop",
+        "px": "1024",
+        "cols": "12"
+      }
+    ],
+    "order": 1,
+    "className": "",
+    "visible": "true",
+    "disabled": "false"
+  },
+  {
+    "id": "page_002",
+    "type": "ui-page",
+    "name": "Eventos",
+    "ui": "ui_base",
+    "path": "/eventos",
+    "icon": "access-point",
+    "layout": "grid",
+    "theme": "ui_theme",
+    "breakpoints": [
+      {
+        "name": "Default",
+        "px": "0",
+        "cols": "3"
+      },
+      {
+        "name": "Tablet",
+        "px": "576",
+        "cols": "6"
+      },
+      {
+        "name": "Small Desktop",
+        "px": "768",
+        "cols": "9"
+      },
+      {
+        "name": "Desktop",
+        "px": "1024",
+        "cols": "12"
+      }
+    ],
+    "order": 2,
+    "className": "",
+    "visible": "true",
+    "disabled": "false"
+  },
+  {
+    "id": "page_003",
+    "type": "ui-page",
+    "name": "Incidentes",
+    "ui": "ui_base",
+    "path": "/incidentes",
+    "icon": "alert",
+    "layout": "grid",
+    "theme": "ui_theme",
+    "breakpoints": [
+      {
+        "name": "Default",
+        "px": "0",
+        "cols": "3"
+      },
+      {
+        "name": "Tablet",
+        "px": "576",
+        "cols": "6"
+      },
+      {
+        "name": "Small Desktop",
+        "px": "768",
+        "cols": "9"
+      },
+      {
+        "name": "Desktop",
+        "px": "1024",
+        "cols": "12"
+      }
+    ],
+    "order": 3,
+    "className": "",
+    "visible": "true",
+    "disabled": "false"
+  },
+  {
+    "id": "page_004",
+    "type": "ui-page",
+    "name": "Estatísticas",
+    "ui": "ui_base",
+    "path": "/estatisticas",
+    "icon": "chart-bar",
+    "layout": "grid",
+    "theme": "ui_theme",
+    "breakpoints": [
+      {
+        "name": "Default",
+        "px": "0",
+        "cols": "3"
+      },
+      {
+        "name": "Tablet",
+        "px": "576",
+        "cols": "6"
+      },
+      {
+        "name": "Small Desktop",
+        "px": "768",
+        "cols": "9"
+      },
+      {
+        "name": "Desktop",
+        "px": "1024",
+        "cols": "12"
+      }
+    ],
+    "order": 4,
+    "className": "",
+    "visible": "true",
+    "disabled": "false"
+  },
+  {
+    "id": "page_005",
+    "type": "ui-page",
+    "name": "Logs e erros",
+    "ui": "ui_base",
+    "path": "/logs",
+    "icon": "text-box-search",
+    "layout": "grid",
+    "theme": "ui_theme",
+    "breakpoints": [
+      {
+        "name": "Default",
+        "px": "0",
+        "cols": "3"
+      },
+      {
+        "name": "Tablet",
+        "px": "576",
+        "cols": "6"
+      },
+      {
+        "name": "Small Desktop",
+        "px": "768",
+        "cols": "9"
+      },
+      {
+        "name": "Desktop",
+        "px": "1024",
+        "cols": "12"
+      }
+    ],
+    "order": 5,
+    "className": "",
+    "visible": "true",
+    "disabled": "false"
+  },
+  {
+    "id": "grp_006",
+    "type": "ui-group",
+    "name": "Executar processamento ETL (Pentaho)",
+    "page": "page_001",
+    "width": "4",
+    "height": "1",
+    "order": 1,
+    "showTitle": true,
+    "className": "",
+    "visible": "true",
+    "disabled": "false",
+    "groupType": "default"
+  },
+  {
+    "id": "grp_007",
+    "type": "ui-group",
+    "name": "Etapas da execução",
+    "page": "page_001",
+    "width": "8",
+    "height": "1",
+    "order": 2,
+    "showTitle": true,
+    "className": "",
+    "visible": "true",
+    "disabled": "false",
+    "groupType": "default"
+  },
+  {
+    "id": "grp_008",
+    "type": "ui-group",
+    "name": "Log do Kitchen (últimas linhas)",
+    "page": "page_001",
+    "width": "12",
+    "height": "1",
+    "order": 3,
+    "showTitle": true,
+    "className": "",
+    "visible": "true",
+    "disabled": "false",
+    "groupType": "default"
+  },
+  {
+    "id": "grp_009",
+    "type": "ui-group",
+    "name": "Eventos por fonte",
+    "page": "page_002",
+    "width": "12",
+    "height": "1",
+    "order": 1,
+    "showTitle": true,
+    "className": "",
+    "visible": "true",
+    "disabled": "false",
+    "groupType": "default"
+  },
+  {
+    "id": "grp_010",
+    "type": "ui-group",
+    "name": "Eventos recebidos (mais recentes)",
+    "page": "page_002",
+    "width": "8",
+    "height": "1",
+    "order": 2,
+    "showTitle": true,
+    "className": "",
+    "visible": "true",
+    "disabled": "false",
+    "groupType": "default"
+  },
+  {
+    "id": "grp_011",
+    "type": "ui-group",
+    "name": "Simular evento de sensor",
+    "page": "page_002",
+    "width": "4",
+    "height": "1",
+    "order": 3,
+    "showTitle": true,
+    "className": "",
+    "visible": "true",
+    "disabled": "false",
+    "groupType": "default"
+  },
+  {
+    "id": "grp_012",
+    "type": "ui-group",
+    "name": "Atividade por hora do dia",
+    "page": "page_002",
+    "width": "12",
+    "height": "1",
+    "order": 4,
+    "showTitle": true,
+    "className": "",
+    "visible": "true",
+    "disabled": "false",
+    "groupType": "default"
+  },
+  {
+    "id": "grp_013",
+    "type": "ui-group",
+    "name": "Incidentes (regras e/ou IA)",
+    "page": "page_003",
+    "width": "12",
+    "height": "1",
+    "order": 1,
+    "showTitle": true,
+    "className": "",
+    "visible": "true",
+    "disabled": "false",
+    "groupType": "default"
+  },
+  {
+    "id": "grp_014",
+    "type": "ui-group",
+    "name": "Detalhe: regras vs IA",
+    "page": "page_003",
+    "width": "7",
+    "height": "1",
+    "order": 2,
+    "showTitle": true,
+    "className": "",
+    "visible": "true",
+    "disabled": "false",
+    "groupType": "default"
+  },
+  {
+    "id": "grp_015",
+    "type": "ui-group",
+    "name": "Eventos de origem (evidências)",
+    "page": "page_003",
+    "width": "5",
+    "height": "1",
+    "order": 3,
+    "showTitle": true,
+    "className": "",
+    "visible": "true",
+    "disabled": "false",
+    "groupType": "default"
+  },
+  {
+    "id": "grp_016",
+    "type": "ui-group",
+    "name": "Resumo",
+    "page": "page_004",
+    "width": "12",
+    "height": "1",
+    "order": 1,
+    "showTitle": true,
+    "className": "",
+    "visible": "true",
+    "disabled": "false",
+    "groupType": "default"
+  },
+  {
+    "id": "grp_017",
+    "type": "ui-group",
+    "name": "Incidentes por nível de risco",
+    "page": "page_004",
+    "width": "6",
+    "height": "1",
+    "order": 2,
+    "showTitle": true,
+    "className": "",
+    "visible": "true",
+    "disabled": "false",
+    "groupType": "default"
+  },
+  {
+    "id": "grp_018",
+    "type": "ui-group",
+    "name": "Incidentes por zona",
+    "page": "page_004",
+    "width": "6",
+    "height": "1",
+    "order": 3,
+    "showTitle": true,
+    "className": "",
+    "visible": "true",
+    "disabled": "false",
+    "groupType": "default"
+  },
+  {
+    "id": "grp_019",
+    "type": "ui-group",
+    "name": "Avaliação: regras (A) vs IA (B)",
+    "page": "page_004",
+    "width": "12",
+    "height": "1",
+    "order": 4,
+    "showTitle": true,
+    "className": "",
+    "visible": "true",
+    "disabled": "false",
+    "groupType": "default"
+  },
+  {
+    "id": "grp_020",
+    "type": "ui-group",
+    "name": "Execuções",
+    "page": "page_005",
+    "width": "12",
+    "height": "1",
+    "order": 1,
+    "showTitle": true,
+    "className": "",
+    "visible": "true",
+    "disabled": "false",
+    "groupType": "default"
+  },
+  {
+    "id": "grp_021",
+    "type": "ui-group",
+    "name": "Erros por componente (ETL / API / Modelo)",
+    "page": "page_005",
+    "width": "12",
+    "height": "1",
+    "order": 2,
+    "showTitle": true,
+    "className": "",
+    "visible": "true",
+    "disabled": "false",
+    "groupType": "default"
+  },
+  {
+    "id": "grp_022",
+    "type": "ui-group",
+    "name": "Rejeições de qualidade de dados",
+    "page": "page_005",
+    "width": "12",
+    "height": "1",
+    "order": 3,
+    "showTitle": true,
+    "className": "",
+    "visible": "true",
+    "disabled": "false",
+    "groupType": "default"
+  },
+  {
+    "id": "tab_023",
+    "type": "tab",
+    "label": "1. Controlo do ETL",
+    "disabled": false,
+    "info": "Botão → API /ops (FastAPI) → Kitchen executa o Job Pentaho jb_sentinel_main. O estado de cada etapa é lido de etl_run_stage (escrito pelo próprio Job).",
+    "env": []
+  },
+  {
+    "type": "comment",
+    "name": "① Executar: o dashboard pede à API /ops; o Pentaho faz o ETL",
+    "info": "",
+    "id": "comment_024",
+    "z": "tab_023",
+    "x": 210,
+    "y": 40,
+    "wires": []
+  },
+  {
+    "type": "ui-notification",
+    "ui": "ui_base",
+    "position": "top right",
+    "colorDefault": false,
+    "color": "#2563eb",
+    "displayTime": "5",
+    "showCountdown": true,
+    "outputs": 0,
+    "allowDismiss": true,
+    "dismissText": "Fechar",
+    "allowConfirm": false,
+    "confirmText": "",
+    "raw": false,
+    "className": "",
+    "name": "Notificação",
+    "id": "ui_notification_025",
+    "z": "tab_023",
+    "x": 950,
+    "y": 100,
+    "wires": []
+  },
+  {
+    "type": "function",
+    "name": "Interpretar resposta",
+    "func": "if (msg.statusCode === 202) {\n    flow.set('run_id', msg.payload.run_id);\n    msg.payload = 'Execução ' + msg.payload.run_id + ' iniciada (Pentaho Kitchen).';\n} else if (msg.statusCode === 409) {\n    msg.payload = 'Já existe uma execução ativa: ' + (msg.payload.detail?.active?.run_id || '');\n} else {\n    msg.payload = 'Erro ao contactar a API /ops (HTTP ' + msg.statusCode + ')';\n}\nreturn msg;",
+    "outputs": 1,
+    "timeout": 0,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "id": "function_026",
+    "z": "tab_023",
+    "x": 770,
+    "y": 100,
+    "wires": [
+      [
+        "ui_notification_025"
+      ]
+    ]
+  },
+  {
+    "type": "http request",
+    "name": "POST /ops/runs",
+    "method": "use",
+    "ret": "obj",
+    "paytoqs": "ignore",
+    "url": "",
+    "tls": "",
+    "persist": false,
+    "proxy": "",
+    "insecureHTTPParser": false,
+    "authType": "",
+    "senderr": false,
+    "headers": [],
+    "id": "http request_027",
+    "z": "tab_023",
+    "x": 590,
+    "y": 100,
+    "wires": [
+      [
+        "function_026"
+      ]
+    ]
+  },
+  {
+    "type": "function",
+    "name": "Pedido à API /ops",
+    "func": "msg.method = 'POST';\nmsg.url = env.get('API_URL') + '/ops/runs';\nmsg.headers = { 'X-API-Key': env.get('OPS_API_TOKEN'), 'Content-Type': 'application/json' };\nmsg.payload = { job: 'main' };\nreturn msg;",
+    "outputs": 1,
+    "timeout": 0,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "id": "function_028",
+    "z": "tab_023",
+    "x": 410,
+    "y": 100,
+    "wires": [
+      [
+        "http request_027"
+      ]
+    ]
+  },
+  {
+    "type": "ui-button",
+    "group": "grp_006",
+    "name": "Executar ETL",
+    "label": "Executar ETL",
+    "order": 1,
+    "width": 0,
+    "height": 0,
+    "emulateClick": false,
+    "tooltip": "",
+    "color": "",
+    "bgcolor": "",
+    "className": "",
+    "icon": "play",
+    "iconPosition": "left",
+    "payload": "",
+    "payloadType": "str",
+    "topic": "topic",
+    "topicType": "msg",
+    "buttonColor": "#2563eb",
+    "textColor": "#ffffff",
+    "iconColor": "#ffffff",
+    "enableClick": true,
+    "enablePointerdown": false,
+    "pointerdownPayload": "",
+    "pointerdownPayloadType": "str",
+    "enablePointerup": false,
+    "pointerupPayload": "",
+    "pointerupPayloadType": "str",
+    "id": "ui_button_029",
+    "z": "tab_023",
+    "x": 210,
+    "y": 100,
+    "wires": [
+      [
+        "function_028"
+      ]
+    ]
+  },
+  {
+    "type": "comment",
+    "name": "② Acompanhar: estado e etapas (etl_run / etl_run_stage) a cada 3 s",
+    "info": "",
+    "id": "comment_030",
+    "z": "tab_023",
+    "x": 250,
+    "y": 180,
+    "wires": []
+  },
+  {
+    "type": "ui-template",
+    "group": "grp_007",
+    "page": "",
+    "ui": "",
+    "name": "Pipeline",
+    "order": 1,
+    "width": 0,
+    "height": 0,
+    "head": "",
+    "format": "<template>\n  <div class=\"pipe\">\n    <div v-for=\"s in (msg?.payload?.stages || [])\" :key=\"s.key\" class=\"stage\" :class=\"s.status\">\n      <div class=\"name\">{{ s.label }}</div>\n      <div class=\"st\">{{ s.status }}</div>\n      <div class=\"rows\">{{ s.rows !== null && s.rows !== undefined ? s.rows + ' linhas' : '' }}</div>\n    </div>\n  </div>\n  <div class=\"run\" v-if=\"msg?.payload?.run\">\n    <b>{{ msg.payload.run.run_id }}</b> · {{ msg.payload.run.status }} · origem: {{ msg.payload.run.trigger_source }}\n    · início {{ msg.payload.run.inicio }} <span v-if=\"msg.payload.run.fim\">· fim {{ msg.payload.run.fim }}</span>\n    <div class=\"err\" v-if=\"msg.payload.run.error_message\">{{ msg.payload.run.error_message }}</div>\n  </div>\n</template>\n<style scoped>\n.pipe { display: flex; gap: 8px; flex-wrap: wrap; }\n.stage { flex: 1 1 120px; border-radius: 8px; padding: 10px; color: #fff; background: #94a3b8; text-align: center; }\n.stage .name { font-weight: 600; } .stage .st { font-size: 12px; opacity: .9; } .stage .rows { font-size: 11px; opacity: .8; }\n.stage.RUNNING { background: #2563eb; animation: pulse 1.2s infinite; } .stage.SUCCEEDED { background: #16a34a; }\n.stage.FAILED { background: #dc2626; } .stage.SKIPPED { background: #f59e0b; }\n.run { margin-top: 10px; font-size: 13px; color: #334155; } .err { color: #dc2626; margin-top: 4px; }\n@keyframes pulse { 50% { opacity: .6; } }\n</style>",
+    "storeOutMessages": true,
+    "passthru": false,
+    "resendOnRefresh": true,
+    "templateScope": "local",
+    "className": "",
+    "id": "ui_template_031",
+    "z": "tab_023",
+    "x": 1010,
+    "y": 240,
+    "wires": [
+      []
+    ]
+  },
+  {
+    "type": "function",
+    "name": "Montar etapas",
+    "func": "const order = [['EXTRACT','Extração + Transformação'],['CORRELATE','Correlação'],['RULES','Regras'],\n               ['AI','IA (Qwen3)'],['EVALUATE','Avaliação'],['EXPORT','Persistência / Exportação']];\nconst rows = msg.payload || [];\nconst stages = order.map(([k, label]) => {\n    const r = rows.find(x => x.stage === k);\n    return { key: k, label, status: r ? r.status : 'PENDENTE', rows: r ? r.rows_processed : null };\n});\nmsg.payload = { run: msg.run, stages };\nreturn msg;",
+    "outputs": 1,
+    "timeout": 0,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "id": "function_032",
+    "z": "tab_023",
+    "x": 830,
+    "y": 240,
+    "wires": [
+      [
+        "ui_template_031"
+      ]
+    ]
+  },
+  {
+    "type": "postgresql",
+    "name": "Etapas da execução",
+    "query": "SELECT stage, status, rows_processed FROM etl_run_stage WHERE run_id = $1 ORDER BY started_at;",
+    "postgreSQLConfig": "pg_ro",
+    "split": false,
+    "rowsPerMsg": 1,
+    "outputs": 1,
+    "id": "postgresql_033",
+    "z": "tab_023",
+    "x": 650,
+    "y": 240,
+    "wires": [
+      [
+        "function_032"
+      ]
+    ]
+  },
+  {
+    "type": "ui-template",
+    "group": "grp_008",
+    "page": "",
+    "ui": "",
+    "name": "Log",
+    "order": 1,
+    "width": 0,
+    "height": 0,
+    "head": "",
+    "format": "<template>\n  <div class=\"log\"><div v-for=\"(l, i) in (msg?.payload || [])\" :key=\"i\" :class=\"{ e: l.includes('ERROR') }\">{{ l }}</div></div>\n</template>\n<style scoped>\n.log { font-family: Menlo, monospace; font-size: 11px; background: #0f172a; color: #e2e8f0; padding: 8px;\n       border-radius: 6px; max-height: 260px; overflow: auto; white-space: pre-wrap; }\n.e { color: #f87171; }\n</style>",
+    "storeOutMessages": true,
+    "passthru": false,
+    "resendOnRefresh": true,
+    "templateScope": "local",
+    "className": "",
+    "id": "ui_template_034",
+    "z": "tab_023",
+    "x": 1010,
+    "y": 320,
+    "wires": [
+      []
+    ]
+  },
+  {
+    "type": "function",
+    "name": "Linhas do log",
+    "func": "msg.payload = (msg.statusCode === 200 && msg.payload.lines) ? msg.payload.lines : ['(sem log)'];\nreturn msg;",
+    "outputs": 1,
+    "timeout": 0,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "id": "function_035",
+    "z": "tab_023",
+    "x": 830,
+    "y": 320,
+    "wires": [
+      [
+        "ui_template_034"
+      ]
+    ]
+  },
+  {
+    "type": "http request",
+    "name": "GET /ops/runs/{id}/log",
+    "method": "use",
+    "ret": "obj",
+    "paytoqs": "ignore",
+    "url": "",
+    "tls": "",
+    "persist": false,
+    "proxy": "",
+    "insecureHTTPParser": false,
+    "authType": "",
+    "senderr": false,
+    "headers": [],
+    "id": "http request_036",
+    "z": "tab_023",
+    "x": 650,
+    "y": 320,
+    "wires": [
+      [
+        "function_035"
+      ]
+    ]
+  },
+  {
+    "type": "function",
+    "name": "Última execução",
+    "func": "const r = (msg.payload || [])[0];\nif (!r) { return [{ payload: { run: null, stages: [] } }, null, null]; }\nconst m1 = { params: [r.run_id], run: r };\nconst m2 = { method: 'GET', url: env.get('API_URL') + '/ops/runs/' + r.run_id + '/log?lines=14' };\nm2.headers = { 'X-API-Key': env.get('OPS_API_TOKEN') };\nreturn [null, m1, m2];",
+    "outputs": 3,
+    "timeout": 0,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "wires": [
+      [
+        "ui_template_031"
+      ],
+      [
+        "postgresql_033"
+      ],
+      [
+        "http request_036"
+      ]
+    ],
+    "id": "function_037",
+    "z": "tab_023",
+    "x": 450,
+    "y": 260
+  },
+  {
+    "type": "postgresql",
+    "name": "Última execução",
+    "query": "SELECT run_id, status, trigger_source, to_char(started_at, 'DD/MM HH24:MI:SS') AS inicio,\n       to_char(finished_at, 'HH24:MI:SS') AS fim, error_message\nFROM etl_run ORDER BY requested_at DESC LIMIT 1;",
+    "postgreSQLConfig": "pg_ro",
+    "split": false,
+    "rowsPerMsg": 1,
+    "outputs": 1,
+    "id": "postgresql_038",
+    "z": "tab_023",
+    "x": 290,
+    "y": 260,
+    "wires": [
+      [
+        "function_037"
+      ]
+    ]
+  },
+  {
+    "type": "inject",
+    "name": "a cada 3 s",
+    "props": [
+      {
+        "p": "payload"
+      }
+    ],
+    "repeat": "3",
+    "crontab": "",
+    "once": true,
+    "onceDelay": "1",
+    "topic": "",
+    "payload": "",
+    "payloadType": "date",
+    "id": "inject_039",
+    "z": "tab_023",
+    "x": 120,
+    "y": 260,
+    "wires": [
+      [
+        "postgresql_038"
+      ]
+    ]
+  },
+  {
+    "id": "tab_040",
+    "type": "tab",
+    "label": "2. Eventos e simulação",
+    "disabled": false,
+    "info": "Eventos normalizados pelo Pentaho (tabela event) e formulário para simular um evento de sensor. O evento simulado entra na fila do gateway REST e só é processado na execução seguinte do ETL.",
+    "env": []
+  },
+  {
+    "type": "comment",
+    "name": "Leitura (utilizador só de leitura sentinel_ro)",
+    "info": "",
+    "id": "comment_041",
+    "z": "tab_040",
+    "x": 200,
+    "y": 40,
+    "wires": []
+  },
+  {
+    "type": "ui-template",
+    "group": "grp_009",
+    "page": "",
+    "ui": "",
+    "name": "KPIs fontes",
+    "order": 1,
+    "width": 0,
+    "height": 0,
+    "head": "",
+    "format": "<template>\n  <div class=\"kpis\">\n    <div class=\"k\" v-for=\"k in (msg?.payload || [])\" :key=\"k.label\">\n      <div class=\"v\">{{ k.value }}</div><div class=\"l\">{{ k.label }}</div>\n    </div>\n  </div>\n</template>\n<style scoped>\n.kpis { display: flex; gap: 10px; flex-wrap: wrap; }\n.k { flex: 1 1 140px; background: #0f172a; color: #fff; border-radius: 8px; padding: 12px; text-align: center; }\n.v { font-size: 28px; font-weight: 700; } .l { font-size: 12px; opacity: .8; }\n</style>",
+    "storeOutMessages": true,
+    "passthru": false,
+    "resendOnRefresh": true,
+    "templateScope": "local",
+    "className": "",
+    "id": "ui_template_042",
+    "z": "tab_040",
+    "x": 760,
+    "y": 100,
+    "wires": [
+      []
+    ]
+  },
+  {
+    "type": "function",
+    "name": "KPIs",
+    "func": "const r = msg.payload[0];\nmsg.payload = [\n {label:'Acessos (CSV)', value:r.acc}, {label:'Sensores (API REST)', value:r.sen},\n {label:'Simulados (dashboard)', value:r.sim}, {label:'Rejeitados (qualidade)', value:r.rej}];\nreturn msg;",
+    "outputs": 1,
+    "timeout": 0,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "id": "function_043",
+    "z": "tab_040",
+    "x": 590,
+    "y": 100,
+    "wires": [
+      [
+        "ui_template_042"
+      ]
+    ]
+  },
+  {
+    "type": "postgresql",
+    "name": "Contagens por fonte",
+    "query": "SELECT count(*) FILTER (WHERE source = 'ACCESS') AS acc,\n       count(*) FILTER (WHERE source = 'SENSOR' AND event_id NOT LIKE 'SIM%') AS sen,\n       count(*) FILTER (WHERE event_id LIKE 'SIM%') AS sim,\n       (SELECT count(*) FROM dq_rejection WHERE run_id = (SELECT run_id FROM etl_run ORDER BY requested_at DESC LIMIT 1)) AS rej\nFROM event;",
+    "postgreSQLConfig": "pg_ro",
+    "split": false,
+    "rowsPerMsg": 1,
+    "outputs": 1,
+    "id": "postgresql_044",
+    "z": "tab_040",
+    "x": 410,
+    "y": 100,
+    "wires": [
+      [
+        "function_043"
+      ]
+    ]
+  },
+  {
+    "type": "ui-table",
+    "group": "grp_010",
+    "name": "Eventos",
+    "label": "Eventos",
+    "order": 1,
+    "width": 0,
+    "height": 0,
+    "maxrows": 12,
+    "passthru": false,
+    "autocols": true,
+    "showSearch": true,
+    "deselect": true,
+    "selectionType": "none",
+    "columns": [],
+    "mobileBreakpoint": "sm",
+    "mobileBreakpointType": "defaults",
+    "action": "replace",
+    "className": "",
+    "id": "ui_table_045",
+    "z": "tab_040",
+    "x": 590,
+    "y": 160,
+    "wires": [
+      []
+    ]
+  },
+  {
+    "type": "postgresql",
+    "name": "Eventos recentes",
+    "query": "SELECT event_id AS \"ID\", to_char(event_ts, 'DD/MM HH24:MI:SS') AS \"Hora\", source AS \"Fonte\",\n       event_type AS \"Tipo\", zone_id AS \"Zona\", coalesce(user_id, '—') AS \"Utilizador\",\n       CASE WHEN is_off_hours THEN 'sim' ELSE '' END AS \"Fora de horas\",\n       CASE WHEN is_unauthorized_zone THEN 'sim' ELSE '' END AS \"Sem permissão\"\nFROM event ORDER BY event_ts DESC, event_id DESC LIMIT 200;",
+    "postgreSQLConfig": "pg_ro",
+    "split": false,
+    "rowsPerMsg": 1,
+    "outputs": 1,
+    "id": "postgresql_046",
+    "z": "tab_040",
+    "x": 410,
+    "y": 160,
+    "wires": [
+      [
+        "ui_table_045"
+      ]
+    ]
+  },
+  {
+    "type": "ui-chart",
+    "group": "grp_012",
+    "name": "Eventos por hora do dia",
+    "label": "Eventos por hora do dia",
+    "order": 1,
+    "chartType": "bar",
+    "category": "series",
+    "categoryType": "property",
+    "xAxisLabel": "Hora",
+    "xAxisProperty": "x",
+    "xAxisPropertyType": "property",
+    "xAxisType": "category",
+    "xAxisFormat": "",
+    "xAxisFormatType": "auto",
+    "xmin": "",
+    "xmax": "",
+    "yAxisLabel": "Eventos",
+    "yAxisProperty": "n",
+    "yAxisPropertyType": "property",
+    "ymin": "0",
+    "ymax": "",
+    "bins": 10,
+    "action": "replace",
+    "stackSeries": false,
+    "pointShape": "circle",
+    "pointRadius": 4,
+    "showLegend": true,
+    "removeOlder": 1,
+    "removeOlderUnit": "3600",
+    "removeOlderPoints": "",
+    "colors": [
+      "#2563eb",
+      "#f59e0b",
+      "#16a34a",
+      "#dc2626",
+      "#7c3aed",
+      "#0891b2",
+      "#db2777",
+      "#65a30d",
+      "#475569"
+    ],
+    "textColor": [
+      "#666666"
+    ],
+    "textColorDefault": true,
+    "gridColor": [
+      "#e5e5e5"
+    ],
+    "gridColorDefault": true,
+    "width": 12,
+    "height": 7,
+    "className": "",
+    "interpolation": "linear",
+    "id": "ui_chart_047",
+    "z": "tab_040",
+    "x": 590,
+    "y": 220,
+    "wires": [
+      []
+    ]
+  },
+  {
+    "type": "postgresql",
+    "name": "Eventos por hora",
+    "query": "SELECT lpad(extract(hour FROM event_ts)::int::text, 2, '0') || 'h' AS x, source AS series, count(*)::int AS n\nFROM event GROUP BY 1, 2 ORDER BY 1, 2;",
+    "postgreSQLConfig": "pg_ro",
+    "split": false,
+    "rowsPerMsg": 1,
+    "outputs": 1,
+    "id": "postgresql_048",
+    "z": "tab_040",
+    "x": 410,
+    "y": 220,
+    "wires": [
+      [
+        "ui_chart_047"
+      ]
+    ]
+  },
+  {
+    "type": "inject",
+    "name": "a cada 10 s",
+    "props": [
+      {
+        "p": "payload"
+      }
+    ],
+    "repeat": "10",
+    "crontab": "",
+    "once": true,
+    "onceDelay": "1",
+    "topic": "",
+    "payload": "",
+    "payloadType": "date",
+    "id": "inject_049",
+    "z": "tab_040",
+    "x": 120,
+    "y": 160,
+    "wires": [
+      [
+        "postgresql_044",
+        "postgresql_046",
+        "postgresql_048"
+      ]
+    ]
+  },
+  {
+    "type": "comment",
+    "name": "Simular evento → POST /gateway/sensors/events (fila; processado no próximo ETL)",
+    "info": "",
+    "id": "comment_050",
+    "z": "tab_040",
+    "x": 270,
+    "y": 300,
+    "wires": []
+  },
+  {
+    "type": "ui-notification",
+    "ui": "ui_base",
+    "position": "top right",
+    "colorDefault": false,
+    "color": "#2563eb",
+    "displayTime": "5",
+    "showCountdown": true,
+    "outputs": 0,
+    "allowDismiss": true,
+    "dismissText": "Fechar",
+    "allowConfirm": false,
+    "confirmText": "",
+    "raw": false,
+    "className": "",
+    "name": "Notificação",
+    "id": "ui_notification_051",
+    "z": "tab_040",
+    "x": 950,
+    "y": 360,
+    "wires": []
+  },
+  {
+    "type": "function",
+    "name": "Resposta simulação",
+    "func": "if (msg.statusCode === 201) {\n    msg.payload = 'Evento ' + msg.payload.queued.event_id + ' em fila (' + msg.payload.pending + ' pendente(s)). Será processado na próxima execução do ETL.';\n} else {\n    msg.payload = 'Evento rejeitado pela API (HTTP ' + msg.statusCode + '): ' + JSON.stringify(msg.payload.detail || msg.payload);\n}\nreturn msg;",
+    "outputs": 1,
+    "timeout": 0,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "id": "function_052",
+    "z": "tab_040",
+    "x": 770,
+    "y": 360,
+    "wires": [
+      [
+        "ui_notification_051"
+      ]
+    ]
+  },
+  {
+    "type": "http request",
+    "name": "POST /gateway/sensors/events",
+    "method": "use",
+    "ret": "obj",
+    "paytoqs": "ignore",
+    "url": "",
+    "tls": "",
+    "persist": false,
+    "proxy": "",
+    "insecureHTTPParser": false,
+    "authType": "",
+    "senderr": false,
+    "headers": [],
+    "id": "http request_053",
+    "z": "tab_040",
+    "x": 560,
+    "y": 360,
+    "wires": [
+      [
+        "function_052"
+      ]
+    ]
+  },
+  {
+    "type": "function",
+    "name": "Pedido ao gateway",
+    "func": "const f = msg.payload || {};\nmsg.method = 'POST';\nmsg.url = env.get('API_URL') + '/gateway/sensors/events';\nmsg.headers = { 'X-API-Key': env.get('OPS_API_TOKEN'), 'Content-Type': 'application/json' };\nmsg.payload = { sensor_id: String(f.sensor_id || '').trim().toUpperCase(),\n                event_type: String(f.event_type || 'MOTION').trim().toUpperCase() };\nreturn msg;",
+    "outputs": 1,
+    "timeout": 0,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "id": "function_054",
+    "z": "tab_040",
+    "x": 370,
+    "y": 360,
+    "wires": [
+      [
+        "http request_053"
+      ]
+    ]
+  },
+  {
+    "type": "ui-form",
+    "group": "grp_011",
+    "name": "Formulário",
+    "label": "",
+    "order": 1,
+    "width": 0,
+    "height": 0,
+    "options": [
+      {
+        "label": "Sensor (ex.: M04, M05, C05)",
+        "key": "sensor_id",
+        "type": "text",
+        "required": true,
+        "rows": null
+      },
+      {
+        "label": "Tipo (MOTION ou DOOR_OPEN)",
+        "key": "event_type",
+        "type": "text",
+        "required": true,
+        "rows": null
+      }
+    ],
+    "formValue": {
+      "sensor_id": "M04",
+      "event_type": "MOTION"
+    },
+    "payload": "",
+    "submit": "Simular evento",
+    "cancel": "Limpar",
+    "resetOnSubmit": false,
+    "topic": "topic",
+    "topicType": "msg",
+    "splitLayout": "",
+    "className": "",
+    "passthru": false,
+    "dropdownOptions": [],
+    "id": "ui_form_055",
+    "z": "tab_040",
+    "x": 190,
+    "y": 360,
+    "wires": [
+      [
+        "function_054"
+      ]
+    ]
+  },
+  {
+    "id": "tab_056",
+    "type": "tab",
+    "label": "3. Incidentes",
+    "disabled": false,
+    "info": "Casos correlacionados marcados como suspeitos pelas regras e/ou pela IA. Ao selecionar um incidente mostram-se o resultado das duas abordagens, a explicação do Qwen3 e os eventos de origem.",
+    "env": []
+  },
+  {
+    "type": "comment",
+    "name": "Selecionar um incidente → detalhe e evidências (rastreabilidade)",
+    "info": "",
+    "id": "comment_057",
+    "z": "tab_056",
+    "x": 240,
+    "y": 40,
+    "wires": []
+  },
+  {
+    "type": "ui-template",
+    "group": "grp_014",
+    "page": "",
+    "ui": "",
+    "name": "Detalhe do caso",
+    "order": 1,
+    "width": 0,
+    "height": 0,
+    "head": "",
+    "format": "<template>\n  <div v-if=\"!msg?.payload\" class=\"hint\">Selecione um incidente na tabela.</div>\n  <div v-else class=\"case\">\n    <h3>{{ msg.payload.case_id }} · {{ msg.payload.zone_name }} ({{ msg.payload.security_level }})</h3>\n    <div class=\"cols\">\n      <div class=\"box rules\">\n        <div class=\"t\">Motor de regras (A)</div>\n        <div><b>{{ msg.payload.rules_suspicious ? 'Suspeito' : 'Não suspeito' }}</b> · risco {{ msg.payload.rules_risk }}</div>\n        <div>Regras: {{ msg.payload.matched_rules || '—' }}</div>\n      </div>\n      <div class=\"box ai\">\n        <div class=\"t\">IA — Qwen3 (B)</div>\n        <div v-if=\"msg.payload.ai_status === 'OK'\">\n          <b>{{ msg.payload.ai_suspicious ? 'Suspeito' : 'Não suspeito' }}</b> · risco {{ msg.payload.ai_risk }} · {{ msg.payload.incident_type }}\n          <p>{{ msg.payload.explanation }}</p>\n          <div><i>Ação:</i> {{ msg.payload.recommended_action }}</div>\n          <div class=\"meta\">Evidências: {{ msg.payload.evidence_event_ids }} · {{ msg.payload.model_name }}\n            ({{ (msg.payload.model_digest || '').slice(0, 12) }}) · {{ msg.payload.latency_ms }} ms</div>\n        </div>\n        <div v-else>{{ msg.payload.ai_status ? 'Análise falhou: ' + msg.payload.ai_status : 'Caso não enviado à IA (sem sinais)' }}</div>\n      </div>\n    </div>\n  </div>\n</template>\n<style scoped>\n.hint { color: #64748b; } .cols { display: flex; gap: 10px; flex-wrap: wrap; }\n.box { flex: 1 1 280px; border-radius: 8px; padding: 10px; border: 1px solid #cbd5e1; }\n.rules { border-left: 5px solid #f59e0b; } .ai { border-left: 5px solid #2563eb; }\n.t { font-weight: 700; margin-bottom: 6px; } .meta { font-size: 11px; color: #64748b; margin-top: 6px; }\nh3 { margin: 0 0 8px; }\n</style>",
+    "storeOutMessages": true,
+    "passthru": false,
+    "resendOnRefresh": true,
+    "templateScope": "local",
+    "className": "",
+    "id": "ui_template_058",
+    "z": "tab_056",
+    "x": 1010,
+    "y": 220,
+    "wires": [
+      []
+    ]
+  },
+  {
+    "type": "postgresql",
+    "name": "Detalhe do caso",
+    "query": "SELECT c.case_id, z.name AS zone_name, z.security_level, r.is_suspicious AS rules_suspicious,\n       r.risk_level AS rules_risk, r.matched_rules, a.status AS ai_status, a.is_suspicious AS ai_suspicious,\n       a.risk_level AS ai_risk, a.incident_type, a.explanation, a.recommended_action, a.evidence_event_ids,\n       a.model_name, a.model_digest, a.latency_ms\nFROM security_case c\nJOIN zone z USING (zone_id)\nJOIN rule_result r USING (case_id)\nLEFT JOIN LATERAL (SELECT * FROM ai_analysis x WHERE x.events_hash = c.events_hash\n                   ORDER BY (x.status = 'OK') DESC, x.analyzed_at DESC LIMIT 1) a ON true\nWHERE c.case_id = $1;",
+    "postgreSQLConfig": "pg_ro",
+    "split": false,
+    "rowsPerMsg": 1,
+    "outputs": 1,
+    "id": "postgresql_059",
+    "z": "tab_056",
+    "x": 830,
+    "y": 220,
+    "wires": [
+      [
+        "function_060"
+      ]
+    ]
+  },
+  {
+    "type": "function",
+    "name": "Primeira linha",
+    "func": "msg.payload = (msg.payload || [])[0] || null;\nreturn msg;",
+    "outputs": 1,
+    "timeout": 0,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "id": "function_060",
+    "z": "tab_056",
+    "x": 920,
+    "y": 260,
+    "wires": [
+      [
+        "ui_template_058"
+      ]
+    ]
+  },
+  {
+    "type": "ui-table",
+    "group": "grp_015",
+    "name": "Eventos do caso",
+    "label": "Eventos do caso",
+    "order": 1,
+    "width": 0,
+    "height": 0,
+    "maxrows": 10,
+    "passthru": false,
+    "autocols": true,
+    "showSearch": true,
+    "deselect": true,
+    "selectionType": "none",
+    "columns": [],
+    "mobileBreakpoint": "sm",
+    "mobileBreakpointType": "defaults",
+    "action": "replace",
+    "className": "",
+    "id": "ui_table_061",
+    "z": "tab_056",
+    "x": 1010,
+    "y": 300,
+    "wires": [
+      []
+    ]
+  },
+  {
+    "type": "postgresql",
+    "name": "Eventos do caso",
+    "query": "SELECT e.event_id AS \"Evento\", to_char(e.event_ts, 'HH24:MI:SS') AS \"Hora\", e.event_type AS \"Tipo\",\n       coalesce(e.device_id, '') AS \"Dispositivo\", coalesce(e.user_id, '—') AS \"Utilizador\",\n       CASE WHEN position(e.event_id IN coalesce(a.evidence_event_ids, '')) > 0 THEN '★ IA' ELSE '' END AS \"Evidência\"\nFROM case_event ce JOIN event e USING (event_id) JOIN security_case c USING (case_id)\nLEFT JOIN LATERAL (SELECT evidence_event_ids FROM ai_analysis x WHERE x.events_hash = c.events_hash AND x.status = 'OK'\n                   ORDER BY x.analyzed_at DESC LIMIT 1) a ON true\nWHERE ce.case_id = $1 ORDER BY e.event_ts, e.event_id;",
+    "postgreSQLConfig": "pg_ro",
+    "split": false,
+    "rowsPerMsg": 1,
+    "outputs": 1,
+    "id": "postgresql_062",
+    "z": "tab_056",
+    "x": 830,
+    "y": 300,
+    "wires": [
+      [
+        "ui_table_061"
+      ]
+    ]
+  },
+  {
+    "type": "function",
+    "name": "Caso selecionado",
+    "func": "if (!msg.payload || !msg.payload.Caso) { return null; }\nreturn { params: [msg.payload.Caso] };",
+    "outputs": 1,
+    "timeout": 0,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "id": "function_063",
+    "z": "tab_056",
+    "x": 650,
+    "y": 260,
+    "wires": [
+      [
+        "postgresql_059",
+        "postgresql_062"
+      ]
+    ]
+  },
+  {
+    "type": "ui-table",
+    "group": "grp_013",
+    "name": "Incidentes",
+    "label": "Incidentes",
+    "order": 1,
+    "width": 0,
+    "height": 0,
+    "maxrows": 10,
+    "passthru": false,
+    "autocols": true,
+    "showSearch": true,
+    "deselect": true,
+    "selectionType": "click",
+    "columns": [],
+    "mobileBreakpoint": "sm",
+    "mobileBreakpointType": "defaults",
+    "action": "replace",
+    "className": "",
+    "id": "ui_table_064",
+    "z": "tab_056",
+    "x": 470,
+    "y": 160,
+    "wires": [
+      [
+        "function_063"
+      ]
+    ]
+  },
+  {
+    "type": "postgresql",
+    "name": "Incidentes",
+    "query": "SELECT c.case_id AS \"Caso\", z.name AS \"Zona\", to_char(c.start_ts, 'DD/MM HH24:MI') AS \"Início\",\n       c.event_count AS \"Eventos\",\n       CASE WHEN r.is_suspicious THEN r.risk_level || ' (' || r.matched_rules || ')' ELSE '—' END AS \"Regras\",\n       CASE WHEN a.status = 'OK' AND a.is_suspicious THEN a.risk_level || ' · ' || a.incident_type\n            WHEN a.status = 'OK' THEN 'não suspeito' WHEN a.status IS NULL THEN 'não enviado' ELSE a.status END AS \"IA\",\n       CASE WHEN r.is_suspicious AND coalesce(a.is_suspicious, false) THEN 'Ambos'\n            WHEN r.is_suspicious THEN 'Só regras' ELSE 'Só IA' END AS \"Detetado por\"\nFROM security_case c\nJOIN zone z USING (zone_id)\nJOIN rule_result r USING (case_id)\nLEFT JOIN LATERAL (SELECT * FROM ai_analysis x WHERE x.events_hash = c.events_hash\n                   ORDER BY (x.status = 'OK') DESC, x.analyzed_at DESC LIMIT 1) a ON true\nWHERE r.is_suspicious OR (a.status = 'OK' AND a.is_suspicious)\nORDER BY c.start_ts;",
+    "postgreSQLConfig": "pg_ro",
+    "split": false,
+    "rowsPerMsg": 1,
+    "outputs": 1,
+    "id": "postgresql_065",
+    "z": "tab_056",
+    "x": 290,
+    "y": 160,
+    "wires": [
+      [
+        "ui_table_064"
+      ]
+    ]
+  },
+  {
+    "type": "inject",
+    "name": "a cada 15 s",
+    "props": [
+      {
+        "p": "payload"
+      }
+    ],
+    "repeat": "15",
+    "crontab": "",
+    "once": true,
+    "onceDelay": "1",
+    "topic": "",
+    "payload": "",
+    "payloadType": "date",
+    "id": "inject_066",
+    "z": "tab_056",
+    "x": 120,
+    "y": 160,
+    "wires": [
+      [
+        "postgresql_065"
+      ]
+    ]
+  },
+  {
+    "id": "tab_067",
+    "type": "tab",
+    "label": "4. Estatísticas",
+    "disabled": false,
+    "info": "Indicadores de processamento e incidentes e comparação das métricas de avaliação (evaluation_metric, calculadas pelo Pentaho em tr_evaluate).",
+    "env": []
+  },
+  {
+    "type": "ui-template",
+    "group": "grp_016",
+    "page": "",
+    "ui": "",
+    "name": "KPIs",
+    "order": 1,
+    "width": 0,
+    "height": 0,
+    "head": "",
+    "format": "<template>\n  <div class=\"kpis\">\n    <div class=\"k\" v-for=\"k in (msg?.payload || [])\" :key=\"k.label\">\n      <div class=\"v\">{{ k.value }}</div><div class=\"l\">{{ k.label }}</div>\n    </div>\n  </div>\n</template>\n<style scoped>\n.kpis { display: flex; gap: 10px; flex-wrap: wrap; }\n.k { flex: 1 1 140px; background: #0f172a; color: #fff; border-radius: 8px; padding: 12px; text-align: center; }\n.v { font-size: 28px; font-weight: 700; } .l { font-size: 12px; opacity: .8; }\n</style>",
+    "storeOutMessages": true,
+    "passthru": false,
+    "resendOnRefresh": true,
+    "templateScope": "local",
+    "className": "",
+    "id": "ui_template_068",
+    "z": "tab_067",
+    "x": 760,
+    "y": 80,
+    "wires": [
+      []
+    ]
+  },
+  {
+    "type": "function",
+    "name": "KPIs",
+    "func": "const r = msg.payload[0];\nmsg.payload = [ {label:'Eventos processados', value:r.events}, {label:'Casos correlacionados', value:r.cases},\n  {label:'Incidentes (regras)', value:r.inc_rules}, {label:'Incidentes (IA)', value:r.inc_ai},\n  {label:'Análises IA válidas', value:r.ai_ok}, {label:'Latência média IA (s)', value:r.ai_lat} ];\nreturn msg;",
+    "outputs": 1,
+    "timeout": 0,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "id": "function_069",
+    "z": "tab_067",
+    "x": 590,
+    "y": 80,
+    "wires": [
+      [
+        "ui_template_068"
+      ]
+    ]
+  },
+  {
+    "type": "postgresql",
+    "name": "Resumo",
+    "query": "SELECT (SELECT count(*) FROM event) AS events, (SELECT count(*) FROM security_case) AS cases,\n       (SELECT count(*) FROM rule_result WHERE is_suspicious) AS inc_rules,\n       (SELECT count(DISTINCT a.case_id) FROM ai_analysis a JOIN security_case c ON c.events_hash = a.events_hash\n         WHERE a.status = 'OK' AND a.is_suspicious) AS inc_ai,\n       (SELECT count(*) FROM ai_analysis WHERE status = 'OK') AS ai_ok,\n       (SELECT round(avg(latency_ms) / 1000.0, 1) FROM ai_analysis WHERE status = 'OK' AND latency_ms > 0) AS ai_lat;",
+    "postgreSQLConfig": "pg_ro",
+    "split": false,
+    "rowsPerMsg": 1,
+    "outputs": 1,
+    "id": "postgresql_070",
+    "z": "tab_067",
+    "x": 410,
+    "y": 80,
+    "wires": [
+      [
+        "function_069"
+      ]
+    ]
+  },
+  {
+    "type": "ui-chart",
+    "group": "grp_017",
+    "name": "Incidentes por nível de risco",
+    "label": "Incidentes por nível de risco",
+    "order": 1,
+    "chartType": "bar",
+    "category": "series",
+    "categoryType": "property",
+    "xAxisLabel": "Risco",
+    "xAxisProperty": "x",
+    "xAxisPropertyType": "property",
+    "xAxisType": "category",
+    "xAxisFormat": "",
+    "xAxisFormatType": "auto",
+    "xmin": "",
+    "xmax": "",
+    "yAxisLabel": "Incidentes",
+    "yAxisProperty": "n",
+    "yAxisPropertyType": "property",
+    "ymin": "0",
+    "ymax": "",
+    "bins": 10,
+    "action": "replace",
+    "stackSeries": false,
+    "pointShape": "circle",
+    "pointRadius": 4,
+    "showLegend": true,
+    "removeOlder": 1,
+    "removeOlderUnit": "3600",
+    "removeOlderPoints": "",
+    "colors": [
+      "#2563eb",
+      "#f59e0b",
+      "#16a34a",
+      "#dc2626",
+      "#7c3aed",
+      "#0891b2",
+      "#db2777",
+      "#65a30d",
+      "#475569"
+    ],
+    "textColor": [
+      "#666666"
+    ],
+    "textColorDefault": true,
+    "gridColor": [
+      "#e5e5e5"
+    ],
+    "gridColorDefault": true,
+    "width": 6,
+    "height": 7,
+    "className": "",
+    "interpolation": "linear",
+    "id": "ui_chart_071",
+    "z": "tab_067",
+    "x": 590,
+    "y": 140,
+    "wires": [
+      []
+    ]
+  },
+  {
+    "type": "postgresql",
+    "name": "Por risco",
+    "query": "SELECT risk_level AS x, 'Regras' AS series, count(*)::int AS n FROM rule_result WHERE is_suspicious GROUP BY 1\nUNION ALL\nSELECT risk_level, 'IA', count(*)::int FROM (SELECT DISTINCT ON (c.case_id) c.case_id, c.zone_id, a.risk_level, a.is_suspicious\n  FROM security_case c JOIN ai_analysis a ON a.events_hash = c.events_hash AND a.status = 'OK'\n  ORDER BY c.case_id, a.analyzed_at DESC) ai WHERE is_suspicious GROUP BY 1\nORDER BY 1;",
+    "postgreSQLConfig": "pg_ro",
+    "split": false,
+    "rowsPerMsg": 1,
+    "outputs": 1,
+    "id": "postgresql_072",
+    "z": "tab_067",
+    "x": 410,
+    "y": 140,
+    "wires": [
+      [
+        "ui_chart_071"
+      ]
+    ]
+  },
+  {
+    "type": "ui-chart",
+    "group": "grp_018",
+    "name": "Incidentes por zona",
+    "label": "Incidentes por zona",
+    "order": 1,
+    "chartType": "bar",
+    "category": "series",
+    "categoryType": "property",
+    "xAxisLabel": "Zona",
+    "xAxisProperty": "x",
+    "xAxisPropertyType": "property",
+    "xAxisType": "category",
+    "xAxisFormat": "",
+    "xAxisFormatType": "auto",
+    "xmin": "",
+    "xmax": "",
+    "yAxisLabel": "Incidentes",
+    "yAxisProperty": "n",
+    "yAxisPropertyType": "property",
+    "ymin": "0",
+    "ymax": "",
+    "bins": 10,
+    "action": "replace",
+    "stackSeries": false,
+    "pointShape": "circle",
+    "pointRadius": 4,
+    "showLegend": true,
+    "removeOlder": 1,
+    "removeOlderUnit": "3600",
+    "removeOlderPoints": "",
+    "colors": [
+      "#2563eb",
+      "#f59e0b",
+      "#16a34a",
+      "#dc2626",
+      "#7c3aed",
+      "#0891b2",
+      "#db2777",
+      "#65a30d",
+      "#475569"
+    ],
+    "textColor": [
+      "#666666"
+    ],
+    "textColorDefault": true,
+    "gridColor": [
+      "#e5e5e5"
+    ],
+    "gridColorDefault": true,
+    "width": 6,
+    "height": 7,
+    "className": "",
+    "interpolation": "linear",
+    "id": "ui_chart_073",
+    "z": "tab_067",
+    "x": 590,
+    "y": 200,
+    "wires": [
+      []
+    ]
+  },
+  {
+    "type": "postgresql",
+    "name": "Por zona",
+    "query": "SELECT c.zone_id AS x, 'Regras' AS series, count(*)::int AS n\nFROM security_case c JOIN rule_result r USING (case_id) WHERE r.is_suspicious GROUP BY 1\nUNION ALL\nSELECT zone_id, 'IA', count(*)::int FROM (SELECT DISTINCT ON (c.case_id) c.case_id, c.zone_id, a.risk_level, a.is_suspicious\n  FROM security_case c JOIN ai_analysis a ON a.events_hash = c.events_hash AND a.status = 'OK'\n  ORDER BY c.case_id, a.analyzed_at DESC) ai WHERE is_suspicious GROUP BY 1\nORDER BY 1;",
+    "postgreSQLConfig": "pg_ro",
+    "split": false,
+    "rowsPerMsg": 1,
+    "outputs": 1,
+    "id": "postgresql_074",
+    "z": "tab_067",
+    "x": 410,
+    "y": 200,
+    "wires": [
+      [
+        "ui_chart_073"
+      ]
+    ]
+  },
+  {
+    "type": "ui-table",
+    "group": "grp_019",
+    "name": "Métricas",
+    "label": "Métricas",
+    "order": 1,
+    "width": 0,
+    "height": 0,
+    "maxrows": 6,
+    "passthru": false,
+    "autocols": true,
+    "showSearch": true,
+    "deselect": true,
+    "selectionType": "none",
+    "columns": [],
+    "mobileBreakpoint": "sm",
+    "mobileBreakpointType": "defaults",
+    "action": "replace",
+    "className": "",
+    "id": "ui_table_075",
+    "z": "tab_067",
+    "x": 590,
+    "y": 260,
+    "wires": [
+      []
+    ]
+  },
+  {
+    "type": "postgresql",
+    "name": "Métricas da última avaliação",
+    "query": "SELECT CASE approach WHEN 'RULES' THEN 'A — Regras (82 casos)' WHEN 'AI' THEN 'B — IA híbrida (82 casos)'\n            WHEN 'RULES_AI_SUBSET' THEN 'A — Regras (subconjunto IA)' ELSE 'B — IA (subconjunto IA)' END AS \"Abordagem\",\n       n_cases AS \"Casos\", tp AS \"TP\", fp AS \"FP\", tn AS \"TN\", fn AS \"FN\", n_failed AS \"Falhas\",\n       round(precision_val, 3) AS \"Precisão\", round(recall_val, 3) AS \"Recall\", round(f1_val, 3) AS \"F1\",\n       round(avg_latency_ms / 1000.0, 1) AS \"Latência média (s)\"\nFROM evaluation_metric WHERE run_id = (SELECT run_id FROM evaluation_metric ORDER BY computed_at DESC LIMIT 1)\nORDER BY approach;",
+    "postgreSQLConfig": "pg_ro",
+    "split": false,
+    "rowsPerMsg": 1,
+    "outputs": 1,
+    "id": "postgresql_076",
+    "z": "tab_067",
+    "x": 410,
+    "y": 260,
+    "wires": [
+      [
+        "ui_table_075"
+      ]
+    ]
+  },
+  {
+    "type": "inject",
+    "name": "a cada 15 s",
+    "props": [
+      {
+        "p": "payload"
+      }
+    ],
+    "repeat": "15",
+    "crontab": "",
+    "once": true,
+    "onceDelay": "1",
+    "topic": "",
+    "payload": "",
+    "payloadType": "date",
+    "id": "inject_077",
+    "z": "tab_067",
+    "x": 120,
+    "y": 170,
+    "wires": [
+      [
+        "postgresql_070",
+        "postgresql_072",
+        "postgresql_074",
+        "postgresql_076"
+      ]
+    ]
+  },
+  {
+    "id": "tab_078",
+    "type": "tab",
+    "label": "5. Logs e erros",
+    "disabled": false,
+    "info": "Execuções (etl_run), erros classificados por componente (ETL Pentaho, API FastAPI, modelo Qwen3) e rejeições de qualidade de dados (dq_rejection).",
+    "env": []
+  },
+  {
+    "type": "ui-table",
+    "group": "grp_020",
+    "name": "Execuções",
+    "label": "Execuções",
+    "order": 1,
+    "width": 0,
+    "height": 0,
+    "maxrows": 8,
+    "passthru": false,
+    "autocols": true,
+    "showSearch": true,
+    "deselect": true,
+    "selectionType": "none",
+    "columns": [],
+    "mobileBreakpoint": "sm",
+    "mobileBreakpointType": "defaults",
+    "action": "replace",
+    "className": "",
+    "id": "ui_table_079",
+    "z": "tab_078",
+    "x": 590,
+    "y": 80,
+    "wires": [
+      []
+    ]
+  },
+  {
+    "type": "postgresql",
+    "name": "Execuções",
+    "query": "SELECT run_id AS \"Execução\", trigger_source AS \"Origem\", status AS \"Estado\",\n       to_char(started_at, 'DD/MM HH24:MI:SS') AS \"Início\", to_char(finished_at - started_at, 'MI:SS') AS \"Duração\",\n       coalesce(exit_code::text, '') AS \"Exit code\", coalesce(error_message, '') AS \"Erro\"\nFROM etl_run ORDER BY requested_at DESC LIMIT 30;",
+    "postgreSQLConfig": "pg_ro",
+    "split": false,
+    "rowsPerMsg": 1,
+    "outputs": 1,
+    "id": "postgresql_080",
+    "z": "tab_078",
+    "x": 410,
+    "y": 80,
+    "wires": [
+      [
+        "ui_table_079"
+      ]
+    ]
+  },
+  {
+    "type": "ui-table",
+    "group": "grp_021",
+    "name": "Erros",
+    "label": "Erros",
+    "order": 1,
+    "width": 0,
+    "height": 0,
+    "maxrows": 8,
+    "passthru": false,
+    "autocols": true,
+    "showSearch": true,
+    "deselect": true,
+    "selectionType": "none",
+    "columns": [],
+    "mobileBreakpoint": "sm",
+    "mobileBreakpointType": "defaults",
+    "action": "replace",
+    "className": "",
+    "id": "ui_table_081",
+    "z": "tab_078",
+    "x": 590,
+    "y": 140,
+    "wires": [
+      []
+    ]
+  },
+  {
+    "type": "postgresql",
+    "name": "Erros por componente",
+    "query": "SELECT * FROM (\n  SELECT 'ETL (Pentaho)' AS \"Componente\", s.stage || ': ' || coalesce(s.message, '') AS \"Detalhe\",\n         to_char(s.finished_at, 'DD/MM HH24:MI') AS \"Quando\", s.run_id AS \"Execução\"\n  FROM etl_run_stage s WHERE s.status = 'FAILED'\n  UNION ALL\n  SELECT 'API (FastAPI)', a.status || ': ' || left(coalesce(a.error_message, ''), 120), to_char(a.analyzed_at, 'DD/MM HH24:MI'), a.run_id\n  FROM ai_analysis a WHERE a.status IN ('API_UNAVAILABLE', 'MODEL_ERROR', 'INVALID_INPUT')\n  UNION ALL\n  SELECT 'Modelo (Qwen3)', a.status || ': ' || left(coalesce(a.error_message, ''), 120), to_char(a.analyzed_at, 'DD/MM HH24:MI'), a.run_id\n  FROM ai_analysis a WHERE a.status IN ('TIMEOUT', 'INVALID_OUTPUT')\n  UNION ALL\n  SELECT 'IA ignorada', s.stage || ': ' || coalesce(s.message, ''), to_char(s.finished_at, 'DD/MM HH24:MI'), s.run_id\n  FROM etl_run_stage s WHERE s.status = 'SKIPPED'\n) e ORDER BY \"Quando\" DESC NULLS LAST LIMIT 50;",
+    "postgreSQLConfig": "pg_ro",
+    "split": false,
+    "rowsPerMsg": 1,
+    "outputs": 1,
+    "id": "postgresql_082",
+    "z": "tab_078",
+    "x": 410,
+    "y": 140,
+    "wires": [
+      [
+        "ui_table_081"
+      ]
+    ]
+  },
+  {
+    "type": "ui-table",
+    "group": "grp_022",
+    "name": "Rejeições",
+    "label": "Rejeições",
+    "order": 1,
+    "width": 0,
+    "height": 0,
+    "maxrows": 8,
+    "passthru": false,
+    "autocols": true,
+    "showSearch": true,
+    "deselect": true,
+    "selectionType": "none",
+    "columns": [],
+    "mobileBreakpoint": "sm",
+    "mobileBreakpointType": "defaults",
+    "action": "replace",
+    "className": "",
+    "id": "ui_table_083",
+    "z": "tab_078",
+    "x": 590,
+    "y": 200,
+    "wires": [
+      []
+    ]
+  },
+  {
+    "type": "postgresql",
+    "name": "Rejeições",
+    "query": "SELECT source AS \"Fonte\", source_record_id AS \"Registo\", reason_code AS \"Motivo\",\n       left(raw_record, 90) AS \"Registo original\", run_id AS \"Execução\"\nFROM dq_rejection ORDER BY rejected_at DESC, source_record_id LIMIT 50;",
+    "postgreSQLConfig": "pg_ro",
+    "split": false,
+    "rowsPerMsg": 1,
+    "outputs": 1,
+    "id": "postgresql_084",
+    "z": "tab_078",
+    "x": 410,
+    "y": 200,
+    "wires": [
+      [
+        "ui_table_083"
+      ]
+    ]
+  },
+  {
+    "type": "inject",
+    "name": "a cada 10 s",
+    "props": [
+      {
+        "p": "payload"
+      }
+    ],
+    "repeat": "10",
+    "crontab": "",
+    "once": true,
+    "onceDelay": "1",
+    "topic": "",
+    "payload": "",
+    "payloadType": "date",
+    "id": "inject_085",
+    "z": "tab_078",
+    "x": 120,
+    "y": 140,
+    "wires": [
+      [
+        "postgresql_080",
+        "postgresql_082",
+        "postgresql_084"
+      ]
+    ]
+  }
+]
