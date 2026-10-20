@@ -37,9 +37,9 @@ stats AS (
 metrics AS (
     SELECT string_agg(format('<tr><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td></tr>',
                              m.approach, m.tp, m.fp, m.tn, m.fn,
-                             coalesce(to_char(m.precision_val, 'FM0.000'), '—'),
-                             coalesce(to_char(m.recall_val, 'FM0.000'), '—'),
-                             coalesce(to_char(m.f1_val, 'FM0.000'), '—')), '' ORDER BY m.approach DESC) AS rows
+                             coalesce(to_char(m.precision_val, 'FM0.0000'), '—'),
+                             coalesce(to_char(m.recall_val, 'FM0.0000'), '—'),
+                             coalesce(to_char(m.f1_val, 'FM0.0000'), '—')), '' ORDER BY m.approach DESC) AS rows
     FROM evaluation_metric m WHERE m.run_id = '${RUN_ID}' AND m.approach IN ('RULES', 'AI')
 ),
 top_inc AS (

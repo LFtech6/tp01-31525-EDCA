@@ -59,7 +59,9 @@ Decisões:
 - A notificação faz-se **depois** da persistência e exportação. Se o envio falhar (por exemplo, SMTP indisponível), a etapa `NOTIFY` fica FAILED com o motivo, mas a execução termina SUCCEEDED: os dados já estão corretos e o e-mail não deve invalidá-los.
 - No ramo de erro, o alerta é enviado na medida do possível: o *Abort* acontece sempre e o exit code continua ≠ 0.
 - Servidor, credenciais e endereços vêm do `.env` (→ `kettle.properties`). O `.kjb` só contém `${SMTP_PASSWORD}`.
-- Em desenvolvimento usa-se o **Mailpit** (`scripts/run_mailpit.sh`). É um servidor SMTP local que escuta apenas em 127.0.0.1 e **exige autenticação** (530 sem credenciais, 535 com password errada). Guarda os e-mails numa caixa de entrada web em `http://127.0.0.1:8025`, sem os enviar para fora. Para um servidor real basta mudar `SMTP_HOST`/`SMTP_PORT`/credenciais no `.env`. Se o servidor exigir TLS, ativa-se "Use secure authentication" na entrada Mail.
+- Em desenvolvimento usa-se o **Mailpit** (`scripts/run_mailpit.sh`). É um servidor SMTP local que escuta apenas em 127.0.0.1 e **exige autenticação** (530 sem credenciais, 535 com password errada). Guarda os e-mails numa caixa de entrada web em `http://127.0.0.1:8025`, sem os enviar para fora. Não foi testado com um servidor SMTP externo. Um servidor com TLS exige ativar a autenticação segura (*Use secure authentication*) na entrada Mail, além de mudar `SMTP_HOST`/`SMTP_PORT`/credenciais no `.env`.
+
+Limitação conhecida: se a própria BD estiver indisponível, `Build alert` não consegue compor a mensagem. O alerta é enviado na mesma, mas com o corpo por compor (`${MAIL_BODY}`); a causa fica no log do Kitchen.
 
 ### Resultado verificado (2026-10-20)
 | Caso | Resultado |
