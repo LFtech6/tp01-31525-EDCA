@@ -4,9 +4,12 @@ Segurança:
   - todos os endpoints exigem X-API-Key; o serviço só escuta em 127.0.0.1;
   - o pedido indica um NOME LÓGICO de Job (lista branca), nunca um caminho ou comando;
   - o Kitchen é lançado com subprocess e lista de argumentos (sem shell);
-  - concorrência: no máximo uma execução ativa (índice único parcial em etl_run → HTTP 409).
-O Pentaho continua a ser o único responsável pelo processamento ETL.
+  - concorrência: no máximo uma execução ativa (índice único parcial em etl_run → HTTP 409);
+  - configuração de e-mail definida no dashboard: validada, guardada só em memória (nunca em disco/BD/Git),
+    a password nunca é devolvida, e chega ao Kitchen por variáveis de ambiente (não aparece na linha de comandos).
+O Pentaho continua a ser o único responsável pelo processamento ETL (incluindo o envio do e-mail).
 """
+import os
 import re
 import subprocess
 import threading
@@ -17,7 +20,7 @@ from typing import Literal
 import psycopg
 from fastapi import APIRouter, Depends, HTTPException, Query
 from psycopg.rows import dict_row
-from pydantic import BaseModel
+from pydantic import BaseModel, Field, field_validator
 
 from .. import config
 from ..security import require_api_key
@@ -36,6 +39,89 @@ def _conn() -> psycopg.Connection:
 
 class RunRequest(BaseModel):
     job: Literal["main"] = "main"
+
+
+# ----------------------------------------------------------------------------- configuração de e-mail (SMTP)
+MAIL_KEYS = ("SMTP_HOST", "SMTP_PORT", "SMTP_USER", "SMTP_PASSWORD", "MAIL_FROM", "MAIL_TO")
+EMAIL_RE = re.compile(r"^[^@\s,;<>\"']+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$")
+_mail_override: dict[str, str] = {}
+_mail_lock = threading.Lock()
+
+
+class MailSettings(BaseModel):
+    smtp_host: str = Field(pattern=r"^[A-Za-z0-9.-]{1,253}$")
+    smtp_port: int = Field(ge=1, le=65535)
+    smtp_user: str = Field(min_length=1, max_length=254, pattern=r"^[^\s]+$")
+    smtp_password: str | None = Field(default=None, max_length=256)  # vazio = manter a atual
+    mail_from: str
+    mail_to: str = Field(description="Um ou mais endereços separados por vírgula, ponto e vírgula ou espaço")
+
+    @field_validator("smtp_password")
+    @classmethod
+    def _no_newlines(cls, v):
+        if v and ("\n" in v or "\r" in v):
+            raise ValueError("password inválida")
+        return v or None
+
+    @field_validator("mail_from")
+    @classmethod
+    def _from(cls, v):
+        v = v.strip()
+        if not EMAIL_RE.match(v):
+            raise ValueError("endereço do remetente inválido")
+        return v
+
+    @field_validator("mail_to")
+    @classmethod
+    def _to(cls, v):
+        addrs = [a for a in re.split(r"[,;\s]+", v.strip()) if a]
+        if not 1 <= len(addrs) <= 10 or not all(EMAIL_RE.match(a) for a in addrs):
+            raise ValueError("indique 1 a 10 endereços de destino válidos")
+        return " ".join(addrs)  # a entrada Mail do Kettle separa destinatários por espaço
+
+
+def _effective_mail() -> dict[str, str]:
+    with _mail_lock:
+        return {k: _mail_override.get(k, os.environ.get(k, "")) for k in MAIL_KEYS}
+
+
+def _public_mail() -> dict:
+    m = _effective_mail()
+    with _mail_lock:
+        source = "dashboard" if _mail_override else ".env"
+    pw = m["SMTP_PASSWORD"]
+    return {"smtp_host": m["SMTP_HOST"], "smtp_port": int(m["SMTP_PORT"] or 0), "smtp_user": m["SMTP_USER"],
+            "mail_from": m["MAIL_FROM"], "mail_to": m["MAIL_TO"],
+            "password_set": bool(pw) and pw != "change_me", "source": source}
+
+
+@router.get("/mail-settings")
+def get_mail_settings() -> dict:
+    return _public_mail()
+
+
+@router.put("/mail-settings")
+def put_mail_settings(s: MailSettings) -> dict:
+    current = _effective_mail()
+    with _mail_lock:
+        _mail_override.update({"SMTP_HOST": s.smtp_host, "SMTP_PORT": str(s.smtp_port), "SMTP_USER": s.smtp_user,
+                               "SMTP_PASSWORD": s.smtp_password or current["SMTP_PASSWORD"],
+                               "MAIL_FROM": s.mail_from, "MAIL_TO": s.mail_to})
+    return _public_mail()
+
+
+@router.delete("/mail-settings")
+def reset_mail_settings() -> dict:
+    with _mail_lock:
+        _mail_override.clear()
+    return _public_mail()
+
+
+def _kitchen_env() -> dict[str, str]:
+    env = os.environ.copy()
+    with _mail_lock:
+        env.update({f"OVERRIDE_{k}": v for k, v in _mail_override.items()})
+    return env
 
 
 def _watch(run_id: str, proc: subprocess.Popen, log_file) -> None:
@@ -68,7 +154,7 @@ def start_run(req: RunRequest) -> dict:
     log_file = open(log_path, "w", encoding="utf-8")
     proc = subprocess.Popen(
         [str(PDI_WRAPPER), "kitchen", str(JOBS[req.job]), "Basic", f"-param:RUN_ID={run_id}", "-param:TRIGGER=dashboard"],
-        stdout=log_file, stderr=subprocess.STDOUT, cwd=config.PROJECT_ROOT, start_new_session=True)
+        stdout=log_file, stderr=subprocess.STDOUT, cwd=config.PROJECT_ROOT, env=_kitchen_env(), start_new_session=True)
     threading.Thread(target=_watch, args=(run_id, proc, log_file), daemon=True).start()
     return {"run_id": run_id, "status": "PENDING", "job": req.job}
 

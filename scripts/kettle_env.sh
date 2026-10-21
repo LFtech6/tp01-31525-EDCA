@@ -5,6 +5,10 @@
 
 SENTINEL_HOME="$(cd "$(dirname "${BASH_SOURCE[0]:-$0}")/.." && pwd)"
 set -a; . "$SENTINEL_HOME/.env"; set +a
+# Configuração de e-mail definida no dashboard (passada pela API /ops em OVERRIDE_*; só existe em memória)
+for k in SMTP_HOST SMTP_PORT SMTP_USER SMTP_PASSWORD MAIL_FROM MAIL_TO; do
+  o="OVERRIDE_$k"; [ -n "${!o:-}" ] && export "$k=${!o}"
+done
 
 export KETTLE_HOME="$SENTINEL_HOME/etl/kettle-home"
 PROPS="$KETTLE_HOME/.kettle/kettle.properties"

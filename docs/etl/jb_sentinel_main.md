@@ -60,7 +60,15 @@ Decisões:
 - No ramo de erro, o alerta é enviado na medida do possível: o *Abort* acontece sempre e o exit code continua ≠ 0.
 - Servidor, credenciais e endereços vêm do `.env` (→ `kettle.properties`). O `.kjb` só contém `${SMTP_PASSWORD}`.
 - A configuração segue o exemplo da aula 06 (`EmailPrevisão.kjb`). Uma transformação põe o corpo HTML numa variável (*Set variables*) e a entrada **Mail** usa-a como mensagem (`only_comment`, HTML, UTF-8). O envio é feito por um **servidor SMTP real** com autenticação segura **TLS** na porta 587 (por omissão `smtp.office365.com`, a conta institucional). Diferença em relação ao exemplo: aqui as variáveis têm âmbito `ROOT_JOB` em vez de `JVM`, para não ficarem visíveis a outros Jobs na mesma JVM.
-- A conta (utilizador/password) é preenchida apenas no `.env`. No Office 365 o remetente tem de ser a própria conta.
+- A conta e os destinatários podem vir de duas origens:
+  - do `.env`, por omissão;
+  - do **dashboard** (página Controlo → "Notificação por e-mail"). O formulário envia-os para `PUT /ops/mail-settings` (protegido com `X-API-Key`).
+- Como a API trata a configuração vinda do dashboard:
+  - valida-a, incluindo endereços e destinatários (1 a 10), e recusa quebras de linha e caracteres de comando;
+  - guarda-a **só em memória**: perde-se ao reiniciar a API, que volta a usar o `.env`;
+  - **nunca devolve a password**: o GET só indica `password_set`.
+- Na execução seguinte, a configuração chega ao Kitchen por variáveis de ambiente (`OVERRIDE_*`, aplicadas por `scripts/kettle_env.sh`). Nunca passa pela linha de comandos.
+- No Office 365 o remetente tem de ser a própria conta.
 
 Limitação conhecida: se a própria BD estiver indisponível, `Build alert` não consegue compor a mensagem. O alerta é enviado na mesma, mas com o corpo por compor (`${MAIL_BODY}`); a causa fica no log do Kitchen.
 
@@ -70,7 +78,8 @@ Limitação conhecida: se a própria BD estiver indisponível, `Build alert` nã
 |---|---|
 | Ligação ao servidor | STARTTLS anunciado; após TLS, o servidor aceita `AUTH LOGIN` |
 | Execução com credenciais por preencher (`run-20261021-094000-b001`) | exit 0; execução SUCCEEDED; `NOTIFY` FAILED com `AuthenticationFailedException: 535 5.7.3` (o TLS funcionou e o servidor recusou as credenciais `change_me`) |
-| Execução com a conta real | por executar pelo estudante (credenciais só no `.env`) |
+| Configuração vinda do dashboard (`run-20261021-122829-6806`, servidor `smtp.gmail.com`, credenciais falsas) | o Pentaho usou os valores do formulário: `535-5.7.8 Username and Password not accepted` (Gmail); a password não aparece no log do Kitchen |
+| Execução com a conta real | por executar pelo estudante |
 
 2026-10-20, versão anterior com servidor SMTP local de testes (entretanto removido). Valida a lógica do Job, que é independente do servidor:
 | Caso | Resultado |

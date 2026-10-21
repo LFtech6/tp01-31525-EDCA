@@ -288,6 +288,34 @@
   {
     "id": "grp_009",
     "type": "ui-group",
+    "name": "Notificação por e-mail (SMTP)",
+    "page": "page_001",
+    "width": "8",
+    "height": "1",
+    "order": 4,
+    "showTitle": true,
+    "className": "",
+    "visible": "true",
+    "disabled": "false",
+    "groupType": "default"
+  },
+  {
+    "id": "grp_010",
+    "type": "ui-group",
+    "name": "Configuração de e-mail em uso",
+    "page": "page_001",
+    "width": "4",
+    "height": "1",
+    "order": 5,
+    "showTitle": true,
+    "className": "",
+    "visible": "true",
+    "disabled": "false",
+    "groupType": "default"
+  },
+  {
+    "id": "grp_011",
+    "type": "ui-group",
     "name": "Eventos por fonte",
     "page": "page_002",
     "width": "12",
@@ -300,7 +328,7 @@
     "groupType": "default"
   },
   {
-    "id": "grp_010",
+    "id": "grp_012",
     "type": "ui-group",
     "name": "Eventos recebidos (mais recentes)",
     "page": "page_002",
@@ -314,7 +342,7 @@
     "groupType": "default"
   },
   {
-    "id": "grp_011",
+    "id": "grp_013",
     "type": "ui-group",
     "name": "Simular evento de sensor",
     "page": "page_002",
@@ -328,7 +356,7 @@
     "groupType": "default"
   },
   {
-    "id": "grp_012",
+    "id": "grp_014",
     "type": "ui-group",
     "name": "Atividade por hora do dia",
     "page": "page_002",
@@ -342,7 +370,7 @@
     "groupType": "default"
   },
   {
-    "id": "grp_013",
+    "id": "grp_015",
     "type": "ui-group",
     "name": "Incidentes (regras e/ou IA)",
     "page": "page_003",
@@ -356,7 +384,7 @@
     "groupType": "default"
   },
   {
-    "id": "grp_014",
+    "id": "grp_016",
     "type": "ui-group",
     "name": "Detalhe: regras vs IA",
     "page": "page_003",
@@ -370,7 +398,7 @@
     "groupType": "default"
   },
   {
-    "id": "grp_015",
+    "id": "grp_017",
     "type": "ui-group",
     "name": "Eventos de origem (evidências)",
     "page": "page_003",
@@ -384,7 +412,7 @@
     "groupType": "default"
   },
   {
-    "id": "grp_016",
+    "id": "grp_018",
     "type": "ui-group",
     "name": "Resumo",
     "page": "page_004",
@@ -398,7 +426,7 @@
     "groupType": "default"
   },
   {
-    "id": "grp_017",
+    "id": "grp_019",
     "type": "ui-group",
     "name": "Incidentes por nível de risco",
     "page": "page_004",
@@ -412,7 +440,7 @@
     "groupType": "default"
   },
   {
-    "id": "grp_018",
+    "id": "grp_020",
     "type": "ui-group",
     "name": "Incidentes por zona",
     "page": "page_004",
@@ -426,7 +454,7 @@
     "groupType": "default"
   },
   {
-    "id": "grp_019",
+    "id": "grp_021",
     "type": "ui-group",
     "name": "Avaliação: regras (A) vs IA (B)",
     "page": "page_004",
@@ -440,7 +468,7 @@
     "groupType": "default"
   },
   {
-    "id": "grp_020",
+    "id": "grp_022",
     "type": "ui-group",
     "name": "Execuções",
     "page": "page_005",
@@ -454,7 +482,7 @@
     "groupType": "default"
   },
   {
-    "id": "grp_021",
+    "id": "grp_023",
     "type": "ui-group",
     "name": "Erros por componente (ETL / API / Modelo)",
     "page": "page_005",
@@ -468,7 +496,7 @@
     "groupType": "default"
   },
   {
-    "id": "grp_022",
+    "id": "grp_024",
     "type": "ui-group",
     "name": "Rejeições de qualidade de dados",
     "page": "page_005",
@@ -482,7 +510,7 @@
     "groupType": "default"
   },
   {
-    "id": "tab_023",
+    "id": "tab_025",
     "type": "tab",
     "label": "1. Controlo do ETL",
     "disabled": false,
@@ -493,8 +521,8 @@
     "type": "comment",
     "name": "① Executar: o dashboard pede à API /ops; o Pentaho faz o ETL",
     "info": "",
-    "id": "comment_024",
-    "z": "tab_023",
+    "id": "comment_026",
+    "z": "tab_025",
     "x": 210,
     "y": 40,
     "wires": []
@@ -515,8 +543,8 @@
     "raw": false,
     "className": "",
     "name": "Notificação",
-    "id": "ui_notification_025",
-    "z": "tab_023",
+    "id": "ui_notification_027",
+    "z": "tab_025",
     "x": 950,
     "y": 100,
     "wires": []
@@ -531,13 +559,13 @@
     "initialize": "",
     "finalize": "",
     "libs": [],
-    "id": "function_026",
-    "z": "tab_023",
+    "id": "function_028",
+    "z": "tab_025",
     "x": 770,
     "y": 100,
     "wires": [
       [
-        "ui_notification_025"
+        "ui_notification_027"
       ]
     ]
   },
@@ -555,13 +583,13 @@
     "authType": "",
     "senderr": false,
     "headers": [],
-    "id": "http request_027",
-    "z": "tab_023",
+    "id": "http request_029",
+    "z": "tab_025",
     "x": 590,
     "y": 100,
     "wires": [
       [
-        "function_026"
+        "function_028"
       ]
     ]
   },
@@ -575,13 +603,13 @@
     "initialize": "",
     "finalize": "",
     "libs": [],
-    "id": "function_028",
-    "z": "tab_023",
+    "id": "function_030",
+    "z": "tab_025",
     "x": 410,
     "y": 100,
     "wires": [
       [
-        "http request_027"
+        "http request_029"
       ]
     ]
   },
@@ -614,13 +642,13 @@
     "enablePointerup": false,
     "pointerupPayload": "",
     "pointerupPayloadType": "str",
-    "id": "ui_button_029",
-    "z": "tab_023",
+    "id": "ui_button_031",
+    "z": "tab_025",
     "x": 210,
     "y": 100,
     "wires": [
       [
-        "function_028"
+        "function_030"
       ]
     ]
   },
@@ -628,8 +656,8 @@
     "type": "comment",
     "name": "② Acompanhar: estado e etapas (etl_run / etl_run_stage) a cada 3 s",
     "info": "",
-    "id": "comment_030",
-    "z": "tab_023",
+    "id": "comment_032",
+    "z": "tab_025",
     "x": 250,
     "y": 180,
     "wires": []
@@ -650,8 +678,8 @@
     "resendOnRefresh": true,
     "templateScope": "local",
     "className": "",
-    "id": "ui_template_031",
-    "z": "tab_023",
+    "id": "ui_template_033",
+    "z": "tab_025",
     "x": 1010,
     "y": 240,
     "wires": [
@@ -668,13 +696,13 @@
     "initialize": "",
     "finalize": "",
     "libs": [],
-    "id": "function_032",
-    "z": "tab_023",
+    "id": "function_034",
+    "z": "tab_025",
     "x": 830,
     "y": 240,
     "wires": [
       [
-        "ui_template_031"
+        "ui_template_033"
       ]
     ]
   },
@@ -686,13 +714,13 @@
     "split": false,
     "rowsPerMsg": 1,
     "outputs": 1,
-    "id": "postgresql_033",
-    "z": "tab_023",
+    "id": "postgresql_035",
+    "z": "tab_025",
     "x": 650,
     "y": 240,
     "wires": [
       [
-        "function_032"
+        "function_034"
       ]
     ]
   },
@@ -712,8 +740,8 @@
     "resendOnRefresh": true,
     "templateScope": "local",
     "className": "",
-    "id": "ui_template_034",
-    "z": "tab_023",
+    "id": "ui_template_036",
+    "z": "tab_025",
     "x": 1010,
     "y": 320,
     "wires": [
@@ -730,13 +758,13 @@
     "initialize": "",
     "finalize": "",
     "libs": [],
-    "id": "function_035",
-    "z": "tab_023",
+    "id": "function_037",
+    "z": "tab_025",
     "x": 830,
     "y": 320,
     "wires": [
       [
-        "ui_template_034"
+        "ui_template_036"
       ]
     ]
   },
@@ -754,13 +782,13 @@
     "authType": "",
     "senderr": false,
     "headers": [],
-    "id": "http request_036",
-    "z": "tab_023",
+    "id": "http request_038",
+    "z": "tab_025",
     "x": 650,
     "y": 320,
     "wires": [
       [
-        "function_035"
+        "function_037"
       ]
     ]
   },
@@ -776,17 +804,17 @@
     "libs": [],
     "wires": [
       [
-        "ui_template_031"
+        "ui_template_033"
       ],
       [
-        "postgresql_033"
+        "postgresql_035"
       ],
       [
-        "http request_036"
+        "http request_038"
       ]
     ],
-    "id": "function_037",
-    "z": "tab_023",
+    "id": "function_039",
+    "z": "tab_025",
     "x": 450,
     "y": 260
   },
@@ -798,13 +826,13 @@
     "split": false,
     "rowsPerMsg": 1,
     "outputs": 1,
-    "id": "postgresql_038",
-    "z": "tab_023",
+    "id": "postgresql_040",
+    "z": "tab_025",
     "x": 290,
     "y": 260,
     "wires": [
       [
-        "function_037"
+        "function_039"
       ]
     ]
   },
@@ -823,18 +851,328 @@
     "topic": "",
     "payload": "",
     "payloadType": "date",
-    "id": "inject_039",
-    "z": "tab_023",
+    "id": "inject_041",
+    "z": "tab_025",
     "x": 120,
     "y": 260,
     "wires": [
       [
-        "postgresql_038"
+        "postgresql_040"
       ]
     ]
   },
   {
-    "id": "tab_040",
+    "type": "comment",
+    "name": "③ E-mail: configurar no dashboard (API /ops/mail-settings, password só em memória e nunca devolvida)",
+    "info": "",
+    "id": "comment_042",
+    "z": "tab_025",
+    "x": 330,
+    "y": 420,
+    "wires": []
+  },
+  {
+    "type": "ui-template",
+    "group": "grp_010",
+    "page": "",
+    "ui": "",
+    "name": "Configuração em uso",
+    "order": 1,
+    "width": 0,
+    "height": 0,
+    "head": "",
+    "format": "<template>\n  <div v-if=\"msg?.payload?.smtp_host !== undefined\">\n    <div><b>Origem:</b> {{ msg.payload.source === 'dashboard' ? 'definida no dashboard (só em memória)' : 'ficheiro .env' }}</div>\n    <div><b>Servidor:</b> {{ msg.payload.smtp_host }}:{{ msg.payload.smtp_port }} (TLS)</div>\n    <div><b>Conta:</b> {{ msg.payload.smtp_user }}</div>\n    <div><b>Password:</b> {{ msg.payload.password_set ? 'definida' : 'por definir' }}</div>\n    <div><b>De:</b> {{ msg.payload.mail_from }}</div>\n    <div><b>Para:</b> {{ msg.payload.mail_to }}</div>\n    <div class=\"hint\">O e-mail é enviado pelo Pentaho no fim de cada execução (resumo) ou em caso de falha (alerta).</div>\n  </div>\n  <div v-else class=\"hint\">A carregar…</div>\n</template>\n<style scoped>.hint { color: #64748b; font-size: 12px; margin-top: 6px; }</style>",
+    "storeOutMessages": true,
+    "passthru": false,
+    "resendOnRefresh": true,
+    "templateScope": "local",
+    "className": "",
+    "id": "ui_template_043",
+    "z": "tab_025",
+    "x": 1010,
+    "y": 480,
+    "wires": [
+      []
+    ]
+  },
+  {
+    "type": "ui-notification",
+    "ui": "ui_base",
+    "position": "top right",
+    "colorDefault": false,
+    "color": "#2563eb",
+    "displayTime": "5",
+    "showCountdown": true,
+    "outputs": 0,
+    "allowDismiss": true,
+    "dismissText": "Fechar",
+    "allowConfirm": false,
+    "confirmText": "",
+    "raw": false,
+    "className": "",
+    "name": "Notificação",
+    "id": "ui_notification_044",
+    "z": "tab_025",
+    "x": 1010,
+    "y": 540,
+    "wires": []
+  },
+  {
+    "type": "function",
+    "name": "Interpretar resposta",
+    "func": "if (msg.statusCode === 200) {\n    const cfg = msg.payload;\n    const toForm = { payload: { smtp_host: cfg.smtp_host, smtp_port: cfg.smtp_port, smtp_user: cfg.smtp_user,\n                                smtp_password: '', mail_from: cfg.mail_from, mail_to: cfg.mail_to } };\n    const note = msg.method === 'GET' ? null : { payload: msg.method === 'DELETE'\n        ? 'Configuração reposta a partir do .env' : 'Configuração de e-mail guardada. Será usada na próxima execução do ETL.' };\n    return [{ payload: cfg }, toForm, note];\n}\nconst d = msg.payload && msg.payload.detail;\nconst why = Array.isArray(d) ? d.map(e => (e.loc || []).slice(-1)[0] + ': ' + e.msg).join('; ') : JSON.stringify(d || msg.payload);\nreturn [null, null, { payload: 'Configuração rejeitada pela API (HTTP ' + msg.statusCode + '): ' + why }];",
+    "outputs": 3,
+    "timeout": 0,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "wires": [
+      [
+        "ui_template_043"
+      ],
+      [
+        "ui_form_052"
+      ],
+      [
+        "ui_notification_044"
+      ]
+    ],
+    "id": "function_045",
+    "z": "tab_025",
+    "x": 830,
+    "y": 500
+  },
+  {
+    "type": "http request",
+    "name": "/ops/mail-settings",
+    "method": "use",
+    "ret": "obj",
+    "paytoqs": "ignore",
+    "url": "",
+    "tls": "",
+    "persist": false,
+    "proxy": "",
+    "insecureHTTPParser": false,
+    "authType": "",
+    "senderr": false,
+    "headers": [],
+    "id": "http request_046",
+    "z": "tab_025",
+    "x": 650,
+    "y": 500,
+    "wires": [
+      [
+        "function_045"
+      ]
+    ]
+  },
+  {
+    "type": "function",
+    "name": "PUT configuração",
+    "func": "const f = msg.payload || {};\nmsg.method = 'PUT';\nmsg.url = env.get('API_URL') + '/ops/mail-settings';\nmsg.headers = { 'X-API-Key': env.get('OPS_API_TOKEN'), 'Content-Type': 'application/json' };\nmsg.payload = { smtp_host: String(f.smtp_host || '').trim(), smtp_port: Number(f.smtp_port),\n                smtp_user: String(f.smtp_user || '').trim(), smtp_password: f.smtp_password || '',\n                mail_from: String(f.mail_from || '').trim(), mail_to: String(f.mail_to || '').trim() };\nreturn msg;",
+    "outputs": 1,
+    "timeout": 0,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "id": "function_047",
+    "z": "tab_025",
+    "x": 450,
+    "y": 480,
+    "wires": [
+      [
+        "http request_046"
+      ]
+    ]
+  },
+  {
+    "type": "function",
+    "name": "GET configuração",
+    "func": "msg.method = 'GET';\nmsg.url = env.get('API_URL') + '/ops/mail-settings';\nmsg.headers = { 'X-API-Key': env.get('OPS_API_TOKEN'), 'Content-Type': 'application/json' };\ndelete msg.payload;\nreturn msg;",
+    "outputs": 1,
+    "timeout": 0,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "id": "function_048",
+    "z": "tab_025",
+    "x": 450,
+    "y": 540,
+    "wires": [
+      [
+        "http request_046"
+      ]
+    ]
+  },
+  {
+    "type": "function",
+    "name": "DELETE (repor .env)",
+    "func": "msg.method = 'DELETE';\nmsg.url = env.get('API_URL') + '/ops/mail-settings';\nmsg.headers = { 'X-API-Key': env.get('OPS_API_TOKEN'), 'Content-Type': 'application/json' };\ndelete msg.payload;\nreturn msg;",
+    "outputs": 1,
+    "timeout": 0,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "id": "function_049",
+    "z": "tab_025",
+    "x": 450,
+    "y": 600,
+    "wires": [
+      [
+        "http request_046"
+      ]
+    ]
+  },
+  {
+    "type": "inject",
+    "name": "ao arrancar",
+    "props": [
+      {
+        "p": "payload"
+      }
+    ],
+    "repeat": "",
+    "crontab": "",
+    "once": true,
+    "onceDelay": "1",
+    "topic": "",
+    "payload": "",
+    "payloadType": "date",
+    "id": "inject_050",
+    "z": "tab_025",
+    "x": 250,
+    "y": 540,
+    "wires": [
+      [
+        "function_048"
+      ]
+    ]
+  },
+  {
+    "type": "ui-button",
+    "group": "grp_009",
+    "name": "Repor do .env",
+    "label": "Repor valores do .env",
+    "order": 2,
+    "width": 0,
+    "height": 0,
+    "emulateClick": false,
+    "tooltip": "",
+    "color": "",
+    "bgcolor": "",
+    "className": "",
+    "icon": "restore",
+    "iconPosition": "left",
+    "payload": "",
+    "payloadType": "str",
+    "topic": "topic",
+    "topicType": "msg",
+    "buttonColor": "#2563eb",
+    "textColor": "#ffffff",
+    "iconColor": "#ffffff",
+    "enableClick": true,
+    "enablePointerdown": false,
+    "pointerdownPayload": "",
+    "pointerdownPayloadType": "str",
+    "enablePointerup": false,
+    "pointerupPayload": "",
+    "pointerupPayloadType": "str",
+    "id": "ui_button_051",
+    "z": "tab_025",
+    "x": 250,
+    "y": 600,
+    "wires": [
+      [
+        "function_049"
+      ]
+    ]
+  },
+  {
+    "type": "ui-form",
+    "group": "grp_009",
+    "name": "Configuração SMTP",
+    "label": "",
+    "order": 1,
+    "width": 0,
+    "height": 0,
+    "options": [
+      {
+        "label": "Servidor SMTP (ex.: smtp.office365.com)",
+        "key": "smtp_host",
+        "type": "text",
+        "required": true,
+        "rows": null
+      },
+      {
+        "label": "Porta (587 = TLS)",
+        "key": "smtp_port",
+        "type": "number",
+        "required": true,
+        "rows": null
+      },
+      {
+        "label": "Conta (utilizador)",
+        "key": "smtp_user",
+        "type": "email",
+        "required": true,
+        "rows": null
+      },
+      {
+        "label": "Password (vazio = manter a atual)",
+        "key": "smtp_password",
+        "type": "password",
+        "required": false,
+        "rows": null
+      },
+      {
+        "label": "Remetente (no Office 365 = a própria conta)",
+        "key": "mail_from",
+        "type": "email",
+        "required": true,
+        "rows": null
+      },
+      {
+        "label": "Destinatários (separados por vírgula)",
+        "key": "mail_to",
+        "type": "text",
+        "required": true,
+        "rows": null
+      }
+    ],
+    "formValue": {
+      "smtp_host": "",
+      "smtp_port": 587,
+      "smtp_user": "",
+      "smtp_password": "",
+      "mail_from": "",
+      "mail_to": ""
+    },
+    "payload": "",
+    "submit": "Guardar",
+    "cancel": "Limpar",
+    "resetOnSubmit": false,
+    "topic": "topic",
+    "topicType": "msg",
+    "splitLayout": true,
+    "className": "",
+    "passthru": false,
+    "dropdownOptions": [],
+    "id": "ui_form_052",
+    "z": "tab_025",
+    "x": 250,
+    "y": 480,
+    "wires": [
+      [
+        "function_047"
+      ]
+    ]
+  },
+  {
+    "id": "tab_053",
     "type": "tab",
     "label": "2. Eventos e simulação",
     "disabled": false,
@@ -845,15 +1183,15 @@
     "type": "comment",
     "name": "Leitura (utilizador só de leitura sentinel_ro)",
     "info": "",
-    "id": "comment_041",
-    "z": "tab_040",
+    "id": "comment_054",
+    "z": "tab_053",
     "x": 200,
     "y": 40,
     "wires": []
   },
   {
     "type": "ui-template",
-    "group": "grp_009",
+    "group": "grp_011",
     "page": "",
     "ui": "",
     "name": "KPIs fontes",
@@ -867,8 +1205,8 @@
     "resendOnRefresh": true,
     "templateScope": "local",
     "className": "",
-    "id": "ui_template_042",
-    "z": "tab_040",
+    "id": "ui_template_055",
+    "z": "tab_053",
     "x": 760,
     "y": 100,
     "wires": [
@@ -885,13 +1223,13 @@
     "initialize": "",
     "finalize": "",
     "libs": [],
-    "id": "function_043",
-    "z": "tab_040",
+    "id": "function_056",
+    "z": "tab_053",
     "x": 590,
     "y": 100,
     "wires": [
       [
-        "ui_template_042"
+        "ui_template_055"
       ]
     ]
   },
@@ -903,19 +1241,19 @@
     "split": false,
     "rowsPerMsg": 1,
     "outputs": 1,
-    "id": "postgresql_044",
-    "z": "tab_040",
+    "id": "postgresql_057",
+    "z": "tab_053",
     "x": 410,
     "y": 100,
     "wires": [
       [
-        "function_043"
+        "function_056"
       ]
     ]
   },
   {
     "type": "ui-table",
-    "group": "grp_010",
+    "group": "grp_012",
     "name": "Eventos",
     "label": "Eventos",
     "order": 1,
@@ -932,8 +1270,8 @@
     "mobileBreakpointType": "defaults",
     "action": "replace",
     "className": "",
-    "id": "ui_table_045",
-    "z": "tab_040",
+    "id": "ui_table_058",
+    "z": "tab_053",
     "x": 590,
     "y": 160,
     "wires": [
@@ -948,19 +1286,19 @@
     "split": false,
     "rowsPerMsg": 1,
     "outputs": 1,
-    "id": "postgresql_046",
-    "z": "tab_040",
+    "id": "postgresql_059",
+    "z": "tab_053",
     "x": 410,
     "y": 160,
     "wires": [
       [
-        "ui_table_045"
+        "ui_table_058"
       ]
     ]
   },
   {
     "type": "ui-chart",
-    "group": "grp_012",
+    "group": "grp_014",
     "name": "Eventos por hora do dia",
     "label": "Eventos por hora do dia",
     "order": 1,
@@ -1012,8 +1350,8 @@
     "height": 7,
     "className": "",
     "interpolation": "linear",
-    "id": "ui_chart_047",
-    "z": "tab_040",
+    "id": "ui_chart_060",
+    "z": "tab_053",
     "x": 590,
     "y": 220,
     "wires": [
@@ -1028,13 +1366,13 @@
     "split": false,
     "rowsPerMsg": 1,
     "outputs": 1,
-    "id": "postgresql_048",
-    "z": "tab_040",
+    "id": "postgresql_061",
+    "z": "tab_053",
     "x": 410,
     "y": 220,
     "wires": [
       [
-        "ui_chart_047"
+        "ui_chart_060"
       ]
     ]
   },
@@ -1053,15 +1391,15 @@
     "topic": "",
     "payload": "",
     "payloadType": "date",
-    "id": "inject_049",
-    "z": "tab_040",
+    "id": "inject_062",
+    "z": "tab_053",
     "x": 120,
     "y": 160,
     "wires": [
       [
-        "postgresql_044",
-        "postgresql_046",
-        "postgresql_048"
+        "postgresql_057",
+        "postgresql_059",
+        "postgresql_061"
       ]
     ]
   },
@@ -1069,8 +1407,8 @@
     "type": "comment",
     "name": "Simular evento → POST /gateway/sensors/events (fila; processado no próximo ETL)",
     "info": "",
-    "id": "comment_050",
-    "z": "tab_040",
+    "id": "comment_063",
+    "z": "tab_053",
     "x": 270,
     "y": 300,
     "wires": []
@@ -1091,8 +1429,8 @@
     "raw": false,
     "className": "",
     "name": "Notificação",
-    "id": "ui_notification_051",
-    "z": "tab_040",
+    "id": "ui_notification_064",
+    "z": "tab_053",
     "x": 950,
     "y": 360,
     "wires": []
@@ -1107,13 +1445,13 @@
     "initialize": "",
     "finalize": "",
     "libs": [],
-    "id": "function_052",
-    "z": "tab_040",
+    "id": "function_065",
+    "z": "tab_053",
     "x": 770,
     "y": 360,
     "wires": [
       [
-        "ui_notification_051"
+        "ui_notification_064"
       ]
     ]
   },
@@ -1131,13 +1469,13 @@
     "authType": "",
     "senderr": false,
     "headers": [],
-    "id": "http request_053",
-    "z": "tab_040",
+    "id": "http request_066",
+    "z": "tab_053",
     "x": 560,
     "y": 360,
     "wires": [
       [
-        "function_052"
+        "function_065"
       ]
     ]
   },
@@ -1151,19 +1489,19 @@
     "initialize": "",
     "finalize": "",
     "libs": [],
-    "id": "function_054",
-    "z": "tab_040",
+    "id": "function_067",
+    "z": "tab_053",
     "x": 370,
     "y": 360,
     "wires": [
       [
-        "http request_053"
+        "http request_066"
       ]
     ]
   },
   {
     "type": "ui-form",
-    "group": "grp_011",
+    "group": "grp_013",
     "name": "Formulário",
     "label": "",
     "order": 1,
@@ -1199,18 +1537,18 @@
     "className": "",
     "passthru": false,
     "dropdownOptions": [],
-    "id": "ui_form_055",
-    "z": "tab_040",
+    "id": "ui_form_068",
+    "z": "tab_053",
     "x": 190,
     "y": 360,
     "wires": [
       [
-        "function_054"
+        "function_067"
       ]
     ]
   },
   {
-    "id": "tab_056",
+    "id": "tab_069",
     "type": "tab",
     "label": "3. Incidentes",
     "disabled": false,
@@ -1221,15 +1559,15 @@
     "type": "comment",
     "name": "Selecionar um incidente → detalhe e evidências (rastreabilidade)",
     "info": "",
-    "id": "comment_057",
-    "z": "tab_056",
+    "id": "comment_070",
+    "z": "tab_069",
     "x": 240,
     "y": 40,
     "wires": []
   },
   {
     "type": "ui-template",
-    "group": "grp_014",
+    "group": "grp_016",
     "page": "",
     "ui": "",
     "name": "Detalhe do caso",
@@ -1243,8 +1581,8 @@
     "resendOnRefresh": true,
     "templateScope": "local",
     "className": "",
-    "id": "ui_template_058",
-    "z": "tab_056",
+    "id": "ui_template_071",
+    "z": "tab_069",
     "x": 1010,
     "y": 220,
     "wires": [
@@ -1259,13 +1597,13 @@
     "split": false,
     "rowsPerMsg": 1,
     "outputs": 1,
-    "id": "postgresql_059",
-    "z": "tab_056",
+    "id": "postgresql_072",
+    "z": "tab_069",
     "x": 830,
     "y": 220,
     "wires": [
       [
-        "function_060"
+        "function_073"
       ]
     ]
   },
@@ -1279,19 +1617,19 @@
     "initialize": "",
     "finalize": "",
     "libs": [],
-    "id": "function_060",
-    "z": "tab_056",
+    "id": "function_073",
+    "z": "tab_069",
     "x": 920,
     "y": 260,
     "wires": [
       [
-        "ui_template_058"
+        "ui_template_071"
       ]
     ]
   },
   {
     "type": "ui-table",
-    "group": "grp_015",
+    "group": "grp_017",
     "name": "Eventos do caso",
     "label": "Eventos do caso",
     "order": 1,
@@ -1308,8 +1646,8 @@
     "mobileBreakpointType": "defaults",
     "action": "replace",
     "className": "",
-    "id": "ui_table_061",
-    "z": "tab_056",
+    "id": "ui_table_074",
+    "z": "tab_069",
     "x": 1010,
     "y": 300,
     "wires": [
@@ -1324,13 +1662,13 @@
     "split": false,
     "rowsPerMsg": 1,
     "outputs": 1,
-    "id": "postgresql_062",
-    "z": "tab_056",
+    "id": "postgresql_075",
+    "z": "tab_069",
     "x": 830,
     "y": 300,
     "wires": [
       [
-        "ui_table_061"
+        "ui_table_074"
       ]
     ]
   },
@@ -1344,20 +1682,20 @@
     "initialize": "",
     "finalize": "",
     "libs": [],
-    "id": "function_063",
-    "z": "tab_056",
+    "id": "function_076",
+    "z": "tab_069",
     "x": 650,
     "y": 260,
     "wires": [
       [
-        "postgresql_059",
-        "postgresql_062"
+        "postgresql_072",
+        "postgresql_075"
       ]
     ]
   },
   {
     "type": "ui-table",
-    "group": "grp_013",
+    "group": "grp_015",
     "name": "Incidentes",
     "label": "Incidentes",
     "order": 1,
@@ -1374,13 +1712,13 @@
     "mobileBreakpointType": "defaults",
     "action": "replace",
     "className": "",
-    "id": "ui_table_064",
-    "z": "tab_056",
+    "id": "ui_table_077",
+    "z": "tab_069",
     "x": 470,
     "y": 160,
     "wires": [
       [
-        "function_063"
+        "function_076"
       ]
     ]
   },
@@ -1392,13 +1730,13 @@
     "split": false,
     "rowsPerMsg": 1,
     "outputs": 1,
-    "id": "postgresql_065",
-    "z": "tab_056",
+    "id": "postgresql_078",
+    "z": "tab_069",
     "x": 290,
     "y": 160,
     "wires": [
       [
-        "ui_table_064"
+        "ui_table_077"
       ]
     ]
   },
@@ -1417,18 +1755,18 @@
     "topic": "",
     "payload": "",
     "payloadType": "date",
-    "id": "inject_066",
-    "z": "tab_056",
+    "id": "inject_079",
+    "z": "tab_069",
     "x": 120,
     "y": 160,
     "wires": [
       [
-        "postgresql_065"
+        "postgresql_078"
       ]
     ]
   },
   {
-    "id": "tab_067",
+    "id": "tab_080",
     "type": "tab",
     "label": "4. Estatísticas",
     "disabled": false,
@@ -1437,7 +1775,7 @@
   },
   {
     "type": "ui-template",
-    "group": "grp_016",
+    "group": "grp_018",
     "page": "",
     "ui": "",
     "name": "KPIs",
@@ -1451,8 +1789,8 @@
     "resendOnRefresh": true,
     "templateScope": "local",
     "className": "",
-    "id": "ui_template_068",
-    "z": "tab_067",
+    "id": "ui_template_081",
+    "z": "tab_080",
     "x": 760,
     "y": 80,
     "wires": [
@@ -1469,13 +1807,13 @@
     "initialize": "",
     "finalize": "",
     "libs": [],
-    "id": "function_069",
-    "z": "tab_067",
+    "id": "function_082",
+    "z": "tab_080",
     "x": 590,
     "y": 80,
     "wires": [
       [
-        "ui_template_068"
+        "ui_template_081"
       ]
     ]
   },
@@ -1487,19 +1825,19 @@
     "split": false,
     "rowsPerMsg": 1,
     "outputs": 1,
-    "id": "postgresql_070",
-    "z": "tab_067",
+    "id": "postgresql_083",
+    "z": "tab_080",
     "x": 410,
     "y": 80,
     "wires": [
       [
-        "function_069"
+        "function_082"
       ]
     ]
   },
   {
     "type": "ui-chart",
-    "group": "grp_017",
+    "group": "grp_019",
     "name": "Incidentes por nível de risco",
     "label": "Incidentes por nível de risco",
     "order": 1,
@@ -1551,8 +1889,8 @@
     "height": 7,
     "className": "",
     "interpolation": "linear",
-    "id": "ui_chart_071",
-    "z": "tab_067",
+    "id": "ui_chart_084",
+    "z": "tab_080",
     "x": 590,
     "y": 140,
     "wires": [
@@ -1567,19 +1905,19 @@
     "split": false,
     "rowsPerMsg": 1,
     "outputs": 1,
-    "id": "postgresql_072",
-    "z": "tab_067",
+    "id": "postgresql_085",
+    "z": "tab_080",
     "x": 410,
     "y": 140,
     "wires": [
       [
-        "ui_chart_071"
+        "ui_chart_084"
       ]
     ]
   },
   {
     "type": "ui-chart",
-    "group": "grp_018",
+    "group": "grp_020",
     "name": "Incidentes por zona",
     "label": "Incidentes por zona",
     "order": 1,
@@ -1631,8 +1969,8 @@
     "height": 7,
     "className": "",
     "interpolation": "linear",
-    "id": "ui_chart_073",
-    "z": "tab_067",
+    "id": "ui_chart_086",
+    "z": "tab_080",
     "x": 590,
     "y": 200,
     "wires": [
@@ -1647,19 +1985,19 @@
     "split": false,
     "rowsPerMsg": 1,
     "outputs": 1,
-    "id": "postgresql_074",
-    "z": "tab_067",
+    "id": "postgresql_087",
+    "z": "tab_080",
     "x": 410,
     "y": 200,
     "wires": [
       [
-        "ui_chart_073"
+        "ui_chart_086"
       ]
     ]
   },
   {
     "type": "ui-table",
-    "group": "grp_019",
+    "group": "grp_021",
     "name": "Métricas",
     "label": "Métricas",
     "order": 1,
@@ -1676,8 +2014,8 @@
     "mobileBreakpointType": "defaults",
     "action": "replace",
     "className": "",
-    "id": "ui_table_075",
-    "z": "tab_067",
+    "id": "ui_table_088",
+    "z": "tab_080",
     "x": 590,
     "y": 260,
     "wires": [
@@ -1692,13 +2030,13 @@
     "split": false,
     "rowsPerMsg": 1,
     "outputs": 1,
-    "id": "postgresql_076",
-    "z": "tab_067",
+    "id": "postgresql_089",
+    "z": "tab_080",
     "x": 410,
     "y": 260,
     "wires": [
       [
-        "ui_table_075"
+        "ui_table_088"
       ]
     ]
   },
@@ -1717,21 +2055,21 @@
     "topic": "",
     "payload": "",
     "payloadType": "date",
-    "id": "inject_077",
-    "z": "tab_067",
+    "id": "inject_090",
+    "z": "tab_080",
     "x": 120,
     "y": 170,
     "wires": [
       [
-        "postgresql_070",
-        "postgresql_072",
-        "postgresql_074",
-        "postgresql_076"
+        "postgresql_083",
+        "postgresql_085",
+        "postgresql_087",
+        "postgresql_089"
       ]
     ]
   },
   {
-    "id": "tab_078",
+    "id": "tab_091",
     "type": "tab",
     "label": "5. Logs e erros",
     "disabled": false,
@@ -1740,7 +2078,7 @@
   },
   {
     "type": "ui-table",
-    "group": "grp_020",
+    "group": "grp_022",
     "name": "Execuções",
     "label": "Execuções",
     "order": 1,
@@ -1757,8 +2095,8 @@
     "mobileBreakpointType": "defaults",
     "action": "replace",
     "className": "",
-    "id": "ui_table_079",
-    "z": "tab_078",
+    "id": "ui_table_092",
+    "z": "tab_091",
     "x": 590,
     "y": 80,
     "wires": [
@@ -1773,19 +2111,19 @@
     "split": false,
     "rowsPerMsg": 1,
     "outputs": 1,
-    "id": "postgresql_080",
-    "z": "tab_078",
+    "id": "postgresql_093",
+    "z": "tab_091",
     "x": 410,
     "y": 80,
     "wires": [
       [
-        "ui_table_079"
+        "ui_table_092"
       ]
     ]
   },
   {
     "type": "ui-table",
-    "group": "grp_021",
+    "group": "grp_023",
     "name": "Erros",
     "label": "Erros",
     "order": 1,
@@ -1802,8 +2140,8 @@
     "mobileBreakpointType": "defaults",
     "action": "replace",
     "className": "",
-    "id": "ui_table_081",
-    "z": "tab_078",
+    "id": "ui_table_094",
+    "z": "tab_091",
     "x": 590,
     "y": 140,
     "wires": [
@@ -1818,19 +2156,19 @@
     "split": false,
     "rowsPerMsg": 1,
     "outputs": 1,
-    "id": "postgresql_082",
-    "z": "tab_078",
+    "id": "postgresql_095",
+    "z": "tab_091",
     "x": 410,
     "y": 140,
     "wires": [
       [
-        "ui_table_081"
+        "ui_table_094"
       ]
     ]
   },
   {
     "type": "ui-table",
-    "group": "grp_022",
+    "group": "grp_024",
     "name": "Rejeições",
     "label": "Rejeições",
     "order": 1,
@@ -1847,8 +2185,8 @@
     "mobileBreakpointType": "defaults",
     "action": "replace",
     "className": "",
-    "id": "ui_table_083",
-    "z": "tab_078",
+    "id": "ui_table_096",
+    "z": "tab_091",
     "x": 590,
     "y": 200,
     "wires": [
@@ -1863,13 +2201,13 @@
     "split": false,
     "rowsPerMsg": 1,
     "outputs": 1,
-    "id": "postgresql_084",
-    "z": "tab_078",
+    "id": "postgresql_097",
+    "z": "tab_091",
     "x": 410,
     "y": 200,
     "wires": [
       [
-        "ui_table_083"
+        "ui_table_096"
       ]
     ]
   },
@@ -1888,15 +2226,15 @@
     "topic": "",
     "payload": "",
     "payloadType": "date",
-    "id": "inject_085",
-    "z": "tab_078",
+    "id": "inject_098",
+    "z": "tab_091",
     "x": 120,
     "y": 140,
     "wires": [
       [
-        "postgresql_080",
-        "postgresql_082",
-        "postgresql_084"
+        "postgresql_093",
+        "postgresql_095",
+        "postgresql_097"
       ]
     ]
   }
