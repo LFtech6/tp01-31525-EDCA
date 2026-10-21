@@ -186,5 +186,6 @@ FTP, anonimização, MQTT, Isolation Forest.
 | 2026-10-16 | API `/ops` separada de `/ai` (mesma app, routers distintos) | Separação controlo vs inferência; sem shell; autenticação por token |
 | 2026-10-16 | `num_ctx` 8192 → 4096 | ~1.7 GB RAM livre medida; KV cache de 8K ≈ 1.2 GB |
 | 2026-10-16 | E-mail/FTP/anonimização passam a opcionais | Não obrigatórios; foco nas 3 fases + YAML |
-| 2026-10-20 | E-mail integrado (entrada *Mail* do Job + Mailpit local com autenticação) | Seguir à letra a Fase 3 do enunciado ("envio automático de relatórios, resumos ou alertas de erro por e-mail"); falha de SMTP não invalida a execução |
+| 2026-10-20 | E-mail integrado (entrada *Mail* do Job, SMTP autenticado) | Seguir à letra a Fase 3 do enunciado ("envio automático de relatórios, resumos ou alertas de erro por e-mail"); falha de SMTP não invalida a execução |
+| 2026-10-21 | SMTP real com TLS (587), como no exemplo da aula 06; servidor local de testes removido | Sem instalar ferramentas de terceiros; segue o padrão dado nas aulas |
 | 2026-10-18 | YAML em formato multi-documento (`---` por registo) | Testado: o *YAML Input* do PDI 10.2 devolve uma lista de mapas como uma única coluna `Value`; com multi-documento separa os campos |

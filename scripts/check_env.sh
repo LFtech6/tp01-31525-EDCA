@@ -71,10 +71,11 @@ curl -fsS "http://${API_HOST:-127.0.0.1}:${API_PORT:-8000}/health" >/dev/null 2>
   && pass "API /health responde" || warn "API ainda não está a correr"
 
 echo "== SMTP (notificações)"
-command -v mailpit >/dev/null && pass "mailpit $(mailpit version 2>/dev/null | awk '{print $2}' | head -1)" || warn "mailpit não instalado (brew install mailpit)"
-nc -z "${SMTP_HOST:-127.0.0.1}" "${SMTP_PORT:-1025}" >/dev/null 2>&1 \
-  && pass "Servidor SMTP em ${SMTP_HOST:-127.0.0.1}:${SMTP_PORT:-1025}" \
-  || warn "SMTP parado (./scripts/run_mailpit.sh): o Job corre, mas a etapa NOTIFY fica FAILED"
+nc -z -G 5 "${SMTP_HOST:-smtp.office365.com}" "${SMTP_PORT:-587}" >/dev/null 2>&1 \
+  && pass "Servidor SMTP acessível em ${SMTP_HOST:-smtp.office365.com}:${SMTP_PORT:-587}" \
+  || warn "Servidor SMTP inacessível: o Job corre, mas a etapa NOTIFY fica FAILED"
+[ "${SMTP_USER:-change_me}" != "change_me" ] && [ "${SMTP_PASSWORD:-change_me}" != "change_me" ] \
+  && pass "Credenciais SMTP definidas no .env" || warn "SMTP_USER/SMTP_PASSWORD por preencher no .env"
 
 echo
 echo "Resumo: $fails falha(s), $warns aviso(s)."

@@ -683,7 +683,7 @@ INSERT INTO etl_run_stage (run_id, stage, status) VALUES ('${RUN_ID}', 'NOTIFY',
       <zip_files>N</zip_files>
       <zip_name/>
       <use_auth>Y</use_auth>
-      <use_secure_auth>N</use_secure_auth>
+      <use_secure_auth>Y</use_secure_auth>
       <auth_user>${SMTP_USER}</auth_user>
       <auth_password>${SMTP_PASSWORD}</auth_password>
       <only_comment>Y</only_comment>
@@ -693,7 +693,7 @@ INSERT INTO etl_run_stage (run_id, stage, status) VALUES ('${RUN_ID}', 'NOTIFY',
       <priority>normal</priority>
       <importance>normal</importance>
       <sensitivity>normal</sensitivity>
-      <secureconnectiontype>SSL</secureconnectiontype>
+      <secureconnectiontype>TLS</secureconnectiontype>
       <replyToAddresses/>
       <embeddedimages>
       </embeddedimages>
@@ -867,7 +867,7 @@ UPDATE etl_run SET status = 'FAILED', finished_at = now(), exit_code = 1, error_
       <zip_files>N</zip_files>
       <zip_name/>
       <use_auth>Y</use_auth>
-      <use_secure_auth>N</use_secure_auth>
+      <use_secure_auth>Y</use_secure_auth>
       <auth_user>${SMTP_USER}</auth_user>
       <auth_password>${SMTP_PASSWORD}</auth_password>
       <only_comment>Y</only_comment>
@@ -877,7 +877,7 @@ UPDATE etl_run SET status = 'FAILED', finished_at = now(), exit_code = 1, error_
       <priority>normal</priority>
       <importance>normal</importance>
       <sensitivity>normal</sensitivity>
-      <secureconnectiontype>SSL</secureconnectiontype>
+      <secureconnectiontype>TLS</secureconnectiontype>
       <replyToAddresses/>
       <embeddedimages>
       </embeddedimages>

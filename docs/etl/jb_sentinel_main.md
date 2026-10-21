@@ -59,14 +59,23 @@ Decisões:
 - A notificação faz-se **depois** da persistência e exportação. Se o envio falhar (por exemplo, SMTP indisponível), a etapa `NOTIFY` fica FAILED com o motivo, mas a execução termina SUCCEEDED: os dados já estão corretos e o e-mail não deve invalidá-los.
 - No ramo de erro, o alerta é enviado na medida do possível: o *Abort* acontece sempre e o exit code continua ≠ 0.
 - Servidor, credenciais e endereços vêm do `.env` (→ `kettle.properties`). O `.kjb` só contém `${SMTP_PASSWORD}`.
-- Em desenvolvimento usa-se o **Mailpit** (`scripts/run_mailpit.sh`). É um servidor SMTP local que escuta apenas em 127.0.0.1 e **exige autenticação** (530 sem credenciais, 535 com password errada). Guarda os e-mails numa caixa de entrada web em `http://127.0.0.1:8025`, sem os enviar para fora. Não foi testado com um servidor SMTP externo. Um servidor com TLS exige ativar a autenticação segura (*Use secure authentication*) na entrada Mail, além de mudar `SMTP_HOST`/`SMTP_PORT`/credenciais no `.env`.
+- A configuração segue o exemplo da aula 06 (`EmailPrevisão.kjb`). Uma transformação põe o corpo HTML numa variável (*Set variables*) e a entrada **Mail** usa-a como mensagem (`only_comment`, HTML, UTF-8). O envio é feito por um **servidor SMTP real** com autenticação segura **TLS** na porta 587 (por omissão `smtp.office365.com`, a conta institucional). Diferença em relação ao exemplo: aqui as variáveis têm âmbito `ROOT_JOB` em vez de `JVM`, para não ficarem visíveis a outros Jobs na mesma JVM.
+- A conta (utilizador/password) é preenchida apenas no `.env`. No Office 365 o remetente tem de ser a própria conta.
 
 Limitação conhecida: se a própria BD estiver indisponível, `Build alert` não consegue compor a mensagem. O alerta é enviado na mesma, mas com o corpo por compor (`${MAIL_BODY}`); a causa fica no log do Kitchen.
 
-### Resultado verificado (2026-10-20)
+### Resultado verificado
+2026-10-21, servidor real `smtp.office365.com:587`:
+| Caso | Resultado |
+|---|---|
+| Ligação ao servidor | STARTTLS anunciado; após TLS, o servidor aceita `AUTH LOGIN` |
+| Execução com credenciais por preencher (`run-20261021-094000-b001`) | exit 0; execução SUCCEEDED; `NOTIFY` FAILED com `AuthenticationFailedException: 535 5.7.3` (o TLS funcionou e o servidor recusou as credenciais `change_me`) |
+| Execução com a conta real | por executar pelo estudante (credenciais só no `.env`) |
+
+2026-10-20, versão anterior com servidor SMTP local de testes (entretanto removido). Valida a lógica do Job, que é independente do servidor:
 | Caso | Resultado |
 |---|---|
 | Execução normal (`run-20261020-120000-a001`) | exit 0; `NOTIFY` SUCCEEDED; e-mail "Resumo da execução …: 13 incidentes (8 de risco alto/crítico)" recebido com `incidents.csv` (10 363 B) e `metrics.csv` |
-| Mailpit parado (`run-20261020-120500-a002`) | exit 0; execução SUCCEEDED; `NOTIFY` FAILED ("servidor SMTP indisponível…"); `MailConnectException: Connection refused` no log |
+| Servidor SMTP parado (`run-20261020-120500-a002`) | exit 0; execução SUCCEEDED; `NOTIFY` FAILED ("servidor SMTP indisponível…"); `MailConnectException: Connection refused` no log |
 | Falha forçada na exportação (ficheiros só de leitura, `run-20261020-121000-a003`) | exit 1; execução FAILED; `EXPORT` FAILED; e-mail "ALERTA: a execução … falhou" recebido com a etapa e o log |
 | Pelo dashboard (`/ops`, `run-20261020-115947-9ed2`) | 7 etapas SUCCEEDED, incluindo `NOTIFY`; e-mail com 2 anexos |

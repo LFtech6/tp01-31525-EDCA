@@ -15,7 +15,6 @@ gen() { openssl rand -base64 33 | tr -d '/+=\n' | cut -c1-32; }
 sed -e "s|^PG_PASSWORD=.*|PG_PASSWORD=$(gen)|" \
     -e "s|^PG_RO_PASSWORD=.*|PG_RO_PASSWORD=$(gen)|" \
     -e "s|^OPS_API_TOKEN=.*|OPS_API_TOKEN=$(gen)|" \
-    -e "s|^SMTP_PASSWORD=.*|SMTP_PASSWORD=$(gen)|" \
     "$ROOT/.env.example" > "$ENV_FILE"
 chmod 600 "$ENV_FILE"
 echo ".env criado com segredos aleatórios (permissões 600)."

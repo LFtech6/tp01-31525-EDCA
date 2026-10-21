@@ -42,5 +42,3 @@ node-red/.flows*.json.backup
 node-red/lib/
 node-red/context/
 
-# Mailpit (SMTP local): credenciais geradas a partir do .env e caixa de correio
-.mailpit/
