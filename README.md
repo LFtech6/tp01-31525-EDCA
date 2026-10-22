@@ -6,8 +6,8 @@ Trabalho Prático I de **Integração de Sistemas de Informação**: Licenciatur
 |---|---|
 | **Autor** | Rodrigo Lopes Ferreira, n.º **31525** (trabalho individual) |
 | **Docentes** | Luís Ferreira, Óscar Ribeiro |
-| **Vídeo com a demonstração** | {{VIDEO_URL}} |
-| **Repositório Git** | {{REPO_URL}} |
+| **Vídeo com a demonstração** | [Pasta OneDrive com o vídeo](https://alunosipca-my.sharepoint.com/:f:/g/personal/a31525_alunos_ipca_pt/IgDRnBKMuRQfSK5Lao6vEFNJASP6Lu-HhiXyhru9kGlxkms?e=yAm83U) |
+| **Repositório Git** | repositório Git local (histórico de commits em src/31525.bundle) |
 | **Relatório** | `doc/31525_doc.pdf` (na entrega) / `docs/report/31525_doc.pdf` (no repositório) |
 
 ## O que é
@@ -49,7 +49,7 @@ Organização do ZIP `31525.zip`, segundo as instruções de entrega:
 | `data/output/database/sentinel_dump.sql` | Exportação da base de dados PostgreSQL (estrutura + dados) após a última execução |
 | `src/` | **Projeto completo e executável** (é daqui que se executa; ver abaixo) |
 
-As pastas `dataintegration/` e `data/` são **cópias para consulta**. Os caminhos usados na execução são os de `src/`, que é igual ao repositório Git.
+As pastas `dataintegration/` e `data/` são **cópias para consulta**. Os caminhos usados na execução são os de `src/`, que é igual ao repositório Git. O histórico de commits vem em `src/31525.bundle` (`git clone 31525.bundle sentinel` recupera o repositório completo).
 
 Estrutura de `src/` (= repositório):
 

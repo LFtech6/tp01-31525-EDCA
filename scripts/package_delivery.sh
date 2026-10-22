@@ -20,6 +20,8 @@ rm -rf "$PKG" "$DIST/$NUM.zip"; mkdir -p "$PKG/src" "$PKG/doc" "$PKG/dataintegra
 # src/: projeto completo tal como está no repositório
 git archive HEAD | tar -x -C "$PKG/src"
 find "$PKG/src" -name .gitkeep -delete
+# Histórico Git completo (git clone 31525.bundle); o bundle é comprimido, por isso os segredos são procurados no histórico
+git bundle create "$PKG/src/$NUM.bundle" --all 2>/dev/null
 
 # README com os campos preenchidos (raiz do pacote e src/)
 fill() {
@@ -54,6 +56,7 @@ fail=0
 for key in $(grep -E '^[A-Z_]*(PASSWORD|TOKEN)[A-Z_]*=' "$ROOT/.env" | cut -d= -f1); do
   val="${!key:-}"; [ -z "$val" ] || [ "$val" = change_me ] && continue
   if grep -rqF -- "$val" "$PKG"; then echo "SEGREDO ENCONTRADO no pacote: $key" >&2; fail=1; fi
+  if git grep -qF -- "$val" $(git rev-list --all); then echo "SEGREDO ENCONTRADO no histórico Git: $key" >&2; fail=1; fi
 done
 [ -e "$PKG/src/.env" ] && { echo ".env no pacote" >&2; fail=1; }
 [ "$fail" -eq 0 ] || { rm -rf "$PKG"; exit 1; }

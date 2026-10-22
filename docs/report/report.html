@@ -264,7 +264,7 @@
 │   └── output/           exports/ · evaluation/ · database/sentinel_dump.sql
 └── src/                  projeto completo e executável (= repositório Git)</pre>
 <p>O ficheiro <code>sentinel_dump.sql</code> é a exportação da base de dados (<code>pg_dump</code>), com a estrutura e os dados de todas as tabelas após a última execução. Permite consultar ou recriar a BD sem executar o ETL.</p>
-<p>O pacote é gerado por <code>scripts/package_delivery.sh</code> a partir do último commit (<code>git archive</code>), o que garante que o <code>.env</code>, o <code>kettle-home</code> e as dependências nunca entram. No fim, o script procura no pacote todas as passwords e tokens do <code>.env</code> e falha se encontrar algum.</p>
+<p>O pacote é gerado por <code>scripts/package_delivery.sh</code> a partir do último commit (<code>git archive</code>), o que garante que o <code>.env</code>, o <code>kettle-home</code> e as dependências nunca entram. O histórico Git completo segue em <code>src/31525.bundle</code> (recupera-se com <code>git clone 31525.bundle</code>). No fim, o script procura no pacote e em todo o histórico Git as passwords e tokens do <code>.env</code> e falha se encontrar algum.</p>
 </section>
 
 <!-- ============================================================ 4 -->
@@ -497,7 +497,7 @@
   <li>o e-mail recebido.</li>
 </ul>
 <div class="qr">{{QR_IMG}}</div>
-<p style="text-align:center">Ligação: {{VIDEO_URL}}</p>
+<p style="text-align:center">Ligação: <a href="{{VIDEO_URL}}">{{VIDEO_URL}}</a></p>
 </section>
 
 <!-- ============================================================ 7 -->
