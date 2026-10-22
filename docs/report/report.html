@@ -4,7 +4,9 @@
 <meta charset="utf-8">
 <title>Sentinel-AI (EDCA) — Relatório TP1 ISI</title>
 <style>
-  @page { size: A4; margin: 18mm 16mm 18mm 16mm; }
+  @page { size: A4; margin: 18mm 16mm 18mm 16mm;
+          @bottom-right { content: counter(page); font-size: 9pt; color: #64748b; } }
+  @page :first { @bottom-right { content: none; } }
   :root { --ink: #0f172a; --muted: #475569; --line: #cbd5e1; --accent: #1d4ed8; --soft: #f1f5f9; }
   html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
   body { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 10.5pt; line-height: 1.45; color: var(--ink); background: #fff; margin: 0; }
@@ -29,8 +31,11 @@
   .cover h1 { font-size: 28pt; margin-top: 50mm; }
   .cover .sub { font-size: 14pt; color: var(--muted); margin-bottom: 18mm; }
   .cover table { width: auto; font-size: 11pt; } .cover td { border: none; padding: 2pt 12pt 2pt 0; }
-  .toc ol { list-style: none; margin-left: 0; } .toc li { margin: 4pt 0; font-size: 11pt; }
+  .toc ol { list-style: none; margin: 0; padding: 0; } .toc li { margin: 4pt 0; font-size: 11pt; }
   .toc ol ol { margin-left: 16pt; } .toc ol ol li { font-size: 10pt; margin: 2pt 0; }
+  .toc a { display: flex; color: inherit; text-decoration: none; }
+  .toc a .t { flex: 0 1 auto; } .toc a .d { flex: 1; border-bottom: 1pt dotted var(--muted); margin: 0 4pt 3pt; }
+  .toc a .p { flex: 0 0 auto; }
   .two { display: flex; gap: 10pt; } .two > * { flex: 1; }
   .note { border-left: 3pt solid var(--accent); background: #eff6ff; padding: 5pt 8pt; margin: 6pt 0 10pt; font-size: 9.5pt; }
   .qr { width: 45mm; height: 45mm; border: 1.2pt dashed var(--muted); display: flex; align-items: center; justify-content: center; text-align: center; font-size: 9pt; color: var(--muted); margin: 8pt auto; }
@@ -50,30 +55,18 @@
       <tr><td>Unidade Curricular</td><td><b>Integração de Sistemas de Informação</b></td></tr>
       <tr><td>Trabalho</td><td>Trabalho Prático I — processos ETL</td></tr>
       <tr><td>Autor</td><td><b>{{AUTHOR_NAME}}</b>, n.º <b>31525</b></td></tr>
-      <tr><td>Docentes</td><td>Luís Ferreira, Óscar Ribeiro</td></tr>
+      <tr><td>Docente</td><td>Óscar Ribeiro</td></tr>
       <tr><td>Ano letivo</td><td>2026/27</td></tr>
       <tr><td>Data</td><td>22 de outubro de 2026</td></tr>
     </table>
   </div>
-  <div class="small">Repositório: {{REPO_URL}}</div>
+  <div class="small"><a href="{{REPO_URL}}">Link Repo Github</a></div>
 </section>
 
 <!-- ============================================================ ÍNDICE -->
 <section class="toc">
   <h2>Índice</h2>
-  <ol>
-    <li>1. Enquadramento</li>
-    <li>2. Problema</li>
-    <li>3. Estratégia utilizada
-      <ol><li>3.1 Arquitetura e responsabilidades</li><li>3.2 As três fases ETL</li><li>3.3 Operadores utilizados</li><li>3.4 Dados de teste e avaliação</li><li>3.5 Segurança e configuração</li><li>3.6 Organização do projeto e da entrega</li></ol></li>
-    <li>4. Transformações
-      <ol><li>4.1 tr_load_reference</li><li>4.2 tr_extract_events</li><li>4.3 tr_correlate_rules</li><li>4.4 tr_ai_analysis (+ serviço /ai/analyze)</li><li>4.5 tr_evaluate</li><li>4.6 tr_export_incidents</li><li>4.7 tr_build_notification</li></ol></li>
-    <li>5. Jobs
-      <ol><li>5.1 jb_sentinel_main</li><li>5.2 Registo de execuções e logs</li><li>5.3 Notificação por e-mail</li><li>5.4 Orquestração a partir do dashboard (API /ops + Node-RED)</li></ol></li>
-    <li>6. Vídeo com demonstração (QR Code)</li>
-    <li>7. Conclusão e trabalhos futuros</li>
-    <li>8. Referências</li>
-  </ol>
+  {{TOC}}
 </section>
 
 <!-- ============================================================ 1 -->
