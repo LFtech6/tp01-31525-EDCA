@@ -65,7 +65,7 @@
     <li>1. Enquadramento</li>
     <li>2. Problema</li>
     <li>3. Estratégia utilizada
-      <ol><li>3.1 Arquitetura e responsabilidades</li><li>3.2 As três fases ETL</li><li>3.3 Operadores utilizados</li><li>3.4 Dados de teste e avaliação</li><li>3.5 Segurança e configuração</li></ol></li>
+      <ol><li>3.1 Arquitetura e responsabilidades</li><li>3.2 As três fases ETL</li><li>3.3 Operadores utilizados</li><li>3.4 Dados de teste e avaliação</li><li>3.5 Segurança e configuração</li><li>3.6 Organização do projeto e da entrega</li></ol></li>
     <li>4. Transformações
       <ol><li>4.1 tr_load_reference</li><li>4.2 tr_extract_events</li><li>4.3 tr_correlate_rules</li><li>4.4 tr_ai_analysis (+ serviço /ai/analyze)</li><li>4.5 tr_evaluate</li><li>4.6 tr_export_incidents</li><li>4.7 tr_build_notification</li></ol></li>
     <li>5. Jobs
@@ -216,6 +216,55 @@
   <li><b>Dashboard:</b> lê a base de dados com um utilizador apenas de leitura.</li>
   <li><b>Configuração de e-mail no dashboard:</b> é validada, guardada só em memória e chega ao Kitchen por variáveis de ambiente. A password nunca é devolvida.</li>
 </ul>
+
+<h3>3.6 Organização do projeto e da entrega</h3>
+<p>O projeto está organizado por responsabilidade: cada pasta corresponde a uma peça da arquitetura (Figura 1). O repositório Git e a pasta <code>src/</code> da entrega têm exatamente o mesmo conteúdo.</p>
+<table style="page-break-inside:auto; break-inside:auto">
+  <tr><th style="width:26%">Pasta / ficheiro</th><th>Conteúdo</th><th style="width:22%">Peça</th></tr>
+  <tr><td><code>etl/transformations/</code></td><td>As 7 transformações (<code>tr_load_reference</code>, <code>tr_extract_events</code>, <code>tr_correlate_rules</code>, <code>tr_ai_analysis</code>, <code>tr_evaluate</code>, <code>tr_export_incidents</code>, <code>tr_build_notification</code>)</td><td>Pentaho</td></tr>
+  <tr><td><code>etl/jobs/</code></td><td><code>jb_sentinel_main.kjb</code>, o Job de orquestração</td><td>Pentaho</td></tr>
+  <tr><td><code>etl/sql/</code></td><td>SQL mais extenso usado pelos steps <i>Table input</i>: seleção e payload dos casos para a IA; composição do e-mail</td><td>Pentaho</td></tr>
+  <tr><td><code>etl/kettle-home/</code></td><td><code>KETTLE_HOME</code> local, com o <code>kettle.properties</code> gerado a partir do <code>.env</code>. Não vai para o Git nem para a entrega, porque contém credenciais.</td><td>Pentaho</td></tr>
+  <tr><td><code>data/raw/</code></td><td>Fontes: <code>access_logs.csv</code>, <code>sensor_events.json</code> (servido pela API), <code>users.xml</code>, <code>zones.yaml</code>, <code>devices.yaml</code></td><td>Dados de entrada</td></tr>
+  <tr><td><code>data/test_scenarios/</code></td><td><code>ground_truth.csv</code> (etiqueta por evento) e <code>scenarios.md</code> (catálogo dos 15 cenários)</td><td>Avaliação</td></tr>
+  <tr><td><code>data/generator/</code></td><td><code>generate_events.py</code>: gerador determinístico (semente fixa) dos dados de teste</td><td>Dados de entrada</td></tr>
+  <tr><td><code>data/inbox/</code></td><td>Fila dos eventos simulados no dashboard. É criada quando se usa a simulação e não vai para o Git.</td><td>API (gateway)</td></tr>
+  <tr><td><code>database/</code></td><td><code>00_bootstrap.sql</code> (utilizadores <code>sentinel</code> e <code>sentinel_ro</code> e a BD) e <code>01_schema.sql</code> (16 tabelas; pode ser executado várias vezes)</td><td>PostgreSQL</td></tr>
+  <tr><td><code>ai-engine/app/</code></td><td>Serviço FastAPI:
+    <ul>
+      <li><code>main.py</code>;</li>
+      <li><code>routers/gateway.py</code>, <code>routers/ai.py</code>, <code>routers/ops.py</code>;</li>
+      <li><code>llm.py</code> (prompt e chamada ao Ollama);</li>
+      <li><code>schemas.py</code> (validação);</li>
+      <li><code>security.py</code> (<code>X-API-Key</code>);</li>
+      <li><code>config.py</code> (leitura do <code>.env</code>).</li>
+    </ul></td><td>API / IA</td></tr>
+  <tr><td><code>ai-engine/tests/</code></td><td>34 testes automáticos (pytest), com o Ollama simulado</td><td>API / IA</td></tr>
+  <tr><td><code>node-red/</code></td><td><code>flows.json</code> (os 5 fluxos/páginas), <code>settings.js</code> (só 127.0.0.1), <code>package.json</code> (versões fixas). As dependências (<code>node_modules/</code>) instalam-se com <code>npm</code>.</td><td>Node-RED / Dashboard</td></tr>
+  <tr><td><code>scripts/</code></td><td>Arranque e operação:
+    <ul>
+      <li><code>init_env.sh</code>, <code>check_env.sh</code>;</li>
+      <li><code>db_bootstrap.sh</code>, <code>sql.sh</code>;</li>
+      <li><code>kettle_env.sh</code>, <code>pdi.sh</code> (Spoon/Pan/Kitchen com o <code>KETTLE_HOME</code> do projeto);</li>
+      <li><code>run_pipeline.sh</code>, <code>run_api.sh</code>, <code>run_nodered.sh</code>;</li>
+      <li><code>package_delivery.sh</code>.</li>
+    </ul></td><td>Operação</td></tr>
+  <tr><td><code>results/exports/</code>, <code>results/evaluation/</code></td><td>Saídas do ETL: incidentes (JSON e CSV), métricas e comparação regras vs IA (CSV)</td><td>Dados de saída</td></tr>
+  <tr><td><code>results/logs/</code></td><td>Log completo do Kitchen de cada execução (<code>&lt;RUN_ID&gt;.log</code>; não vai para o Git)</td><td>Logs</td></tr>
+  <tr><td><code>docs/</code></td><td>Arquitetura, documentação de cada transformação e do Job, avaliação, diagramas e este relatório</td><td>Documentação</td></tr>
+  <tr><td><code>.env</code> / <code>.env.example</code></td><td>Definições e segredos (fora do Git) / modelo sem segredos (no Git)</td><td>Configuração</td></tr>
+</table>
+<p><b>Entrega (<code>31525.zip</code>).</b> Segue a organização sugerida pelos docentes. As pastas <code>dataintegration/</code> e <code>data/</code> são cópias, para consulta direta, dos ficheiros que estão em <code>src/</code>. O projeto executa-se a partir de <code>src/</code>, onde os caminhos usados pelos scripts e pelas variáveis do Pentaho (<code>${SENTINEL_DATA}</code>, <code>${SENTINEL_RESULTS}</code>) se mantêm válidos.</p>
+<pre>tp01-31525/
+├── README.md             autor, vídeo, descrição dos ficheiros, como executar
+├── doc/31525_doc.pdf     este relatório
+├── dataintegration/      transformations/ (7 .ktr) · jobs/ (1 .kjb) · sql/ (2 .sql)
+├── data/
+│   ├── input/            CSV, JSON, XML, YAML + test_scenarios/ (ground truth)
+│   └── output/           exports/ · evaluation/ · database/sentinel_dump.sql
+└── src/                  projeto completo e executável (= repositório Git)</pre>
+<p>O ficheiro <code>sentinel_dump.sql</code> é a exportação da base de dados (<code>pg_dump</code>), com a estrutura e os dados de todas as tabelas após a última execução. Permite consultar ou recriar a BD sem executar o ETL.</p>
+<p>O pacote é gerado por <code>scripts/package_delivery.sh</code> a partir do último commit (<code>git archive</code>), o que garante que o <code>.env</code>, o <code>kettle-home</code> e as dependências nunca entram. No fim, o script procura no pacote todas as passwords e tokens do <code>.env</code> e falha se encontrar algum.</p>
 </section>
 
 <!-- ============================================================ 4 -->
