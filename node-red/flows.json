@@ -2025,7 +2025,7 @@
   {
     "type": "postgresql",
     "name": "Métricas da última avaliação",
-    "query": "SELECT CASE approach WHEN 'RULES' THEN 'A — Regras (82 casos)' WHEN 'AI' THEN 'B — IA híbrida (82 casos)'\n            WHEN 'RULES_AI_SUBSET' THEN 'A — Regras (subconjunto IA)' ELSE 'B — IA (subconjunto IA)' END AS \"Abordagem\",\n       n_cases AS \"Casos\", tp AS \"TP\", fp AS \"FP\", tn AS \"TN\", fn AS \"FN\", n_failed AS \"Falhas\",\n       round(precision_val, 3) AS \"Precisão\", round(recall_val, 3) AS \"Recall\", round(f1_val, 3) AS \"F1\",\n       round(avg_latency_ms / 1000.0, 1) AS \"Latência média (s)\"\nFROM evaluation_metric WHERE run_id = (SELECT run_id FROM evaluation_metric ORDER BY computed_at DESC LIMIT 1)\nORDER BY approach;",
+    "query": "SELECT CASE approach WHEN 'RULES' THEN 'A — Regras (82 casos)' WHEN 'AI' THEN 'B — IA híbrida (82 casos)'\n            WHEN 'RULES_AI_SUBSET' THEN 'A — Regras (subconjunto IA)' ELSE 'B — IA (subconjunto IA)' END AS \"Abordagem\",\n       n_cases AS \"Casos\", tp AS \"TP\", fp AS \"FP\", tn AS \"TN\", fn AS \"FN\", n_failed AS \"Falhas\",\n       precision_val AS \"Precisão\", recall_val AS \"Recall\", f1_val AS \"F1\",\n       round(avg_latency_ms / 1000.0, 1) AS \"Latência média (s)\"\nFROM evaluation_metric WHERE run_id = (SELECT run_id FROM evaluation_metric ORDER BY computed_at DESC LIMIT 1)\nORDER BY approach;",
     "postgreSQLConfig": "pg_ro",
     "split": false,
     "rowsPerMsg": 1,

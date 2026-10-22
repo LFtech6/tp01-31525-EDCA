@@ -213,8 +213,8 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>40</xloc>
-      <yloc>140</yloc>
+      <xloc>60</xloc>
+      <yloc>100</yloc>
       <attributes_kjc/>
     </entry>
     <entry>
@@ -233,8 +233,8 @@ INSERT INTO etl_run_stage (run_id, stage, status) VALUES ('${RUN_ID}', 'EXTRACT'
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>190</xloc>
-      <yloc>140</yloc>
+      <xloc>230</xloc>
+      <yloc>100</yloc>
       <attributes_kjc/>
     </entry>
     <entry>
@@ -271,8 +271,8 @@ INSERT INTO etl_run_stage (run_id, stage, status) VALUES ('${RUN_ID}', 'EXTRACT'
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>340</xloc>
-      <yloc>140</yloc>
+      <xloc>400</xloc>
+      <yloc>100</yloc>
       <attributes_kjc/>
     </entry>
     <entry>
@@ -309,8 +309,8 @@ INSERT INTO etl_run_stage (run_id, stage, status) VALUES ('${RUN_ID}', 'EXTRACT'
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>490</xloc>
-      <yloc>140</yloc>
+      <xloc>570</xloc>
+      <yloc>100</yloc>
       <attributes_kjc/>
     </entry>
     <entry>
@@ -329,8 +329,8 @@ INSERT INTO etl_run_stage (run_id, stage, status) VALUES ('${RUN_ID}', 'RULES', 
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>640</xloc>
-      <yloc>140</yloc>
+      <xloc>740</xloc>
+      <yloc>100</yloc>
       <attributes_kjc/>
     </entry>
     <entry>
@@ -367,8 +367,8 @@ INSERT INTO etl_run_stage (run_id, stage, status) VALUES ('${RUN_ID}', 'RULES', 
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>790</xloc>
-      <yloc>140</yloc>
+      <xloc>910</xloc>
+      <yloc>100</yloc>
       <attributes_kjc/>
     </entry>
     <entry>
@@ -387,8 +387,8 @@ INSERT INTO etl_run_stage (run_id, stage, status) VALUES ('${RUN_ID}', 'AI', 'RU
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>940</xloc>
-      <yloc>140</yloc>
+      <xloc>1080</xloc>
+      <yloc>100</yloc>
       <attributes_kjc/>
     </entry>
     <entry>
@@ -402,8 +402,8 @@ INSERT INTO etl_run_stage (run_id, stage, status) VALUES ('${RUN_ID}', 'AI', 'RU
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>1090</xloc>
-      <yloc>140</yloc>
+      <xloc>1250</xloc>
+      <yloc>100</yloc>
       <attributes_kjc/>
     </entry>
     <entry>
@@ -440,8 +440,8 @@ INSERT INTO etl_run_stage (run_id, stage, status) VALUES ('${RUN_ID}', 'AI', 'RU
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>1240</xloc>
-      <yloc>140</yloc>
+      <xloc>1250</xloc>
+      <yloc>230</yloc>
       <attributes_kjc/>
     </entry>
     <entry>
@@ -459,8 +459,8 @@ INSERT INTO etl_run_stage (run_id, stage, status) VALUES ('${RUN_ID}', 'EVALUATE
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>1390</xloc>
-      <yloc>140</yloc>
+      <xloc>1080</xloc>
+      <yloc>230</yloc>
       <attributes_kjc/>
     </entry>
     <entry>
@@ -478,8 +478,8 @@ INSERT INTO etl_run_stage (run_id, stage, status) VALUES ('${RUN_ID}', 'EVALUATE
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>1240</xloc>
-      <yloc>40</yloc>
+      <xloc>1080</xloc>
+      <yloc>320</yloc>
       <attributes_kjc/>
     </entry>
     <entry>
@@ -516,8 +516,8 @@ INSERT INTO etl_run_stage (run_id, stage, status) VALUES ('${RUN_ID}', 'EVALUATE
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>1540</xloc>
-      <yloc>140</yloc>
+      <xloc>910</xloc>
+      <yloc>230</yloc>
       <attributes_kjc/>
     </entry>
     <entry>
@@ -535,8 +535,8 @@ INSERT INTO etl_run_stage (run_id, stage, status) VALUES ('${RUN_ID}', 'EXPORT',
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>1690</xloc>
-      <yloc>140</yloc>
+      <xloc>740</xloc>
+      <yloc>230</yloc>
       <attributes_kjc/>
     </entry>
     <entry>
@@ -573,8 +573,8 @@ INSERT INTO etl_run_stage (run_id, stage, status) VALUES ('${RUN_ID}', 'EXPORT',
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>1840</xloc>
-      <yloc>140</yloc>
+      <xloc>570</xloc>
+      <yloc>230</yloc>
       <attributes_kjc/>
     </entry>
     <entry>
@@ -592,8 +592,8 @@ INSERT INTO etl_run_stage (run_id, stage, status) VALUES ('${RUN_ID}', 'NOTIFY',
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>1990</xloc>
-      <yloc>140</yloc>
+      <xloc>400</xloc>
+      <yloc>230</yloc>
       <attributes_kjc/>
     </entry>
     <entry>
@@ -630,8 +630,8 @@ INSERT INTO etl_run_stage (run_id, stage, status) VALUES ('${RUN_ID}', 'NOTIFY',
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>2140</xloc>
-      <yloc>140</yloc>
+      <xloc>230</xloc>
+      <yloc>230</yloc>
       <attributes_kjc/>
     </entry>
     <entry>
@@ -655,8 +655,8 @@ INSERT INTO etl_run_stage (run_id, stage, status) VALUES ('${RUN_ID}', 'NOTIFY',
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>2290</xloc>
-      <yloc>140</yloc>
+      <xloc>230</xloc>
+      <yloc>400</yloc>
       <attributes_kjc/>
     </entry>
     <entry>
@@ -700,8 +700,8 @@ INSERT INTO etl_run_stage (run_id, stage, status) VALUES ('${RUN_ID}', 'NOTIFY',
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>2440</xloc>
-      <yloc>140</yloc>
+      <xloc>400</xloc>
+      <yloc>400</yloc>
       <attributes_kjc/>
     </entry>
     <entry>
@@ -718,8 +718,8 @@ INSERT INTO etl_run_stage (run_id, stage, status) VALUES ('${RUN_ID}', 'NOTIFY',
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>2590</xloc>
-      <yloc>140</yloc>
+      <xloc>570</xloc>
+      <yloc>400</yloc>
       <attributes_kjc/>
     </entry>
     <entry>
@@ -736,8 +736,8 @@ INSERT INTO etl_run_stage (run_id, stage, status) VALUES ('${RUN_ID}', 'NOTIFY',
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>2440</xloc>
-      <yloc>240</yloc>
+      <xloc>570</xloc>
+      <yloc>490</yloc>
       <attributes_kjc/>
     </entry>
     <entry>
@@ -754,8 +754,8 @@ INSERT INTO etl_run_stage (run_id, stage, status) VALUES ('${RUN_ID}', 'NOTIFY',
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>2740</xloc>
-      <yloc>140</yloc>
+      <xloc>740</xloc>
+      <yloc>400</yloc>
       <attributes_kjc/>
     </entry>
     <entry>
@@ -769,8 +769,8 @@ INSERT INTO etl_run_stage (run_id, stage, status) VALUES ('${RUN_ID}', 'NOTIFY',
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>2890</xloc>
-      <yloc>140</yloc>
+      <xloc>910</xloc>
+      <yloc>400</yloc>
       <attributes_kjc/>
     </entry>
     <entry>
@@ -782,8 +782,8 @@ INSERT INTO etl_run_stage (run_id, stage, status) VALUES ('${RUN_ID}', 'NOTIFY',
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>3040</xloc>
-      <yloc>140</yloc>
+      <xloc>1080</xloc>
+      <yloc>400</yloc>
       <attributes_kjc/>
     </entry>
     <entry>
@@ -801,8 +801,8 @@ UPDATE etl_run SET status = 'FAILED', finished_at = now(), exit_code = 1, error_
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>1240</xloc>
-      <yloc>330</yloc>
+      <xloc>230</xloc>
+      <yloc>620</yloc>
       <attributes_kjc/>
     </entry>
     <entry>
@@ -839,8 +839,8 @@ UPDATE etl_run SET status = 'FAILED', finished_at = now(), exit_code = 1, error_
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>1390</xloc>
-      <yloc>330</yloc>
+      <xloc>400</xloc>
+      <yloc>620</yloc>
       <attributes_kjc/>
     </entry>
     <entry>
@@ -884,8 +884,8 @@ UPDATE etl_run SET status = 'FAILED', finished_at = now(), exit_code = 1, error_
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>1540</xloc>
-      <yloc>330</yloc>
+      <xloc>570</xloc>
+      <yloc>620</yloc>
       <attributes_kjc/>
     </entry>
     <entry>
@@ -903,8 +903,8 @@ UPDATE etl_run_stage SET status = 'SUCCEEDED', finished_at = now(), rows_process
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>1690</xloc>
-      <yloc>330</yloc>
+      <xloc>740</xloc>
+      <yloc>620</yloc>
       <attributes_kjc/>
     </entry>
     <entry>
@@ -916,8 +916,8 @@ UPDATE etl_run_stage SET status = 'SUCCEEDED', finished_at = now(), rows_process
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>1840</xloc>
-      <yloc>330</yloc>
+      <xloc>910</xloc>
+      <yloc>620</yloc>
       <attributes_kjc/>
     </entry>
   </entries>
@@ -1339,31 +1339,10 @@ UPDATE etl_run_stage SET status = 'SUCCEEDED', finished_at = now(), rows_process
   </hops>
   <notepads>
     <notepad>
-      <note>Cada etapa é registada em etl_run_stage (estado consultado pelo dashboard). Se a API de IA estiver indisponível, a etapa AI fica SKIPPED e o processo continua sem perder casos.</note>
-      <xloc>40</xloc>
+      <note>① Extração e transformação (cada etapa registada em etl_run_stage, lida pelo dashboard)</note>
+      <xloc>60</xloc>
       <yloc>30</yloc>
-      <width>900</width>
-      <heigth>40</heigth>
-      <fontname>Helvetica</fontname>
-      <fontsize>11</fontsize>
-      <fontbold>N</fontbold>
-      <fontitalic>N</fontitalic>
-      <fontcolorred>14</fontcolorred>
-      <fontcolorgreen>58</fontcolorgreen>
-      <fontcolorblue>90</fontcolorblue>
-      <backgroundcolorred>201</backgroundcolorred>
-      <backgroundcolorgreen>232</backgroundcolorgreen>
-      <backgroundcolorblue>251</backgroundcolorblue>
-      <bordercolorred>14</bordercolorred>
-      <bordercolorgreen>58</bordercolorgreen>
-      <bordercolorblue>90</bordercolorblue>
-      <drawshadow>Y</drawshadow>
-    </notepad>
-    <notepad>
-      <note>Qualquer falha → etapa e execução marcadas FAILED → alerta por e-mail → Abort (exit code ≠ 0)</note>
-      <xloc>40</xloc>
-      <yloc>330</yloc>
-      <width>560</width>
+      <width>620</width>
       <heigth>30</heigth>
       <fontname>Helvetica</fontname>
       <fontsize>11</fontsize>
@@ -1381,10 +1360,52 @@ UPDATE etl_run_stage SET status = 'SUCCEEDED', finished_at = now(), rows_process
       <drawshadow>Y</drawshadow>
     </notepad>
     <notepad>
-      <note>E-mail de resumo (SMTP autenticado, anexos incidents.csv + metrics.csv). Se o SMTP falhar, NOTIFY fica FAILED mas a execução termina SUCCEEDED.</note>
-      <xloc>1990</xloc>
-      <yloc>310</yloc>
-      <width>620</width>
+      <note>② IA (ou SKIPPED se o serviço estiver indisponível) → avaliação → exportação</note>
+      <xloc>740</xloc>
+      <yloc>300</yloc>
+      <width>520</width>
+      <heigth>30</heigth>
+      <fontname>Helvetica</fontname>
+      <fontsize>11</fontsize>
+      <fontbold>N</fontbold>
+      <fontitalic>N</fontitalic>
+      <fontcolorred>14</fontcolorred>
+      <fontcolorgreen>58</fontcolorgreen>
+      <fontcolorblue>90</fontcolorblue>
+      <backgroundcolorred>201</backgroundcolorred>
+      <backgroundcolorgreen>232</backgroundcolorgreen>
+      <backgroundcolorblue>251</backgroundcolorblue>
+      <bordercolorred>14</bordercolorred>
+      <bordercolorgreen>58</bordercolorgreen>
+      <bordercolorblue>90</bordercolorblue>
+      <drawshadow>Y</drawshadow>
+    </notepad>
+    <notepad>
+      <note>③ Notificação por e-mail (SMTP TLS); falha no e-mail não falha a execução</note>
+      <xloc>740</xloc>
+      <yloc>470</yloc>
+      <width>520</width>
+      <heigth>30</heigth>
+      <fontname>Helvetica</fontname>
+      <fontsize>11</fontsize>
+      <fontbold>N</fontbold>
+      <fontitalic>N</fontitalic>
+      <fontcolorred>14</fontcolorred>
+      <fontcolorgreen>58</fontcolorgreen>
+      <fontcolorblue>90</fontcolorblue>
+      <backgroundcolorred>201</backgroundcolorred>
+      <backgroundcolorgreen>232</backgroundcolorgreen>
+      <backgroundcolorblue>251</backgroundcolorblue>
+      <bordercolorred>14</bordercolorred>
+      <bordercolorgreen>58</bordercolorgreen>
+      <bordercolorblue>90</bordercolorblue>
+      <drawshadow>Y</drawshadow>
+    </notepad>
+    <notepad>
+      <note>④ Qualquer falha → FAILED → alerta por e-mail → Abort (exit code ≠ 0)</note>
+      <xloc>230</xloc>
+      <yloc>700</yloc>
+      <width>520</width>
       <heigth>30</heigth>
       <fontname>Helvetica</fontname>
       <fontsize>11</fontsize>

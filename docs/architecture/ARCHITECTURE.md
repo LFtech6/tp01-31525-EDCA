@@ -8,22 +8,23 @@ Versão 0.2 — 2026-10-16. Documento vivo: cada alteração de arquitetura é r
 
 | Requisito | Como o Sentinel-AI o cumpre | Onde |
 |---|---|---|
-| Fase E: ≥2–3 formatos | CSV (acessos), JSON (sensores), XML (utilizadores), YAML (zonas/dispositivos), texto syslog (autenticação) | `data/raw`, `tr_extract_*` |
-| Fase E: fontes de natureza variada | Ficheiros locais, API REST (gateway de sensores em FastAPI), BD relacional | `tr_extract_sensors_api`, `tr_load_reference` |
-| Fase T: limpeza e validação | Nulos (Filter Rows → `dq_rejection`), duplicados (Unique Rows), Regex | `tr_extract_*` |
+| Fase E: ≥2–3 formatos | CSV (acessos, ground truth), JSON via REST (sensores), XML (utilizadores), YAML (zonas/dispositivos) | `data/raw`, `tr_load_reference`, `tr_extract_events` |
+| Fase E: fontes de natureza variada | Ficheiros locais, API REST (gateway de sensores em FastAPI), BD relacional | `tr_extract_events`, `tr_load_reference` |
+| Fase T: limpeza e validação | Nulos (Filter Rows → `dq_rejection`), duplicados (Unique Rows), Regex | `tr_load_reference`, `tr_extract_events` |
 | Fase T: conversão de formatos | XML/YAML → relacional; relacional → JSON/CSV; casos → JSON para a API | vários |
-| Fase T: joins, lookups, merge | Stream Lookup (dispositivo→zona), Database Lookup (permissões), Merge Join (ground truth) | `tr_enrich_events`, `tr_evaluate` |
-| Fase T: agregações, cálculos, ordenação, filtragem | Sort + Analytic Query (LAG) + Group By (soma cumulativa) — sessionização temporal | `tr_correlate_cases` |
+| Fase T: joins, lookups, merge | Stream Lookup (horário da zona, perfil do utilizador), Database Lookup (porta/sensor→zona, permissões), Merge Join (ground truth) | `tr_extract_events`, `tr_correlate_rules`, `tr_evaluate` |
+| Fase T: agregações, cálculos, ordenação, filtragem | Sort + Modified JavaScript (sessionização com estado: gap 5 min, duração máx. 20 min) + Group By | `tr_correlate_rules` |
 | Fase T: mapeamento de schemas | XML aninhado → linhas (loop XPath), Select Values | `tr_load_reference` |
 | Fase L: persistência em BD | PostgreSQL, Insert/Update idempotente | todas |
-| Fase L: ficheiros de exportação | JSON e CSV de incidentes | `tr_export_incidents` |
+| Fase L: ficheiros de exportação | JSON e CSV de incidentes; métricas CSV | `tr_export_incidents`, `tr_evaluate` |
+| Fase L: notificação | Resumo/alerta por e-mail (SMTP TLS) | `tr_build_notification`, `jb_sentinel_main` |
 | Relatório (8 secções), vídeo (QR), Git, defesa individual | Documentação acompanha cada etapa | `docs/` |
 
 ### 1.2 Critérios de valorização incluídos (os que trazem valor com baixo custo)
 
 | Critério | Implementação |
 |---|---|
-| Regex | Normalização de IDs (`u-41`, ` U041`, `user41` → `U041`), parsing de syslog com grupos de captura |
+| Regex | Normalização de IDs (`u-41`, ` U041`, `user41` → `U041`), datas em 3 formatos e ISO 8601 com fuso (grupos de captura) |
 | YAML | Fonte de zonas e dispositivos via *YAML Input* |
 | Jobs / orquestração | Job principal + subjobs com ramos de erro e verificação de serviços |
 | API remota | REST Client (GET sensores, POST análise IA) |
@@ -69,38 +70,9 @@ Princípio: **escritas só pelo Pentaho** (dados) e pela API `/ops` (estado das 
 
 ## 4. Arquitetura
 
-```text
-                         ┌────────────────────── NODE-RED + FLOWFUSE DASHBOARD 2.0 (pós-MVP) ───────────────────┐
-                         │  [Executar ETL] [Simular evento]   Estado/etapas   Eventos   Incidentes   IA   Logs   │
-                         └──────┬───────────────────┬───────────────────────────────▲────────────────────────────┘
-                     POST /ops/runs        POST /gateway/events            SELECT (sentinel_ro)
-                     GET  /ops/runs/{id}          │                                │
-                                ▼                 ▼                                │
- ┌──────────────── FASTAPI (127.0.0.1) ────────────────┐                           │
- │ /ops  (X-API-Key)  lista branca de Jobs → kitchen.sh │                           │
- │ /gateway           fonte REST de sensores            │                           │
- │ /ai/analyze        inferência (stateless) ──► Ollama │ qwen3:4b-instruct         │
- └───────┬───────────────▲──────────────▲───────────────┘                           │
-         │ subprocess    │ GET          │ POST /ai/analyze                          │
-         │ (sem shell)   │              │                                           │
-         ▼               │              │                                           │
- ┌──────────────────── PENTAHO DATA INTEGRATION (Kitchen/Pan) ─────────────────┐    │
- │ access_logs.csv ─ CSV Input ┐                                               │    │
- │ users.xml ─────── Get XML ──┤ E: extração + validação + rejeições           │    │
- │ zones.yaml ────── YAML Input┤ T: Regex, datas, nulos, duplicados, lookups    │    │
- │ auth.log ──────── Regex ────┤ T: correlação (Sort → Analytic Query → GroupBy)│    │
- │ REST Client (sensores) ─────┘ T: motor de regras                             │    │
- │                               T: IA (Table Input json_agg → REST Client POST)│    │
- │                               L: Insert/Update, exportações JSON/CSV         │    │
- └──────────────────────────────────────┬──────────────────────────────────────┘    │
-                                        ▼                                           │
-                        ┌──────────── POSTGRESQL (sentinel) ─────────────┐──────────┘
-                        │ referência · event · dq_rejection · security_case │
-                        │ case_event · rule_result · ai_analysis           │
-                        │ ground_truth · evaluation_metric                 │
-                        │ etl_run · etl_run_stage · logs Kettle            │
-                        └──────────────────────────────────────────────────┘
-```
+![Arquitetura](../diagrams/architecture.png)
+
+Fonte do diagrama: `docs/diagrams/architecture.dot` (Graphviz).
 
 ### 4.1 Comunicação entre tecnologias
 
@@ -111,7 +83,7 @@ Princípio: **escritas só pelo Pentaho** (dados) e pela API `/ops` (estado das 
 | Pentaho → `/ai/analyze` | HTTP POST, JSON | REST Client, 1 cópia do step, read timeout > `OLLAMA_TIMEOUT_S` |
 | FastAPI → Ollama | HTTP `/api/chat` | `format`=JSON schema por pedido, `temperature=0`, `num_ctx=4096`, `keep_alive` |
 | Pentaho → PostgreSQL | JDBC | ligação parametrizada `${PG_HOST}`… |
-| `/ops` → Pentaho | `subprocess` com lista de argumentos (sem shell) | `kitchen.sh -file=<job da lista branca> -param:RUN_ID=<uuid>` |
+| `/ops` → Pentaho | `subprocess` com lista de argumentos (sem shell) | `kitchen.sh -file=<job da lista branca> -param:RUN_ID=<run_id>` |
 | Node-RED → `/ops` | HTTP + `X-API-Key` | token do `.env` |
 | Node-RED → PostgreSQL | `node-red-contrib-postgresql` | utilizador `sentinel_ro` (só SELECT) |
 
@@ -120,13 +92,13 @@ Princípio: **escritas só pelo Pentaho** (dados) e pela API `/ops` (estado das 
 - Escuta apenas em `127.0.0.1`; todos os endpoints `/ops` exigem o cabeçalho `X-API-Key`.
 - O pedido indica um **nome lógico** de Job (`main`), mapeado no servidor para um `.kjb`; nunca um caminho nem um comando.
 - Concorrência: máximo uma execução ativa — garantido por índice único parcial em `etl_run` (`status IN ('PENDING','RUNNING')`) → HTTP 409 em caso de conflito.
-- Cada execução tem `run_id` (UUID) passado ao Kitchen como parâmetro; o Job regista as etapas em `etl_run_stage`.
+- Cada execução tem `run_id` (`run-AAAAMMDD-HHMMSS-xxxx`) passado ao Kitchen como parâmetro; o Job regista as etapas em `etl_run_stage`.
 - Logs do Kitchen gravados em `results/logs/<run_id>.log`; `/ops/runs/{id}/log` devolve as últimas N linhas.
 - Distinção de falhas: ETL (exit code do Kitchen + `etl_run_stage`), API (`ai_analysis.status = API_UNAVAILABLE`), modelo (`TIMEOUT`, `INVALID_OUTPUT`, `MODEL_ERROR`).
 
 ### 4.3 Simulação de eventos
 
-O dashboard envia um evento (formulário) para `POST /gateway/events`, que o valida e o guarda na fila do gateway. **Não é processado de imediato**: é consumido pelo Pentaho na execução seguinte, juntamente com os restantes eventos de sensores. Isto demonstra o caminho real dos dados sem contornar o ETL.
+O dashboard envia um evento (formulário) para `POST /gateway/sensors/events`, que o valida e o guarda na fila do gateway. **Não é processado de imediato**: é consumido pelo Pentaho na execução seguinte, juntamente com os restantes eventos de sensores. Isto demonstra o caminho real dos dados sem contornar o ETL.
 
 ## 5. Decisões de desenho
 
@@ -137,7 +109,7 @@ O dashboard envia um evento (formulário) para `POST /gateway/events`, que o val
 5. **Arrays JSON**: payload construído em SQL (`json_agg`); resposta guardada como `jsonb`.
 6. **Modelo**: regista-se o digest, não só a tag.
 7. **Reexecução**: chaves naturais + Insert/Update; casos com ID determinístico; cache da IA por `events_hash + prompt_version + model_digest`.
-8. **Fonte digital** (syslog) para correlação físico + digital.
+8. **Fontes**: 4 formatos (CSV, JSON via REST, XML, YAML). Uma fonte digital (syslog) foi considerada e deixada de fora por prazo.
 9. **Isolation Forest**: fora do MVP (dados insuficientes para conclusões honestas).
 
 ## 6. Fontes de dados
@@ -148,27 +120,23 @@ O dashboard envia um evento (formulário) para `POST /gateway/events`, que o val
 | Utilizadores e permissões | XML | ficheiro | IDs inconsistentes, horários `8:00` vs `08:00`, duplicado, campo vazio |
 | Controlo de acessos | CSV | ficheiro | IDs mal formatados, datas em 3 formatos, duplicados, campos vazios |
 | Sensores | JSON | API REST | `value` bool/string, timestamps com/sem fuso, sensor desconhecido |
-| Autenticação | syslog | ficheiro | linhas irrelevantes, formatos variáveis |
 
 ## 7. Modelo de dados
 
-Implementado em `database/01_schema.sql` (15 tabelas): `etl_run`, `etl_run_stage`, `building`, `zone`, `device`, `app_user`, `user_zone_permission`, `dq_rejection`, `event`, `security_case`, `case_event`, `rule_result`, `ai_analysis`, `ground_truth`, `evaluation_metric`.
+Implementado em `database/01_schema.sql` (16 tabelas): `etl_run`, `etl_run_stage`, `building`, `zone`, `device`, `app_user`, `user_zone_permission`, `dq_rejection`, `event`, `security_case`, `case_event`, `rule_result`, `ai_analysis`, `ground_truth`, `evaluation_metric`, `log_job` (log nativo do Kettle).
 
 ## 8. Transformações e Jobs
 
 | Ficheiro | Objetivo |
 |---|---|
 | `tr_load_reference.ktr` | YAML + XML → edifícios, zonas, dispositivos, utilizadores, permissões |
-| `tr_extract_access_csv.ktr` | CSV → limpeza, Regex, datas, duplicados → `event` |
-| `tr_extract_sensors_api.ktr` | REST → JSON → normalização → `event` |
-| `tr_extract_auth_logs.ktr` | syslog → Regex Evaluation → `event` |
-| `tr_enrich_events.ktr` | flags fora de horário / zona não autorizada / utilizador desconhecido |
-| `tr_correlate_cases.ktr` | sessionização → `security_case`, `case_event` |
-| `tr_rules_engine.ktr` | regras → `rule_result` |
+| `tr_extract_events.ktr` | CSV + REST/JSON → limpeza, Regex, datas, duplicados, validação → `event`; rejeições → `dq_rejection` |
+| `tr_correlate_rules.ktr` | enriquecimento (flags) → sessionização → `security_case`, `case_event` → regras R1–R4 → `rule_result` |
 | `tr_ai_analysis.ktr` | casos → POST `/ai/analyze` → `ai_analysis` |
 | `tr_evaluate.ktr` | regras vs IA vs ground truth → `evaluation_metric` |
 | `tr_export_incidents.ktr` | JSON/CSV de incidentes |
-| `jb_sentinel_main.kjb` | orquestração completa com registo de etapas |
+| `tr_build_notification.ktr` | assunto + corpo HTML do e-mail (resumo/alerta) → variáveis do Job |
+| `jb_sentinel_main.kjb` | orquestração completa com registo de etapas, IA opcional (SKIPPED), notificação por e-mail e alerta de erro |
 
 ## 9. Fora do MVP
 

@@ -1,0 +1,53 @@
+// Arquitetura do Sentinel-AI (EDCA). Gerar: dot -Tpng -Gdpi=160 architecture.dot -o architecture.png
+digraph A {
+  graph [rankdir=TB, fontname="Helvetica", fontsize=11, nodesep=0.35, ranksep=0.7, pad=0.2, compound=true];
+  node  [shape=box, style="rounded,filled", fontname="Helvetica", fontsize=10, fillcolor="#f1f5f9", color="#475569"];
+  edge  [fontname="Helvetica", fontsize=8.5, color="#334155", arrowsize=0.7];
+
+  subgraph cluster_src {
+    label="Fontes (E)"; style="rounded,dashed"; color="#94a3b8";
+    csv  [label="access_logs.csv\n(controlo de acessos)", fillcolor="#dbeafe"];
+    xml  [label="users.xml\n(utilizadores e permissões)", fillcolor="#dbeafe"];
+    yaml [label="zones.yaml / devices.yaml\n(edifícios, zonas, sensores)", fillcolor="#dbeafe"];
+    gt   [label="ground_truth.csv\n(etiquetas a priori)", fillcolor="#e2e8f0"];
+  }
+
+  subgraph cluster_api {
+    label="FastAPI (127.0.0.1:8000)"; style="rounded"; color="#7c3aed";
+    gw  [label="/gateway/sensors/events\nfonte REST de sensores (JSON)\n+ fila de eventos simulados", fillcolor="#ede9fe"];
+    ai  [label="/ai/analyze  (stateless)\nvalida entrada e saída", fillcolor="#ede9fe"];
+    ops [label="/ops  (X-API-Key)\nlista branca de Jobs, 409,\nestado, log, config. e-mail", fillcolor="#ede9fe"];
+  }
+
+  ollama [label="Ollama\nqwen3:4b-instruct\n(local, Metal)", fillcolor="#fef3c7"];
+
+  subgraph cluster_pdi {
+    label="Pentaho Data Integration 10.2 — Job jb_sentinel_main (Kitchen)"; style="rounded"; color="#2563eb";
+    ref  [label="tr_load_reference\nYAML + XML → referência"];
+    ext  [label="tr_extract_events\nCSV + REST/JSON → event\nrejeições → dq_rejection"];
+    cor  [label="tr_correlate_rules\nenriquecimento, sessionização,\ncasos, regras R1–R4"];
+    tai  [label="tr_ai_analysis\ntriagem → POST /ai/analyze"];
+    ev   [label="tr_evaluate\nregras vs IA vs ground truth"];
+    exp  [label="tr_export_incidents\nJSON + CSV"];
+    ntf  [label="tr_build_notification\n+ Mail (SMTP TLS)"];
+    ref -> ext -> cor -> tai -> ev -> exp -> ntf [color="#2563eb", penwidth=1.4];
+  }
+
+  pg [label="PostgreSQL 14 (sentinel)\nreferência · event · dq_rejection\nsecurity_case · case_event · rule_result\nai_analysis · ground_truth · evaluation_metric\netl_run · etl_run_stage · log_job", shape=cylinder, fillcolor="#dcfce7"];
+  files [label="results/exports/incidents.{json,csv}\nresults/evaluation/*.csv", shape=folder, fillcolor="#dcfce7"];
+  smtp [label="Servidor SMTP\n(smtp.office365.com:587, TLS)", shape=box3d, fillcolor="#fef3c7"];
+
+  subgraph cluster_ui {
+    label="Node-RED 5 + FlowFuse Dashboard 2.0 (127.0.0.1:1880)"; style="rounded"; color="#dc2626";
+    ui [label="Controlo · Eventos · Incidentes\nEstatísticas · Logs e erros", fillcolor="#fee2e2"];
+  }
+
+  csv -> ext; xml -> ref; yaml -> ref; gt -> ev;
+  gw -> ext [label="GET JSON"];
+  tai -> ai [label="POST JSON"]; ai -> ollama [label="/api/chat\nJSON schema"];
+  ref -> pg [style=dashed]; ext -> pg [style=dashed]; cor -> pg [style=dashed]; tai -> pg [style=dashed]; ev -> pg [style=dashed];
+  exp -> files; ev -> files; ntf -> smtp [label="resumo / alerta"];
+  ui -> ops [label="executar ETL\nconfigurar e-mail"]; ui -> gw [label="simular evento"];
+  ops -> ref [label="kitchen.sh (sem shell)", lhead=cluster_pdi];
+  pg -> ui [label="SELECT (sentinel_ro)", style=dotted];
+}

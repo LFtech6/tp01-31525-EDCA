@@ -1,0 +1,517 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+<meta charset="utf-8">
+<title>Sentinel-AI (EDCA) — Relatório TP1 ISI</title>
+<style>
+  @page { size: A4; margin: 18mm 16mm 18mm 16mm; }
+  :root { --ink: #0f172a; --muted: #475569; --line: #cbd5e1; --accent: #1d4ed8; --soft: #f1f5f9; }
+  html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 10.5pt; line-height: 1.45; color: var(--ink); background: #fff; margin: 0; }
+  h1 { font-size: 20pt; margin: 0 0 6pt; color: var(--accent); }
+  h2 { font-size: 15pt; color: var(--accent); border-bottom: 1.5pt solid var(--accent); padding-bottom: 3pt; margin: 0 0 10pt; page-break-before: always; break-before: page; }
+  h3 { font-size: 12pt; margin: 14pt 0 6pt; }
+  h4 { font-size: 10.5pt; margin: 10pt 0 4pt; color: var(--muted); }
+  p { margin: 0 0 7pt; text-align: justify; }
+  ul, ol { margin: 0 0 7pt 16pt; padding: 0; } li { margin-bottom: 2pt; }
+  table { border-collapse: collapse; width: 100%; margin: 4pt 0 10pt; font-size: 9pt; page-break-inside: avoid; }
+  th, td { border: 0.6pt solid var(--line); padding: 3pt 5pt; text-align: left; vertical-align: top; }
+  th { background: var(--soft); }
+  td.n, th.n { text-align: right; }
+  code { font-family: Menlo, Consolas, monospace; font-size: 8.6pt; background: var(--soft); padding: 0 2pt; border-radius: 2pt; }
+  pre { font-family: Menlo, Consolas, monospace; font-size: 8.4pt; background: var(--soft); padding: 6pt 8pt; border-radius: 3pt; white-space: pre-wrap; page-break-inside: avoid; }
+  figure { margin: 6pt 0 12pt; text-align: center; page-break-inside: avoid; }
+  figure img { max-width: 100%; border: 0.6pt solid var(--line); }
+  figcaption { font-size: 8.8pt; color: var(--muted); margin-top: 3pt; }
+  .todo { background: #fde68a; padding: 0 3pt; font-weight: 600; }
+  .cover { height: 250mm; display: flex; flex-direction: column; justify-content: space-between; }
+  .cover .top { font-size: 11pt; color: var(--muted); }
+  .cover h1 { font-size: 28pt; margin-top: 50mm; }
+  .cover .sub { font-size: 14pt; color: var(--muted); margin-bottom: 18mm; }
+  .cover table { width: auto; font-size: 11pt; } .cover td { border: none; padding: 2pt 12pt 2pt 0; }
+  .toc ol { list-style: none; margin-left: 0; } .toc li { margin: 4pt 0; font-size: 11pt; }
+  .toc ol ol { margin-left: 16pt; } .toc ol ol li { font-size: 10pt; margin: 2pt 0; }
+  .two { display: flex; gap: 10pt; } .two > * { flex: 1; }
+  .note { border-left: 3pt solid var(--accent); background: #eff6ff; padding: 5pt 8pt; margin: 6pt 0 10pt; font-size: 9.5pt; }
+  .qr { width: 45mm; height: 45mm; border: 1.2pt dashed var(--muted); display: flex; align-items: center; justify-content: center; text-align: center; font-size: 9pt; color: var(--muted); margin: 8pt auto; }
+  .qr img { width: 45mm; height: 45mm; border: none; }
+  .small { font-size: 9pt; color: var(--muted); }
+</style>
+</head>
+<body>
+
+<!-- ============================================================ CAPA -->
+<section class="cover">
+  <div class="top">Escola Superior de Tecnologia — Instituto Politécnico do Cávado e do Ave<br>Licenciatura em Engenharia de Sistemas Informáticos</div>
+  <div>
+    <h1>Sentinel-AI (EDCA)</h1>
+    <div class="sub">ETL Data Correlation Agent — integração, correlação e análise de eventos de segurança física com Pentaho Data Integration, regras e IA local</div>
+    <table>
+      <tr><td>Unidade Curricular</td><td><b>Integração de Sistemas de Informação</b></td></tr>
+      <tr><td>Trabalho</td><td>Trabalho Prático I — processos ETL</td></tr>
+      <tr><td>Autor</td><td><b>{{AUTHOR_NAME}}</b>, n.º <b>31525</b></td></tr>
+      <tr><td>Docentes</td><td>Luís Ferreira, Óscar Ribeiro</td></tr>
+      <tr><td>Ano letivo</td><td>2026/27</td></tr>
+      <tr><td>Data</td><td>22 de outubro de 2026</td></tr>
+    </table>
+  </div>
+  <div class="small">Repositório: {{REPO_URL}} · Vídeo: {{VIDEO_URL}}</div>
+</section>
+
+<!-- ============================================================ ÍNDICE -->
+<section class="toc">
+  <h2>Índice</h2>
+  <ol>
+    <li>1. Enquadramento</li>
+    <li>2. Problema</li>
+    <li>3. Estratégia utilizada
+      <ol><li>3.1 Arquitetura e responsabilidades</li><li>3.2 As três fases ETL</li><li>3.3 Operadores utilizados</li><li>3.4 Dados de teste e avaliação</li><li>3.5 Segurança e configuração</li></ol></li>
+    <li>4. Transformações
+      <ol><li>4.1 tr_load_reference</li><li>4.2 tr_extract_events</li><li>4.3 tr_correlate_rules</li><li>4.4 tr_ai_analysis (+ serviço /ai/analyze)</li><li>4.5 tr_evaluate</li><li>4.6 tr_export_incidents</li><li>4.7 tr_build_notification</li></ol></li>
+    <li>5. Jobs
+      <ol><li>5.1 jb_sentinel_main</li><li>5.2 Registo de execuções e logs</li><li>5.3 Notificação por e-mail</li><li>5.4 Orquestração a partir do dashboard (API /ops + Node-RED)</li></ol></li>
+    <li>6. Vídeo com demonstração (QR Code)</li>
+    <li>7. Conclusão e trabalhos futuros</li>
+    <li>8. Referências</li>
+  </ol>
+</section>
+
+<!-- ============================================================ 1 -->
+<section>
+<h2>1. Enquadramento</h2>
+<table>
+  <tr><th style="width:28%">Equipa</th><td>Trabalho individual: {{AUTHOR_NAME}} (n.º 31525)</td></tr>
+  <tr><th>Unidade Curricular</th><td>Integração de Sistemas de Informação (ISI), 2026/27</td></tr>
+  <tr><th>Curso</th><td>Licenciatura em Engenharia de Sistemas Informáticos (LESI), EST — IPCA</td></tr>
+  <tr><th>Tema</th><td>Correlação de eventos de segurança física (controlo de acessos + sensores) com ETL, motor de regras e IA local</td></tr>
+  <tr><th>Plataforma ETL principal</th><td>Pentaho Data Integration (Kettle) 10.2.0.0-222 — Spoon, Pan e Kitchen</td></tr>
+  <tr><th>Ferramentas complementares</th><td>PostgreSQL 14; Python 3.12 + FastAPI; Ollama com o modelo <code>qwen3:4b-instruct</code>; Node-RED 5 + FlowFuse Dashboard 2.0; servidor SMTP (Office 365)</td></tr>
+  <tr><th>Ambiente</th><td>macOS (Apple M2, 8 GB RAM), todos os serviços locais (sem Docker)</td></tr>
+</table>
+<p>O trabalho enquadra-se no cenário de <b>auditoria de segurança</b> e de <b>reação a eventos</b> referido na motivação do enunciado. Numa organização, o controlo de acessos (leitores de cartão) e os sensores (movimento, portas) são normalmente sistemas distintos, de fabricantes diferentes, com formatos e qualidade de dados diferentes. Cada sistema, isolado, vê apenas uma parte do que aconteceu. O valor está em <b>integrar e cruzar</b> esses dados com a informação de referência (zonas, horários, utilizadores, permissões).</p>
+<p>O processo foi desenvolvido para demonstrar as três fases obrigatórias (E, T e L) e os critérios de mais-valia do enunciado. Entre eles estão a diversidade de formatos (CSV, JSON, XML e YAML), as expressões regulares, os joins e lookups, a orquestração por Jobs, os logs, o acesso a serviços remotos (REST e e-mail), as operações sobre bases de dados e a visualização num dashboard.</p>
+</section>
+
+<!-- ============================================================ 2 -->
+<section>
+<h2>2. Problema</h2>
+<p>Pretende-se demonstrar que um processo ETL consegue transformar registos dispersos e "sujos" de dois sistemas de segurança em <b>casos de segurança</b> com contexto, e que esses casos podem ser classificados de duas formas independentes e comparáveis:</p>
+<ol>
+  <li><b>Abordagem A — motor de regras determinístico</b>, implementado no próprio Pentaho (regras explícitas com pesos);</li>
+  <li><b>Abordagem B — análise contextual por um modelo de linguagem local</b> (Qwen3 4B via Ollama), chamado pelo Pentaho através de um serviço REST, que devolve uma classificação estruturada com explicação, ação recomendada e as evidências usadas.</li>
+</ol>
+<p>Exemplos do tipo de situação que se quer detetar:</p>
+<ul>
+  <li>um acesso recusado seguido de movimento dentro da zona (alguém entrou por outra via);</li>
+  <li>várias recusas seguidas numa sala de servidores;</li>
+  <li>um acesso concedido a quem não tem permissão;</li>
+  <li>uma credencial de um ex-colaborador ainda em uso;</li>
+  <li><i>tailgating</i> (entrar "à boleia" de outra pessoa);</li>
+  <li>movimento noturno sem qualquer acesso registado.</li>
+</ul>
+<p>O problema também tem a dificuldade inversa: evitar falsos alarmes em situações legítimas. Por exemplo, um operador do turno da noite, uma ronda de segurança ou um cartão mal lido à primeira.</p>
+<p>Os dados de origem têm problemas de qualidade propositados, que o ETL tem de resolver:</p>
+<ul>
+  <li>identificadores em formatos diferentes (<code>u-41</code>, <code>&nbsp;U012</code>, <code>user15</code>);</li>
+  <li>datas em três formatos e com fuso horário;</li>
+  <li>estados escritos de várias formas (<code>denied</code>, <code>Denied</code>, <code>DENIED</code>);</li>
+  <li>booleanos heterogéneos (<code>true</code>, <code>yes</code>, <code>1</code>, <code>on</code>);</li>
+  <li>registos duplicados, campos obrigatórios vazios e datas impossíveis (<code>2026-13-45</code>).</li>
+</ul>
+<p>Os registos inválidos não podem simplesmente desaparecer: têm de ficar registados com o motivo da rejeição.</p>
+<p><b>Objetivos mensuráveis.</b></p>
+<ol>
+  <li>Integrar as 4 fontes num modelo único e rastreável.</li>
+  <li>Correlacionar os eventos em casos, sem misturar cenários diferentes.</li>
+  <li>Classificar os casos por regras e por IA.</li>
+  <li>Medir as duas abordagens contra um <i>ground truth</i> definido <b>antes</b> das regras (precisão, recall, F1).</li>
+  <li>Exportar os incidentes, notificar por e-mail e disponibilizar tudo num dashboard que permita executar o processo.</li>
+</ol>
+</section>
+
+<!-- ============================================================ 3 -->
+<section>
+<h2>3. Estratégia utilizada</h2>
+<h3>3.1 Arquitetura e responsabilidades</h3>
+<figure><img src="../diagrams/architecture.png" style="max-height:175mm"><figcaption>Figura 1 — Arquitetura do Sentinel-AI. O Pentaho é o motor ETL central; os restantes componentes têm papéis delimitados.</figcaption></figure>
+<table>
+  <tr><th style="width:24%">Componente</th><th>Responsabilidade</th><th style="width:26%">Não faz</th></tr>
+  <tr><td>Pentaho (Kettle)</td><td>Toda a extração, transformação, correlação, regras, chamada à IA, avaliação, carregamento, exportação e notificação; Job de orquestração</td><td>Interface com o utilizador</td></tr>
+  <tr><td>FastAPI <code>/gateway</code></td><td>Simula o <i>gateway</i> IoT dos sensores (fonte REST/JSON) e recebe eventos simulados pelo dashboard</td><td>Transformar dados</td></tr>
+  <tr><td>FastAPI <code>/ai</code></td><td>Inferência: valida a entrada, chama o Ollama, valida a saída e devolve JSON (<i>stateless</i>)</td><td>Escrever na base de dados</td></tr>
+  <tr><td>FastAPI <code>/ops</code></td><td>Lança o Job (lista branca), controla a concorrência, expõe estado, etapas e log, e guarda a configuração de e-mail</td><td>Executar comandos arbitrários</td></tr>
+  <tr><td>Ollama + Qwen3</td><td>Classificação contextual e explicação de um caso já correlacionado</td><td>Correlacionar ou integrar dados</td></tr>
+  <tr><td>PostgreSQL</td><td>Persistência dos dados, resultados, estado das execuções e logs (16 tabelas)</td><td>—</td></tr>
+  <tr><td>Node-RED + FlowFuse Dashboard 2.0</td><td>Controlo e visualização low-code: executar o ETL, ver etapas, eventos, incidentes, estatísticas e erros</td><td>Qualquer transformação ETL</td></tr>
+</table>
+<p>Princípio seguido: <b>os dados só são escritos pelo Pentaho</b>. O dashboard lê a base de dados com um utilizador apenas de leitura (<code>sentinel_ro</code>) e só atua através da API. A IA não decide relações entre eventos: recebe um caso já construído pelo ETL e devolve uma interpretação.</p>
+
+<h3>3.2 As três fases ETL</h3>
+<table>
+  <tr><th style="width:16%">Fase</th><th>O que é feito</th></tr>
+  <tr><td><b>E — Recolha</b></td><td>
+    <ul>
+      <li><b>YAML:</b> edifícios, zonas e horários (<code>zones.yaml</code>) e dispositivos (<code>devices.yaml</code>).</li>
+      <li><b>XML:</b> utilizadores com permissões aninhadas (<code>users.xml</code>).</li>
+      <li><b>CSV:</b> registos do controlo de acessos (<code>access_logs.csv</code>, 99 linhas).</li>
+      <li><b>JSON via API REST:</b> eventos de sensores (<code>GET /gateway/sensors/events</code>, 79 documentos).</li>
+      <li><b>CSV:</b> <i>ground truth</i>.</li>
+      <li><b>Base de dados relacional:</b> lookups em PostgreSQL.</li>
+    </ul></td></tr>
+  <tr><td><b>T — Transformação</b></td><td>
+    <ul>
+      <li>Limpeza e validação: <i>trim</i>, maiúsculas e minúsculas, nulos, duplicados, validação por expressões Java.</li>
+      <li>Expressões regulares para normalizar identificadores e datas.</li>
+      <li>Mapeamento de valores e conversão de tipos.</li>
+      <li>Lookups (<i>Stream lookup</i> e <i>Database lookup</i>) e <i>Merge join</i>.</li>
+      <li>Ordenação, sessionização com estado (JavaScript) e agregação (<i>Group by</i>).</li>
+      <li>Cálculo de <i>hash</i> e reestruturação de schemas (XML aninhado → linhas; linhas → payload JSON).</li>
+      <li>Motor de regras e chamada à IA.</li>
+    </ul></td></tr>
+  <tr><td><b>L — Persistência e exportação</b></td><td>
+    <ul>
+      <li><i>Insert/Update</i> idempotente e <i>Table output</i> em PostgreSQL.</li>
+      <li>Rejeições de qualidade em <code>dq_rejection</code>.</li>
+      <li>Exportação de incidentes em JSON e CSV, e de métricas e comparação em CSV.</li>
+      <li>Notificação automática por e-mail (resumo com anexos, ou alerta de erro).</li>
+      <li>Dashboard em tempo real (Node-RED).</li>
+    </ul></td></tr>
+</table>
+
+<h3>3.3 Operadores utilizados</h3>
+<p>As 7 transformações somam <b>148 steps</b> de <b>31 tipos diferentes</b>; o Job tem 28 entradas de 9 tipos. Contagem extraída dos ficheiros <code>.ktr</code>:</p>
+<table>
+  <tr><th>Categoria</th><th>Steps PDI (n.º de ocorrências)</th></tr>
+  <tr><td>Entrada</td><td>CSV file input (2), YAML input (2), Get data from XML (2), JSON input (2), REST client (2), Table input (8), Generate rows (1)</td></tr>
+  <tr><td>Limpeza / normalização</td><td>String operations (6), Replace in string com Regex (5), Value mapper (3), If field value is null (1), Calculator (6), Select values com metadados/conversão (22)</td></tr>
+  <tr><td>Validação / fluxo</td><td>User Defined Java Expression (23), Filter rows (3), Block until steps finish (4), tratamento de erros por step (<i>error hops</i>, 3)</td></tr>
+  <tr><td>Duplicados / ordenação</td><td>Unique rows (3), Unique rows (HashSet) (2), Sort rows (7)</td></tr>
+  <tr><td>Junção / cruzamento</td><td>Stream lookup (3), Database lookup (4), Merge join (2)</td></tr>
+  <tr><td>Agregação / cálculo</td><td>Group by (3), Modified JavaScript value (1), Get variables (8), Set variables (1)</td></tr>
+  <tr><td>Saída</td><td>Insert/Update (9), Table output (7), Execute SQL script (2), Text file output (3), JSON output (1)</td></tr>
+  <tr><td>Job</td><td>Start, Transformation (8), SQL (12), Check webservice availability, Add filenames to result, Mail (2), Write to log, Success, Abort</td></tr>
+</table>
+
+<h3>3.4 Dados de teste e avaliação</h3>
+<p>Os dados são sintéticos e determinísticos (semente fixa), gerados por <code>data/generator/generate_events.py</code> para três dias (12 a 14 de outubro de 2026). Contêm tráfego normal e <b>15 cenários</b> com etiqueta definida <b>a priori</b>: 7 suspeitos (S01–S07) e 8 benignos difíceis (B01–B08). A etiqueta é atribuída <b>ao evento</b> (<code>ground_truth.csv</code>, 152 eventos), não ao caso. Assim, a correlação não pode "escolher" a sua própria resposta certa. Um caso é suspeito se contiver algum evento de um cenário suspeito.</p>
+<p>Para a avaliação ser justa:</p>
+<ul>
+  <li>a IA nunca recebe o veredicto das regras, o nome do cenário nem o <code>case_id</code>;</li>
+  <li>os casos enviados à IA são escolhidos por <b>factos</b> (recusas, fora de horas, sem permissão, utilizador inativo, fora do turno) e não pelo resultado das regras;</li>
+  <li>juntam-se 5 casos de controlo sem sinais, para medir falsos positivos em tráfego comum;</li>
+  <li>o <i>prompt</i> (v1) foi fixado antes de observar resultados.</li>
+</ul>
+
+<h3>3.5 Segurança e configuração</h3>
+<ul>
+  <li><b>Credenciais:</b> estão num ficheiro <code>.env</code> ignorado pelo Git. O Pentaho recebe-as através de um <code>KETTLE_HOME</code> local ao projeto (<code>kettle.properties</code> gerado a partir do <code>.env</code>). Os <code>.ktr</code> e o <code>.kjb</code> só contêm variáveis como <code>${PG_PASSWORD}</code> e <code>${SMTP_PASSWORD}</code>.</li>
+  <li><b>Exposição na rede:</b> todos os serviços escutam apenas em <code>127.0.0.1</code>.</li>
+  <li><b>API <code>/ops</code>:</b>
+    <ul>
+      <li>exige o cabeçalho <code>X-API-Key</code>;</li>
+      <li>aceita apenas um nome lógico de Job (lista branca) e lança o Kitchen sem <i>shell</i>, com uma lista de argumentos;</li>
+      <li>controla a concorrência com um índice único parcial (HTTP 409 se já houver uma execução ativa);</li>
+      <li>valida o <code>run_id</code> contra <i>path traversal</i>.</li>
+    </ul></li>
+  <li><b>Dashboard:</b> lê a base de dados com um utilizador apenas de leitura.</li>
+  <li><b>Configuração de e-mail no dashboard:</b> é validada, guardada só em memória e chega ao Kitchen por variáveis de ambiente. A password nunca é devolvida.</li>
+</ul>
+</section>
+
+<!-- ============================================================ 4 -->
+<section>
+<h2>4. Transformações</h2>
+<p>Os diagramas desta secção foram gerados a partir do XML de cada <code>.ktr</code>, nas mesmas posições do <i>canvas</i> do Spoon. Cores por família de step: azul = entrada, verde = saída, amarelo = <i>lookup</i>/<i>join</i>, lilás = fluxo, ordenação e agregação, cinza = transformação de valores. Hops de erro a vermelho tracejado. Todas as transformações recebem o parâmetro <code>RUN_ID</code> do Job e usam a ligação parametrizada <code>sentinel_pg</code>.</p>
+
+<h3>4.1 tr_load_reference — dados de referência (YAML + XML)</h3>
+<figure><img src="../diagrams/tr_load_reference.png"><figcaption>Figura 2 — tr_load_reference (31 steps).</figcaption></figure>
+<p><b>Objetivo.</b> Carregar os dados mestre usados na correlação: 2 edifícios, 8 zonas (com nível de segurança e horário), 24 dispositivos, utilizadores e as respetivas permissões por zona.</p>
+<p><b>Explicação.</b> Há cinco ramos paralelos:</p>
+<ol>
+  <li><b>Edifícios:</b> <i>YAML input</i> → <i>Select values</i> → <i>Sort</i> + <i>Unique rows</i> → <i>Insert/Update</i>.</li>
+  <li><b>Zonas:</b> os horários passam de texto a <code>Date</code> com a máscara <code>HH:mm</code>, para a comparação do <i>Insert/Update</i> funcionar na reexecução.</li>
+  <li><b>Utilizadores</b> (<i>Get data from XML</i>, XPath <code>/users/user</code>):
+    <ul>
+      <li><i>String operations</i>: <i>trim</i> e minúsculas;</li>
+      <li><b>Regex</b> <code>[^0-9]</code> → "" mais <i>padding</i> e prefixo, para que <code>u-7</code>, <code>&nbsp;U012</code> e <code>user15</code> passem a <code>U007</code>, <code>U012</code> e <code>U015</code>;</li>
+      <li><b>Regex</b> <code>^(\d):</code> → <code>0$1:</code>, para que <code>8:00</code> passe a <code>08:00</code>;</li>
+      <li><i>Value mapper</i>: <code>true</code>/<code>yes</code>/<code>1</code> → <code>Y</code>;</li>
+      <li><i>If field value is null</i>: papel vazio → <code>unassigned</code>;</li>
+      <li><i>Unique rows</i>: remove o utilizador U003 duplicado.</li>
+    </ul></li>
+  <li><b>Permissões:</b> a lista aninhada <code>allowed_zones/zone</code> é reestruturada numa linha por par utilizador×zona (XPath com <code>../../@id</code>), e <code>z3</code> passa a <code>Z03</code>.</li>
+  <li><b>Dispositivos:</b> <i>YAML input</i> → <i>Insert/Update</i>.</li>
+</ol>
+<p>Os steps <i>Block until steps finish</i> garantem a ordem exigida pelas chaves estrangeiras (zonas depois de edifícios, permissões depois de utilizadores e zonas).</p>
+<p><b>Resultado verificado.</b> 2 edifícios, 8 zonas, 24 dispositivos, 15 utilizadores e 49 permissões. Na segunda execução o <i>Insert/Update</i> não insere nem atualiza nada (O=0, U=0), ou seja, a transformação é idempotente.</p>
+
+<h3>4.2 tr_extract_events — eventos (CSV + API REST/JSON)</h3>
+<figure><img src="../diagrams/tr_extract_events.png"><figcaption>Figura 3 — tr_extract_events (44 steps, 2 hops de erro).</figcaption></figure>
+<p><b>Objetivo.</b> Integrar duas fontes heterogéneas numa tabela única <code>event</code>, com limpeza, validação e rastreabilidade das rejeições.</p>
+<p><b>Ramo de acessos (CSV), por ordem:</b></p>
+<ol>
+  <li><i>CSV file input</i> → <i>String operations</i> (<i>trim</i> e maiúsculas) → <i>Unique rows (HashSet)</i>, que remove 6 duplicados.</li>
+  <li><b>Regex</b> nas datas: <code>^(\d{2})/(\d{2})/(\d{4})</code> → <code>$3-$2-$1</code> e separador ISO <code>T</code> → espaço. Isto unifica três formatos de data.</li>
+  <li><i>Value mapper</i>: estado → tipo de evento. <i>Database lookup</i>: porta → zona.</li>
+  <li>Validação em <i>User Defined Java Expression</i> + <i>Filter rows</i>.</li>
+  <li>Normalização do utilizador (Regex + <i>padding</i>). O valor original fica guardado em <code>raw_user_ref</code>.</li>
+  <li>Conversão para <code>Date</code> com tratamento de erros: uma data impossível segue pelo hop de erro.</li>
+  <li><i>Database lookup</i> do utilizador → <i>Insert/Update</i>.</li>
+</ol>
+<p><b>Ramo de sensores (API REST/JSON), por ordem:</b></p>
+<ol>
+  <li><i>Generate rows</i> → <i>REST client</i> (GET) → <i>JSON input</i> (JSONPath <code>$[*].campo</code>).</li>
+  <li><b>Regex</b> ISO 8601 com e sem fuso.</li>
+  <li><i>Value mapper</i>: <code>true</code>/<code>1</code>/<code>on</code> → deteção. As leituras sem deteção são descartadas.</li>
+  <li>Lookup sensor → zona (a fonte de referência prevalece sobre a zona mal escrita no evento) → validação → <i>Insert/Update</i>.</li>
+</ol>
+<p><b>Rejeições.</b> Dois filtros de validação e dois hops de erro alimentam <code>dq_rejection</code>, com o registo original e o motivo:</p>
+<ul>
+  <li><code>MISSING_TIMESTAMP</code>, <code>MISSING_USER</code>, <code>UNKNOWN_DEVICE</code>;</li>
+  <li><code>INVALID_STATUS</code>, <code>INVALID_EVENT_TYPE</code>, <code>INVALID_TIMESTAMP</code>.</li>
+</ul>
+<p>Um <i>Execute SQL script</i> limpa as rejeições anteriores do mesmo <code>RUN_ID</code>, para a reexecução não as duplicar.</p>
+<table>
+  <tr><th></th><th class="n">Lidos</th><th class="n">Duplicados</th><th class="n">Sem deteção</th><th class="n">Rejeitados</th><th class="n">Gravados</th></tr>
+  <tr><td>Acessos (CSV)</td><td class="n">99</td><td class="n">6</td><td class="n">—</td><td class="n">5</td><td class="n"><b>88</b></td></tr>
+  <tr><td>Sensores (REST/JSON)</td><td class="n">79</td><td class="n">4</td><td class="n">9</td><td class="n">2</td><td class="n"><b>64</b></td></tr>
+</table>
+<p>Os 152 eventos gravados coincidem com o <i>ground truth</i>. Uma verificação independente em Python, evento a evento (data, zona, utilizador e tipo), deu 0 diferenças.</p>
+
+<h3>4.3 tr_correlate_rules — enriquecimento, correlação e motor de regras</h3>
+<figure><img src="../diagrams/tr_correlate_rules.png" style="max-height:120mm"><figcaption>Figura 4 — tr_correlate_rules (25 steps, transacional).</figcaption></figure>
+<p><b>Enriquecimento.</b> Cada evento passa por três lookups:</p>
+<ul>
+  <li><i>Stream lookup</i> do horário da zona;</li>
+  <li><i>Stream lookup</i> do perfil do utilizador (papel, turno, se está ativo);</li>
+  <li><i>Database lookup</i> da permissão utilizador×zona.</li>
+</ul>
+<p>Depois, expressões Java calculam as flags do evento:</p>
+<ul>
+  <li><code>is_off_hours</code>: zona fechada;</li>
+  <li><code>is_outside_schedule</code>: fora do turno do utilizador, incluindo turnos que atravessam a meia-noite;</li>
+  <li><code>is_unauthorized_zone</code>, <code>is_unknown_user</code> e <code>is_inactive_user</code>.</li>
+</ul>
+<p>As flags ficam gravadas em <code>event</code>.</p>
+<p><b>Correlação (sessionização).</b> Primeiro, <i>Sort rows</i> por zona e hora. Depois, um step <i>Modified JavaScript</i> com estado entre linhas abre um <b>novo caso</b> em três situações:</p>
+<ul>
+  <li>a zona muda;</li>
+  <li>o intervalo desde o evento anterior é maior do que 5 minutos;</li>
+  <li>a duração do caso passaria os 20 minutos.</li>
+</ul>
+<p>Os limites são configuráveis (<code>${CORRELATION_GAP_MIN}</code>, <code>${CORRELATION_MAX_SPAN_MIN}</code>). O limite de duração evita associações em cadeia, que uma janela simples criaria.</p>
+<p>O <i>Group by</i> agrega cada caso: início e fim, número de eventos, utilizadores distintos, contagens de recusas, presenças, eventos fora de horas e sem permissão, e a lista de IDs. Por fim, uma expressão cria:</p>
+<ul>
+  <li>um <code>case_id</code> determinístico (<code>CASE-&lt;zona&gt;-&lt;aaaammdd-hhmmss&gt;</code>);</li>
+  <li>o <code>events_hash</code> (MD5 dos IDs), que serve de chave de cache da IA.</li>
+</ul>
+<p>A tabela <code>case_event</code> liga cada caso aos eventos de origem (rastreabilidade).</p>
+<p><b>Motor de regras (abordagem A).</b></p>
+<table>
+  <tr><th>Regra</th><th>Condição</th><th class="n">Peso</th></tr>
+  <tr><td>R1 — Recusa seguida de presença</td><td>movimento ou abertura de porta depois de um acesso recusado no mesmo caso</td><td class="n">3</td></tr>
+  <tr><td>R2 — Acesso fora de horas</td><td>pelo menos uma tentativa de acesso com a zona fechada</td><td class="n">1</td></tr>
+  <tr><td>R3 — Recusas repetidas</td><td>3 ou mais acessos recusados no caso</td><td class="n">3</td></tr>
+  <tr><td>R4 — Atividade sem permissão</td><td>pelo menos um acesso <b>concedido</b> a uma zona sem permissão</td><td class="n">3</td></tr>
+</table>
+<p>A pontuação é a soma dos pesos. O risco é CRITICAL com 6 ou mais, HIGH com 3 a 5, MEDIUM com 2, LOW com 1 e NONE com 0. Um caso é suspeito se a pontuação for pelo menos 1.</p>
+<p><b>Resultado verificado.</b></p>
+<ul>
+  <li>152 eventos deram <b>82 casos</b>, com 152 ligações em <code>case_event</code>.</li>
+  <li>Cada um dos 15 cenários ficou isolado num caso próprio.</li>
+  <li>11 casos foram considerados suspeitos: 5 HIGH e 6 LOW.</li>
+  <li>A reconstrução é feita numa única transação, e os mesmos dados dão os mesmos <code>case_id</code>.</li>
+</ul>
+
+<h3>4.4 tr_ai_analysis — análise contextual por IA (abordagem B)</h3>
+<figure><img src="../diagrams/tr_ai_analysis.png"><figcaption>Figura 5 — tr_ai_analysis (12 steps, 1 hop de erro).</figcaption></figure>
+<p><b>Explicação.</b> Um <i>Table input</i> com SQL (<code>etl/sql/ai_case_payloads.sql</code>) faz três coisas:</p>
+<ol>
+  <li>Seleciona os casos por factos: 15 com sinais, mais 5 de controlo.</li>
+  <li>Exclui os que já foram analisados para a mesma composição (<code>events_hash</code>) e versão do <i>prompt</i> (cache).</li>
+  <li>Constrói o payload JSON de cada caso (<code>json_agg</code>). O payload leva zona, horário, eventos, utilizador, papel, turno, estado e permissão, mas nunca o veredicto das regras.</li>
+</ol>
+<p>Segue-se o <i>REST client</i> (POST <code>${API_URL}/ai/analyze</code>) → <i>JSON input</i> → validação do estado HTTP → <i>Table output</i> para <code>ai_analysis</code>. Se a API estiver em baixo, um hop de erro grava <code>API_UNAVAILABLE</code> para cada caso, e nenhum caso se perde.</p>
+<p><b>Serviço <code>/ai/analyze</code> (FastAPI → Ollama).</b></p>
+<ul>
+  <li><b>Saída estruturada:</b> o pedido ao Ollama inclui um <i>JSON schema</i>, e a lista de evidências está restrita aos IDs do próprio caso.</li>
+  <li><b>Validação da resposta:</b> o serviço confirma que as evidências pertencem ao caso e que a resposta é coerente (por exemplo, rejeita "não suspeito" com risco HIGH).</li>
+  <li><b>Configuração do modelo:</b> <code>temperature=0</code>, <code>seed=42</code>, <code>num_ctx=4096</code> (limitado pelos 8 GB de RAM) e timeout de 150 s. O <i>digest</i> do modelo fica registado em cada análise.</li>
+  <li><b>Resposta:</b> é sempre HTTP 200, com um estado (<code>OK</code>, <code>TIMEOUT</code>, <code>INVALID_OUTPUT</code>, <code>INVALID_INPUT</code> ou <code>MODEL_ERROR</code>). Assim o Pentaho trata as falhas como dados, sem interromper o fluxo.</li>
+</ul>
+<p><b>Resultado verificado.</b></p>
+<ul>
+  <li>20 casos analisados, 20 com estado OK.</li>
+  <li>Duração total de 10 min 52 s, com latência média de 32,1 s por caso no M2.</li>
+  <li>As execuções seguintes fazem 0 pedidos (cache).</li>
+  <li>Testado com a API desligada (resultado <code>API_UNAVAILABLE</code>) e com uma rota inexistente (resultado <code>MODEL_ERROR</code>).</li>
+</ul>
+
+<h3>4.5 tr_evaluate — regras vs IA vs <i>ground truth</i></h3>
+<figure><img src="../diagrams/tr_evaluate.png"><figcaption>Figura 6 — tr_evaluate (28 steps).</figcaption></figure>
+<p><b>Explicação.</b></p>
+<ol>
+  <li>O <code>ground_truth.csv</code> é carregado (<i>CSV file input</i> → <i>Table output</i>).</li>
+  <li>Um <i>Merge join</i> cruza os eventos de cada caso com as etiquetas. A ordenação é idêntica nos dois lados, com <code>COLLATE "C"</code> no SQL, para coincidir com a do Kettle.</li>
+  <li>O <i>Group by</i> obtém a etiqueta de cada caso.</li>
+  <li>Um segundo <i>Merge join</i> junta as etiquetas aos resultados das regras e da IA. Quatro expressões classificam cada caso em TP, FP, TN ou FN para quatro abordagens:
+    <ul>
+      <li>regras e IA, sobre os 82 casos;</li>
+      <li>regras e IA, só sobre o subconjunto enviado à IA.</li>
+    </ul></li>
+  <li>Um <i>Group by</i> constrói a matriz de confusão e uma expressão calcula precisão, recall e F1.</li>
+</ol>
+<p>Os resultados são gravados em <code>evaluation_metric</code> (<i>Insert/Update</i>) e exportados para <code>metrics.csv</code> e <code>case_comparison.csv</code>.</p>
+
+<h3>4.6 tr_export_incidents — exportação JSON e CSV</h3>
+<figure><img src="../diagrams/tr_export_incidents.png" style="max-width:80%"><figcaption>Figura 7 — tr_export_incidents (6 steps).</figcaption></figure>
+<p>Exporta os incidentes, isto é, os casos suspeitos segundo as regras e/ou a IA, para <code>incidents.json</code> (<i>JSON output</i>) e <code>incidents.csv</code> (<i>Text file output</i>). Cada incidente leva:</p>
+<ul>
+  <li>a zona, o intervalo e os eventos de origem;</li>
+  <li>o resultado das regras e da IA, e quem o detetou (<code>BOTH</code>, <code>RULES_ONLY</code> ou <code>AI_ONLY</code>);</li>
+  <li>a explicação, a ação recomendada e as evidências citadas;</li>
+  <li>o modelo e o <i>digest</i>.</li>
+</ul>
+<p>Na última execução foram exportados 13 incidentes.</p>
+
+<h3>4.7 tr_build_notification — composição do e-mail</h3>
+<figure><img src="../diagrams/tr_build_notification.png" style="max-width:45%"><figcaption>Figura 8 — tr_build_notification (2 steps).</figcaption></figure>
+<p>Segue o padrão do exemplo das aulas (<code>EmailPrevisão.kjb</code>, aula 06). Um <i>Table input</i> lê a base de dados e compõe uma única linha com o tipo de mensagem (resumo ou alerta), o assunto e o corpo em HTML. Um <i>Set variables</i> passa esses valores ao Job (<code>MAIL_SUBJECT</code>, <code>MAIL_BODY</code>), que os usa na entrada <i>Mail</i>.</p>
+<ul>
+  <li><b>Resumo:</b> contagens, tabela regras vs IA e os 15 incidentes prioritários.</li>
+  <li><b>Alerta:</b> a etapa que falhou, a mensagem de erro e o caminho do log.</li>
+</ul>
+</section>
+
+<!-- ============================================================ 5 -->
+<section>
+<h2>5. Jobs</h2>
+<h3>5.1 jb_sentinel_main — orquestração completa</h3>
+<figure><img src="../diagrams/jb_sentinel_main.png"><figcaption>Figura 9 — jb_sentinel_main (28 entradas, 46 hops). Verde: em caso de sucesso; vermelho tracejado: em caso de falha; preto: incondicional.</figcaption></figure>
+<p><b>Explicação.</b> O Job recebe dois parâmetros, <code>RUN_ID</code> e <code>TRIGGER</code> (cli ou dashboard), e executa as transformações por ordem. Entre elas, entradas <i>SQL</i> registam o início e o fim de cada etapa em <code>etl_run_stage</code>, com o número de linhas processadas:</p>
+<ol>
+  <li><b>Extração e transformação:</b> <code>Register run</code> → <code>tr_load_reference</code> → <code>tr_extract_events</code> → <code>tr_correlate_rules</code>.</li>
+  <li><b>IA:</b> a entrada <i>Check webservice availability</i> consulta <code>${API_URL}/ai/health</code>.
+    <ul>
+      <li>Se o serviço responder, corre <code>tr_ai_analysis</code>.</li>
+      <li>Se não, a etapa AI fica SKIPPED e o processo continua sem perder casos. Os casos ficam pendentes para a execução seguinte.</li>
+    </ul></li>
+  <li><b>Avaliação e exportação:</b> <code>tr_evaluate</code> → <code>tr_export_incidents</code>.</li>
+  <li><b>Notificação:</b> <code>tr_build_notification</code> → <i>Add filenames to result</i> (anexa <code>incidents.csv</code> e <code>metrics.csv</code>) → <i>Mail</i>. Se o envio falhar, a etapa NOTIFY fica FAILED, mas a execução termina com sucesso, porque os dados já estão corretos.</li>
+  <li><b>Fecho:</b> <code>Finish run</code> → <i>Write to log</i> → <i>Success</i>.</li>
+  <li><b>Falha:</b> qualquer falha numa transformação segue para <code>Mark run failed</code> (etapa e execução FAILED), depois para o alerta por e-mail e por fim para <i>Abort</i>. O Kitchen termina com código ≠ 0.</li>
+</ol>
+
+<h3>5.2 Registo de execuções e logs</h3>
+<ul>
+  <li><b><code>etl_run</code> / <code>etl_run_stage</code>:</b> o estado funcional de cada execução e etapa (PENDING, RUNNING, SUCCEEDED, FAILED ou SKIPPED), com a duração, o número de linhas e as mensagens. O dashboard lê daqui.</li>
+  <li><b><code>log_job</code>:</b> a tabela de log nativa do Kettle, configurada no Job.</li>
+  <li><b><code>results/logs/&lt;RUN_ID&gt;.log</code>:</b> o log completo do Kitchen, consultável pela API (<code>/ops/runs/{id}/log</code>).</li>
+</ul>
+<table>
+  <tr><th>Cenário de execução testado</th><th>Resultado observado</th></tr>
+  <tr><td>Execução normal</td><td>exit 0; 7 etapas SUCCEEDED (EXTRACT 152, CORRELATE 82, RULES 11, AI, EVALUATE 4, EXPORT, NOTIFY)</td></tr>
+  <tr><td>Serviço de IA desligado</td><td>etapa AI = SKIPPED; o processo continua</td></tr>
+  <tr><td>Falha forçada numa transformação</td><td>etapa e execução FAILED; alerta enviado por e-mail; <i>Abort</i>; exit 1</td></tr>
+  <tr><td>Servidor SMTP indisponível ou credenciais inválidas</td><td>NOTIFY = FAILED com o motivo; execução SUCCEEDED (exit 0); erro <code>AuthenticationFailedException</code> no log</td></tr>
+  <tr><td>Reexecução sem dados novos</td><td>sem duplicados (O=0, U=0); mesmos 82 casos; IA servida pela cache</td></tr>
+</table>
+
+<h3>5.3 Notificação por e-mail (SMTP)</h3>
+<p>A entrada <i>Mail</i> está configurada como no exemplo da aula 06:</p>
+<ul>
+  <li>servidor <code>smtp.office365.com</code>, porta 587;</li>
+  <li>autenticação segura <b>TLS</b>;</li>
+  <li>corpo HTML (UTF-8) vindo de uma variável, com "só a mensagem".</li>
+</ul>
+<p>Servidor, conta, password, remetente e destinatários são variáveis. Vêm do <code>.env</code> ou do formulário do dashboard (secção 5.4). Numa execução lançada pelo dashboard (<code>run-20261021-123044-e590</code>), a etapa NOTIFY terminou com "Resumo enviado por e-mail … (SMTP smtp.office365.com:587)", ou seja, o servidor da Microsoft aceitou a mensagem. Quando a conta não está configurada ou a autenticação falha, a etapa NOTIFY aparece a vermelho no dashboard com o motivo, e as restantes etapas não são afetadas.</p>
+
+<h3>5.4 Orquestração a partir do dashboard (API /ops + Node-RED)</h3>
+<p>O botão <b>Executar ETL</b> do dashboard envia <code>POST /ops/runs</code>. A API regista a execução como PENDING e lança o Kitchen com o Job da lista branca. O dashboard mostra depois as etapas (lidas de <code>etl_run_stage</code> a cada 3 s) e as últimas linhas do log. O formulário de simulação envia um evento de sensor para a fila do <i>gateway</i>; esse evento é processado pelo Pentaho na execução seguinte, sem contornar o ETL.</p>
+<figure><img src="img/dash_controlo.png" style="max-height:120mm"><figcaption>Figura 10 — Página Controlo: execução, etapas, log do Kitchen e configuração do e-mail.</figcaption></figure>
+<figure><img src="img/dash_incidentes.png" style="max-height:110mm"><figcaption>Figura 11 — Incidentes: tabela (regras vs IA), detalhe e eventos de origem (evidências).</figcaption></figure>
+<figure><img src="img/dash_estatisticas.png" style="max-height:110mm"><figcaption>Figura 12 — Estatísticas e métricas de avaliação (regras vs IA).</figcaption></figure>
+<figure><img src="img/dash_eventos.png" style="max-height:110mm"><figcaption>Figura 13 — Eventos por fonte, eventos recebidos e simulação de um evento de sensor.</figcaption></figure>
+<figure><img src="img/dash_logs.png" style="max-height:110mm"><figcaption>Figura 14 — Execuções, erros por componente (ETL / API / modelo / SMTP) e rejeições de qualidade.</figcaption></figure>
+</section>
+
+<!-- ============================================================ 6 -->
+<section>
+<h2>6. Vídeo com demonstração (QR Code)</h2>
+<p>O vídeo demonstra:</p>
+<ul>
+  <li>as transformações e o Job no Spoon;</li>
+  <li>a execução a partir do dashboard, com as etapas a atualizar;</li>
+  <li>os incidentes com a explicação da IA e as evidências;</li>
+  <li>as estatísticas regras vs IA;</li>
+  <li>a simulação de um evento;</li>
+  <li>o e-mail recebido.</li>
+</ul>
+<div class="qr">{{QR_IMG}}</div>
+<p style="text-align:center">Ligação: {{VIDEO_URL}}</p>
+</section>
+
+<!-- ============================================================ 7 -->
+<section>
+<h2>7. Conclusão e trabalhos futuros</h2>
+<h3>7.1 Resultados</h3>
+<table>
+  <tr><th>Abordagem</th><th class="n">Casos</th><th class="n">TP</th><th class="n">FP</th><th class="n">TN</th><th class="n">FN</th><th class="n">Precisão</th><th class="n">Recall</th><th class="n">F1</th></tr>
+  <tr><td>A — Regras</td><td class="n">82</td><td class="n">6</td><td class="n">5</td><td class="n">70</td><td class="n">1</td><td class="n">0,5455</td><td class="n">0,8571</td><td class="n">0,6667</td></tr>
+  <tr><td>B — IA (triagem + Qwen3)</td><td class="n">82</td><td class="n">5</td><td class="n">2</td><td class="n">73</td><td class="n">2</td><td class="n">0,7143</td><td class="n">0,7143</td><td class="n">0,7143</td></tr>
+</table>
+<p class="small">Fonte: <code>results/evaluation/metrics.csv</code>. Os falhanços da IA contam-se à parte (0 nesta execução).</p>
+<p>Nenhuma das abordagens é melhor do que a outra em tudo:</p>
+<ul>
+  <li><b>A IA tem maior precisão.</b> Teve 2 falsos alarmes contra 5 das regras: usou o contexto que as regras ignoram (turno do utilizador, sequência recusa→concessão do mesmo cartão). Também foi a única a detetar o movimento noturno sem acesso (S04).</li>
+  <li><b>As regras têm maior recall.</b> Detetaram o ex-colaborador (S05) e o <i>tailgating</i> (S06), que o modelo de 4B não relacionou.</li>
+  <li><b>Custo:</b> as regras são instantâneas; a IA custa cerca de 32 s por caso. A triagem por factos e a cache tornam esse custo viável.</li>
+</ul>
+<p>As abordagens são complementares.</p>
+<p>O trabalho cumpre as três fases ETL com o Pentaho como motor central:</p>
+<ul>
+  <li><b>Fontes:</b> 4 formatos (CSV, JSON via REST, XML, YAML) e uma base de dados relacional.</li>
+  <li><b>Transformação:</b> limpeza com expressões regulares, lookups, joins, agregação e uma correlação com estado.</li>
+  <li><b>Persistência e exportação:</b> idempotentes, com rastreabilidade completa até aos eventos de origem.</li>
+  <li><b>Orquestração:</b> um Job com registo de etapas, logs, tratamento de falhas e notificação por e-mail.</li>
+  <li><b>Controlo e visualização:</b> num dashboard low-code que nunca processa dados.</li>
+</ul>
+
+<h3>7.2 Limitações</h3>
+<ul>
+  <li><b>Amostra pequena</b> (15 cenários e 5 casos de controlo): as métricas são indicativas e não têm significância estatística.</li>
+  <li><b>Dados sintéticos</b>, gerados pelo próprio autor. Não há um conjunto de teste separado.</li>
+  <li><b>IA não totalmente determinística:</b> a temperatura 0 e a semente fixa reduzem a variação, mas não garantem o determinismo. As explicações têm por vezes vocabulário do português do Brasil.</li>
+  <li><b>Correlação limitada:</b> é feita por zona e proximidade temporal. Não relaciona eventos entre zonas adjacentes.</li>
+</ul>
+
+<h3>7.3 Trabalhos futuros</h3>
+<ul>
+  <li><b>Combinar as duas abordagens:</b> alerta automático quando concordam, revisão humana quando discordam.</li>
+  <li><b>Disponibilização remota das exportações</b> por FTP/SFTP, a partir do Job.</li>
+  <li><b>Anonimização ou pseudonimização</b> de utilizadores e e-mails nas exportações.</li>
+  <li><b>Ingestão contínua</b> (MQTT) em vez de execuções em lote.</li>
+  <li><b>Mais cenários</b> e um conjunto de teste independente para afinar o <i>prompt</i> (nova <code>PROMPT_VERSION</code>).</li>
+</ul>
+</section>
+
+<!-- ============================================================ 8 -->
+<section>
+<h2>8. Referências</h2>
+<ol>
+  <li>L. Ferreira, Ó. Ribeiro — <i>Integração de Sistemas de Informação</i>, enunciado do Trabalho Prático I e materiais das aulas (ETL com Kettle; acesso a BD; exemplo de Job com envio de e-mail, aula 06), EST-IPCA, 2026/27.</li>
+  <li>Pentaho Data Integration — documentação: <code>https://docs.hitachivantara.com/r/en-us/pentaho-data-integration-and-analytics</code></li>
+  <li>PostgreSQL 14 — documentação: <code>https://www.postgresql.org/docs/14/</code></li>
+  <li>FastAPI — documentação: <code>https://fastapi.tiangolo.com/</code></li>
+  <li>Pydantic — documentação: <code>https://docs.pydantic.dev/</code></li>
+  <li>Ollama — documentação da API e saídas estruturadas: <code>https://github.com/ollama/ollama/blob/main/docs/api.md</code></li>
+  <li>Qwen3 — modelo <code>qwen3:4b-instruct</code>: <code>https://ollama.com/library/qwen3</code></li>
+  <li>Node-RED — documentação: <code>https://nodered.org/docs/</code></li>
+  <li>FlowFuse Dashboard 2.0 — documentação: <code>https://dashboard.flowfuse.com/</code></li>
+  <li>node-red-contrib-postgresql: <code>https://flows.nodered.org/node/node-red-contrib-postgresql</code></li>
+  <li>Graphviz (diagramas): <code>https://graphviz.org/</code></li>
+</ol>
+</section>
+
+</body>
+</html>

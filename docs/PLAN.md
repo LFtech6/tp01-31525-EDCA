@@ -12,7 +12,7 @@ Uma etapa só está concluída quando o critério de aceitação foi **executado
 | 1b | Ollama + modelo | 16/10 | `ollama list` mostra `0edcdef34593`; inferência estruturada responde | modelo ✅ / teste por fazer |
 | 2 | Dados de referência + 1.ª transformação | 16/10 | `tr_load_reference` corre no Spoon e no Pan; contagens conferidas por SQL; 2.ª execução não duplica | |
 | 3 | Gerador de cenários + datasets de eventos | 17/10 | ficheiros determinísticos; `ground_truth.csv` por evento | |
-| 4 | Extração CSV / syslog / REST | 17–18/10 | eventos em `event`, rejeições em `dq_rejection` com motivo | |
+| 4 | Extração CSV / REST | 17–18/10 | eventos em `event`, rejeições em `dq_rejection` com motivo | |
 | 5 | Enriquecimento + correlação + regras | 18/10 | casos com eventos de origem; regras por caso | |
 | 6 | FastAPI `/gateway` + `/ai` + transformação IA | 18–19/10 | pytest passa (incl. timeout/JSON inválido); `ai_analysis` preenchida | |
 | 7 | Job principal | 19/10 | `kitchen.sh` exit 0; reexecução sem duplicados; com Ollama parado termina e regista falha | |
