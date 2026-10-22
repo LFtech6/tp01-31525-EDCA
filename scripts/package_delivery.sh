@@ -59,7 +59,7 @@ done
 [ "$fail" -eq 0 ] || { rm -rf "$PKG"; exit 1; }
 
 grep -rl "A PREENCHER" "$PKG/README.md" >/dev/null && echo "AVISO: README ainda tem campos por preencher (docs/report/report.vars)."
-pdftotext "$PKG/doc/${NUM}_doc.pdf" - 2>/dev/null | grep -q '\[nome completo\]\|\[ligação do vídeo\]\|QR code do vídeo' \
+pdftotext "$PKG/doc/${NUM}_doc.pdf" - 2>/dev/null | grep -qE '\[nome completo\]|\[ligação do vídeo\]|QR code do vídeo' \
   && echo "AVISO: o relatório ainda tem campos por preencher (nome, vídeo ou QR code)."
 
 (cd "$DIST" && zip -qr "$NUM.zip" "tp01-$NUM" -x '*.DS_Store')
