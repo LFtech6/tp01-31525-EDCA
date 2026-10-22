@@ -7,7 +7,7 @@ Trabalho Prático I de **Integração de Sistemas de Informação**: Licenciatur
 | **Autor** | Rodrigo Lopes Ferreira, n.º **31525** (trabalho individual) |
 | **Docentes** | Luís Ferreira, Óscar Ribeiro |
 | **Vídeo com a demonstração** | [Pasta OneDrive com o vídeo](https://alunosipca-my.sharepoint.com/:f:/g/personal/a31525_alunos_ipca_pt/IgDRnBKMuRQfSK5Lao6vEFNJASP6Lu-HhiXyhru9kGlxkms?e=yAm83U) |
-| **Repositório Git** | repositório Git local (histórico de commits em src/31525.bundle) |
+| **Repositório Git** | https://github.com/LFtech6/tp01-31525-EDCA (histórico também em `src/31525.bundle`) |
 | **Relatório** | `doc/31525_doc.pdf` (na entrega) / `docs/report/31525_doc.pdf` (no repositório) |
 
 ## O que é
