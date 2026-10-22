@@ -424,7 +424,7 @@
   <li>autenticação segura <b>TLS</b>;</li>
   <li>corpo HTML (UTF-8) vindo de uma variável, com "só a mensagem".</li>
 </ul>
-<p>Servidor, conta, password, remetente e destinatários são variáveis. Vêm do <code>.env</code> ou do formulário do dashboard (secção 5.4). Numa execução lançada pelo dashboard (<code>run-20261021-123044-e590</code>), a etapa NOTIFY terminou com "Resumo enviado por e-mail … (SMTP smtp.office365.com:587)", ou seja, o servidor da Microsoft aceitou a mensagem. Quando a conta não está configurada ou a autenticação falha, a etapa NOTIFY aparece a vermelho no dashboard com o motivo, e as restantes etapas não são afetadas.</p>
+<p>Servidor, conta, password, remetente e destinatários são variáveis. Vêm do <code>.env</code> ou do formulário do dashboard (secção 5.4). Numa execução lançada pelo dashboard (<code>run-20261021-123044-e590</code>), a etapa NOTIFY terminou com "Resumo enviado por e-mail … (SMTP smtp.office365.com:587)", ou seja, o servidor da Microsoft aceitou a mensagem, e o destinatário confirmou que a recebeu. Quando a conta não está configurada ou a autenticação falha, a etapa NOTIFY aparece a vermelho no dashboard com o motivo, e as restantes etapas não são afetadas.</p>
 
 <h3>5.4 Orquestração a partir do dashboard (API /ops + Node-RED)</h3>
 <p>O botão <b>Executar ETL</b> do dashboard envia <code>POST /ops/runs</code>. A API regista a execução como PENDING e lança o Kitchen com o Job da lista branca. O dashboard mostra depois as etapas (lidas de <code>etl_run_stage</code> a cada 3 s) e as últimas linhas do log. O formulário de simulação envia um evento de sensor para a fila do <i>gateway</i>; esse evento é processado pelo Pentaho na execução seguinte, sem contornar o ETL.</p>

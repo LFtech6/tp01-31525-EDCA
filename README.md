@@ -4,7 +4,7 @@ Trabalho Prático I de **Integração de Sistemas de Informação**: Licenciatur
 
 | | |
 |---|---|
-| **Autor** | {{AUTHOR_NAME}}, n.º **31525** (trabalho individual) |
+| **Autor** | Rodrigo Lopes Ferreira, n.º **31525** (trabalho individual) |
 | **Docentes** | Luís Ferreira, Óscar Ribeiro |
 | **Vídeo com a demonstração** | {{VIDEO_URL}} |
 | **Repositório Git** | {{REPO_URL}} |
